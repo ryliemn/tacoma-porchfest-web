@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Ultra";
+    src: url("/fonts/Ultra-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+    --font-display: "Ultra", serif;
+    --color-golden: #fdc554;
+}
+
+@utility social-link {
+    @apply text-white no-underline opacity-80
+        transition-opacity hover:opacity-100
+        focus-visible:outline-2
+        focus-visible:outline-white
+        focus-visible:outline-offset-4
+        focus-visible:rounded-sm
+        focus-visible:opacity-100;
+}
