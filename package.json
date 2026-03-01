@@ -1,0 +1,24 @@
+{
+    "name": "",
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "lint": "oxlint",
+        "lint:fix": "oxlint --fix",
+        "format": "oxfmt --write .",
+        "format:check": "oxfmt --check .",
+        "prepare": "husky"
+    },
+    "dependencies": {
+        "astro": "^5.17.1"
+    },
+    "devDependencies": {
+        "husky": "^9.1.7",
+        "oxfmt": "^0.35.0",
+        "oxlint": "^1.50.0"
+    }
+}
