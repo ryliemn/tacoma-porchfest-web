@@ -1,0 +1,108 @@
+---
+import DonateButton from "./DonateButton.astro";
+import HamburgerIcon from "./icons/HamburgerIcon.astro";
+
+const navLinks = [
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+];
+---
+
+<!--
+    Desktop ordering: Logo, Nav links, Donate
+    Mobile ordering: Hamburger, Logo, Donate
+-->
+<nav
+    class="fixed top-0 left-0 right-0 z-50 bg-pf-light-blue font-heading"
+    aria-label="Main navigation"
+>
+    <div class="mx-auto flex h-12 items-center px-4 md:h-14">
+        <div class="flex flex-1 items-center">
+            <button
+                id="menu-toggle"
+                class="text-pf-red md:hidden"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                aria-label="Open menu"
+            >
+                <HamburgerIcon />
+            </button>
+
+            <a href="/" aria-label="Home" class="hidden md:block">
+                <img src="/PF-Icon.svg" alt="Porchfest" class="h-10 w-auto" />
+            </a>
+        </div>
+
+        <div class="hidden items-center gap-6 md:flex">
+            {
+                navLinks.map((link) => (
+                    <a
+                        href={link.href}
+                        class="text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+        </div>
+
+        <a href="/" aria-label="Home" class="md:hidden">
+            <img src="/PF-Icon.svg" alt="Porchfest" class="h-10 w-auto" />
+        </a>
+
+        <div class="flex flex-1 items-center justify-end">
+            <DonateButton />
+        </div>
+    </div>
+
+    <div
+        id="mobile-menu"
+        class="hidden border-t border-pf-red/10 bg-pf-light-blue px-4 pb-4 pt-2 md:hidden"
+    >
+        {
+            navLinks.map((link) => (
+                <a
+                    href={link.href}
+                    class="block py-2 text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
+                >
+                    {link.label}
+                </a>
+            ))
+        }
+    </div>
+</nav>
+
+<script>
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    const nav = document.querySelector("nav");
+
+    function openMenu() {
+        if (!toggle || !menu) return;
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Close menu");
+        menu.classList.remove("hidden");
+    }
+
+    function closeMenu() {
+        if (!toggle || !menu) return;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+        menu.classList.add("hidden");
+    }
+
+    toggle?.addEventListener("click", () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        if (expanded) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    document.addEventListener("click", (e) => {
+        if (toggle?.getAttribute("aria-expanded") === "true" && !nav?.contains(e.target as Node)) {
+            closeMenu();
+        }
+    });
+</script>

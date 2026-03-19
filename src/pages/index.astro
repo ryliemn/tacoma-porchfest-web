@@ -1,73 +1,58 @@
 ---
-import "../styles/global.css";
+import Base from "../layouts/Base.astro";
 import FacebookIcon from "../components/icons/FacebookIcon.astro";
 import InstagramIcon from "../components/icons/InstagramIcon.astro";
 import MailIcon from "../components/icons/MailIcon.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <meta name="viewport" content="width=device-width, viewport-fit=cover" />
-        <meta
-            name="description"
-            content="Tacoma Porchfest is a free, walkable music festival that takes place on 
-                porches in Tacoma, Washington."
-        />
-        <meta name="generator" content={Astro.generator} />
-        <title>Tacoma Porchfest</title>
-    </head>
-    <body
-        class="h-dvh overflow-hidden bg-golden bg-[url('/bg.avif')] bg-cover bg-center
-            bg-no-repeat bg-fixed font-sans text-white"
+<Base
+    description="Tacoma Porchfest is a free, walkable music festival that takes place on porches in Tacoma, Washington."
+>
+    <div
+        class="flex h-full items-center justify-center
+            pl-[max(1rem,env(safe-area-inset-left))]
+            pr-[max(1rem,env(safe-area-inset-right))]
+            pt-[max(2rem,env(safe-area-inset-top))]
+            pb-[max(2rem,env(safe-area-inset-bottom))]"
     >
-        <div
-            class="flex h-full items-center justify-center
-                pl-[max(1rem,env(safe-area-inset-left))]
-                pr-[max(1rem,env(safe-area-inset-right))]
-                pt-[max(2rem,env(safe-area-inset-top))]
-                pb-[max(2rem,env(safe-area-inset-bottom))]"
-        >
-            <main class="flex flex-col items-center text-center max-w-160">
-                <img
-                    src="/crow.webp"
-                    alt="Illustrated crow singing into a microphone"
-                    class="max-w-80 w-[60vw]"
-                    width="316"
-                    height="279"
-                />
-                <h1 class="font-display mt-6 text-3xl md:text-5xl text-shadow-sm">
-                    Tacoma Porchfest
-                </h1>
-                <p class="leading-relaxed mt-4 max-w-lg text-lg text-shadow-sm">
-                    Porchfest is a free, walkable music festival that takes place on porches.
-                </p>
-                <p class="leading-relaxed mt-4 max-w-lg text-lg text-shadow-sm">
-                    Information about Porchfest 2026 is coming soon!
-                </p>
-                <nav aria-label="Social media" class="flex gap-6 mt-8">
-                    <a
-                        href="https://www.facebook.com/TacomaPorchFest/"
-                        target="_blank"
-                        aria-label="Facebook"
-                        class="social-link"
-                    >
-                        <FacebookIcon />
-                    </a>
-                    <a
-                        href="https://www.instagram.com/tacomaporchfest"
-                        target="_blank"
-                        aria-label="Instagram"
-                        class="social-link"
-                    >
-                        <InstagramIcon />
-                    </a>
-                    <a href="#" aria-label="Email" class="social-link">
-                        <MailIcon />
-                    </a>
-                </nav>
-            </main>
-        </div>
-    </body>
-</html>
+        <main class="flex flex-col items-center text-center max-w-160">
+            <img
+                src="/crow.webp"
+                alt="Illustrated crow singing into a microphone"
+                class="max-w-80 w-[60vw]"
+                width="316"
+                height="279"
+            />
+            <h1 class="font-display mt-6 text-3xl md:text-5xl text-shadow-sm">
+                Tacoma Porchfest
+            </h1>
+            <p class="leading-relaxed mt-4 max-w-lg text-lg text-shadow-sm">
+                Porchfest is a free, walkable music festival that takes place on porches.
+            </p>
+            <p class="leading-relaxed mt-4 max-w-lg text-lg text-shadow-sm">
+                Information about Porchfest 2026 is coming soon!
+            </p>
+            <nav aria-label="Social media" class="flex gap-6 mt-8">
+                <a
+                    href="https://www.facebook.com/TacomaPorchFest/"
+                    target="_blank"
+                    aria-label="Facebook"
+                    class="social-link"
+                >
+                    <FacebookIcon />
+                </a>
+                <a
+                    href="https://www.instagram.com/tacomaporchfest"
+                    target="_blank"
+                    aria-label="Instagram"
+                    class="social-link"
+                >
+                    <InstagramIcon />
+                </a>
+                <a href="#" aria-label="Email" class="social-link">
+                    <MailIcon />
+                </a>
+            </nav>
+        </main>
+    </div>
+</Base>
