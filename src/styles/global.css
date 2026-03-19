@@ -12,9 +12,9 @@
     --font-display: "Ultra", serif;
     --font-heading: "Londrina Solid", "Arial Black", sans-serif;
     --color-golden: #725926;
-    --color-pf-red: #F93E10;
-    --color-pf-light-blue: #CCF6FF;
-    --color-pf-cream: #FDF4AC;
+    --color-pf-red: #f93e10;
+    --color-pf-light-blue: #ccf6ff;
+    --color-pf-cream: #fdf4ac;
 }
 
 @utility social-link {
