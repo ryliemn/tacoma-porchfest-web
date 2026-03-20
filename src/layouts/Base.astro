@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import FollowUs from "../components/FollowUs.astro";
 import Navbar from "../components/Navbar.astro";
 
 interface Props {
@@ -25,8 +26,9 @@ const { title = "Tacoma Porchfest", description } = Astro.props;
         {description && <meta name="description" content={description} />}
         <title>{title}</title>
     </head>
-    <body class="font-sans">
+    <body class="font-sans bg-pf-cream">
         <Navbar />
         <slot />
+        <FollowUs />
     </body>
 </html>

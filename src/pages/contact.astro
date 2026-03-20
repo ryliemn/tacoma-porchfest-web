@@ -1,9 +1,19 @@
 ---
+import MailIcon from "../components/icons/MailIcon.astro";
 import Base from "../layouts/Base.astro";
 ---
 
 <Base title="Contact - Tacoma Porchfest">
-    <main class="mx-auto max-w-3xl px-4 pt-24">
-        <h1 class="font-heading text-3xl text-pf-red">Contact</h1>
-    </main>
+    <section class="bg-pf-cream px-6 pt-24 pb-16">
+        <div class="mx-auto max-w-3xl text-center">
+            <h1 class="font-heading text-pf-red text-4xl md:text-6xl uppercase mb-8">Contact</h1>
+            <a
+                href="mailto:tacomaporchfest@gmail.com"
+                class="inline-flex items-center gap-3 font-body text-pf-brown text-xl no-underline hover:opacity-80 transition-opacity"
+            >
+                <MailIcon />
+                tacomaporchfest@gmail.com
+            </a>
+        </div>
+    </section>
 </Base>

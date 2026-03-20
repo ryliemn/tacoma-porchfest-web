@@ -1,0 +1,33 @@
+---
+import FacebookIcon from "./icons/FacebookIcon.astro";
+import InstagramIcon from "./icons/InstagramIcon.astro";
+---
+
+<section
+    class="bg-pf-red bg-cover bg-center px-6 py-12 md:px-12"
+    style="background-image: url('/red-texture.webp');"
+>
+    <div class="mx-auto max-w-4xl text-center">
+        <h2 class="font-heading text-pf-cream text-3xl md:text-5xl uppercase mb-8">Follow Us</h2>
+        <nav aria-label="Social media" class="flex gap-8 justify-center">
+            <a
+                href="https://www.facebook.com/TacomaPorchFest/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                class="social-link"
+            >
+                <FacebookIcon />
+            </a>
+            <a
+                href="https://www.instagram.com/tacomaporchfest"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                class="social-link"
+            >
+                <InstagramIcon />
+            </a>
+        </nav>
+    </div>
+</section>
