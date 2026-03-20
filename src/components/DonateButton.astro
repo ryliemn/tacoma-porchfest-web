@@ -1,10 +1,16 @@
 ---
 interface Props {
+    variant?: "default" | "inverted";
     class?: string;
 }
 
-const { class: className = "" } = Astro.props;
+const { variant = "default", class: className = "" } = Astro.props;
 const donateHref = "https://account.venmo.com/u/tacomaporchfest";
+
+const variantStyles = {
+    default: "bg-pf-red text-pf-cream",
+    inverted: "bg-pf-cream text-pf-red",
+};
 ---
 
 <a
@@ -12,8 +18,9 @@ const donateHref = "https://account.venmo.com/u/tacomaporchfest";
     target="_blank"
     rel="noopener noreferrer"
     class:list={[
-        "rounded-md bg-pf-red px-4 py-0 text-xl font-bold uppercase tracking-widest",
-        "text-pf-cream font-heading no-underline transition-opacity hover:opacity-90",
+        "rounded-md px-4 py-0 text-xl font-bold uppercase tracking-widest",
+        "font-heading no-underline transition-opacity hover:opacity-90",
+        variantStyles[variant],
         className,
     ]}
 >
