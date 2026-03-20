@@ -7,10 +7,7 @@ interface Props {
     description?: string;
 }
 
-const {
-    title = "Tacoma Porchfest",
-    description,
-} = Astro.props;
+const { title = "Tacoma Porchfest", description } = Astro.props;
 ---
 
 <html lang="en">
@@ -20,7 +17,7 @@ const {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Londrina+Solid:wght@100;300;400;900&display=swap"
             rel="stylesheet"
         />
         <meta name="viewport" content="width=device-width, viewport-fit=cover" />

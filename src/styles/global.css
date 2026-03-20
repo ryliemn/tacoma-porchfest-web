@@ -11,10 +11,13 @@
 @theme {
     --font-display: "Ultra", serif;
     --font-heading: "Londrina Solid", "Arial Black", sans-serif;
+    --font-body: "Libre Franklin", sans-serif;
     --color-golden: #725926;
     --color-pf-red: #f93e10;
     --color-pf-light-blue: #ccf6ff;
     --color-pf-cream: #fdf4ac;
+    --color-pf-yellow: #e8bc16;
+    --color-pf-blue: #104fc3;
 }
 
 @utility social-link {
