@@ -1,0 +1,21 @@
+---
+interface Props {
+    class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+const donateHref = "https://account.venmo.com/u/tacomaporchfest";
+---
+
+<a
+    href={donateHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={[
+        "rounded-md bg-pf-red px-4 py-0 text-xl font-bold uppercase tracking-widest",
+        "text-pf-cream font-heading no-underline transition-opacity hover:opacity-90",
+        className,
+    ]}
+>
+    Donate
+</a>
