@@ -11,11 +11,11 @@ import Base from "../layouts/Base.astro";
         <div class="flex flex-col items-center text-center px-4 max-w-3xl">
             <h1 class="font-heading text-pf-brown text-4xl md:text-6xl uppercase">About</h1>
             <p
-                class="mt-4 mb-8 font-body text-pf-brown text-base md:text-lg font-light leading-relaxed"
+                class="mt-4 mb-8 font-body text-pf-cream text-base md:text-lg font-medium leading-relaxed"
             >
-                Tacoma Porchfest's mission is to build community, celebrate Tacoma's neighborhoods,
-                and connect neighbors through a free, walkable, and accessible celebration of
-                diverse live music performed on porches.
+                Tacoma Porchfest's mission is to provide barrier-free arts and cultural experiences
+                AND to build community connections through music, joyful celebration, and
+                collaborative placemaking.
             </p>
             <DonateButton variant="inverted" />
         </div>
@@ -28,18 +28,16 @@ import Base from "../layouts/Base.astro";
             <div class="flex flex-col md:flex-row gap-8 md:gap-12">
                 <div class="md:w-2/3">
                     <h2
-                        class="font-heading text-pf-brown text-lg md:text-2xl font-medium mb-6 leading-snug text-stroke-brown"
+                        class="font-heading text-pf-brown text-lg md:text-2xl font-medium mb-6 leading-snug"
                     >
-                        Porchfest is in its fifth year and has expanded to a 2-day festival spanning
-                        two neighborhoods straddling 6th Ave in Central Tacoma and the North End
+                        Porchfest is a free community festival transforming Central and North Tacoma
+                        into an all-ages, walkable music celebration.
                     </h2>
                     <p class="font-body text-pf-brown text-sm md:text-base leading-relaxed">
-                        (UPDATE THIS) Porchfest has been growing steadily since its inaugural year
-                        (2022), when Porchfest featured 50 bands on 35 porch stages. In its second
-                        year (2023), the event doubled in size featuring nearly 100 bands on 55
-                        stages, this year, (2024), the event doubled again to over 200 bands on 65
-                        porch stages, with an estimated 8,000-10,000 attendees - and continued
-                        growth is anticipated in 2025.
+                        How does it work? Residents within the festival boundaries sign up as porch
+                        hosts, and performers are matched to these cozy "stages," creating a
+                        festival that is large in scale (over 300 bands in 2025), yet intimate and
+                        neighborly.
                     </p>
                 </div>
                 <div class="md:w-1/3">
@@ -74,27 +72,16 @@ import Base from "../layouts/Base.astro";
                         Music and outdoor festivals are great vehicles for community building
                     </h2>
                     <p class="font-body text-pf-brown text-sm md:text-base leading-relaxed mb-8">
-                        While the porch or front yard is a typically private space reserved for
-                        morning coffee and cookouts with family and friends, placing performers on
-                        porch "stages" within a walkable radius creates opportunities for meaningful
-                        exchange, connection, and joy which are all building blocks to building
-                        healthy and vibrant communities.
+                        What makes Porchfest truly special is its reimagining of private spaces.
+                        Yards and porches which are typically "off limits," transform into joyful,
+                        welcoming gathering spots where diverse groups of people gather to enjoy
+                        music, dancing, conversation and meaningful connections.
                     </p>
                     <h2
                         class="font-heading text-pf-brown text-lg md:text-2xl font-medium mb-4 leading-snug"
                     >
-                        We aim to build lasting community connections in Tacoma
+                        We aim to build lasting community connections in Tacoma.
                     </h2>
-                    <p class="font-body text-pf-brown text-sm md:text-base leading-relaxed">
-                        What makes Tacoma Porchfest unique is that, because the festival takes
-                        places on porches, which are typically considered private property and
-                        &ldquo;off-limits,&rdquo; it creates an atmosphere which is both intimate
-                        and unusually inviting. Diverse groups of attendees are welcomed into
-                        private yards to enjoy music and dance. Once there, conversations take place
-                        and meaningful connections are made between people of various races,
-                        ethnicities, sexual orientations, gender identities, economics, and
-                        disabilities.
-                    </p>
                 </div>
             </div>
         </div>
@@ -103,21 +90,26 @@ import Base from "../layouts/Base.astro";
         <div class="mx-auto max-w-4xl">
             <div class="flex flex-col md:flex-row gap-8 md:gap-12">
                 <div class="md:w-1/2">
+                    <div class="font-body text-pf-brown text-sm md:text-base leading-relaxed mb-8">
+                        <p>
+                            Tacoma Porchfest is organized by community members in partnership with
+                            Central Neighborhood Council, North End Neighborhood Council, and the
+                            Sixth Ave Business District.
+                        </p>
+                        <p class="mt-4">
+                            The festival is made possible with funding from Tacoma Venues &amp;
+                            Events and individual donations from festival attendees.
+                        </p>
+                        <p class="mt-4">Tacoma Porchfest is a designated City Event.</p>
+                    </div>
                     <h2 class="font-heading text-pf-brown text-3xl md:text-5xl mb-6 leading-tight">
                         This machine builds community.
                     </h2>
-                    <p class="font-body text-pf-brown text-sm md:text-base leading-relaxed mb-8">
-                        Tacoma Porchfest is organized by community members in partnership with
-                        Central Neighborhood Council, North End Neighborhood Council, and the Sixth
-                        Ave Business District. It is made possible with funding from Tacoma Venues
-                        &amp; Events and individual donations from festival attendees. Tacoma
-                        Porchfest is a City of Tacoma Sponsored Event.
-                    </p>
                     <div class="flex justify-center md:justify-start">
                         <DonateButton />
                     </div>
                 </div>
-                <div class="md:w-1/2 grid grid-cols-2 gap-6 items-center content-center">
+                <div class="md:w-1/2 flex flex-wrap justify-center gap-6 items-center content-center">
                     <img
                         src="/city_of_tacoma.avif"
                         alt="City of Tacoma"
@@ -126,11 +118,6 @@ import Base from "../layouts/Base.astro";
                     <img
                         src="/tacoma_venues_and_events.avif"
                         alt="Tacoma Venues & Events"
-                        class="max-h-28 object-contain mx-auto"
-                    />
-                    <img
-                        src="/tacoma_creates.avif"
-                        alt="Tacoma Creates"
                         class="max-h-28 object-contain mx-auto"
                     />
                     <img
