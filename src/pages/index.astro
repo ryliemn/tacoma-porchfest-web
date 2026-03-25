@@ -25,17 +25,18 @@ import Base from "../layouts/Base.astro";
                 width="1766"
                 height="910"
             />
-            <div class="flex flex-col items-center pt-2 md:pt-8 text-center z-10 relative">
+            <div class="flex flex-col items-center pt-1 md:pt-8 text-center z-10 relative">
                 <h2 class="font-heading text-pf-red text-2xl md:text-5xl uppercase font-medium">
-                    <span>Saturday, July 18<sup>th</sup></span>
+                    <span>Saturday, July 18</span>
                     <br />
-                    <span>Sunday July 19<sup>th</sup></span>
+                    <span>Sunday, July 19</span>
                 </h2>
                 <p
-                    class="md:mt-2 mb-8 px-2 max-w-3xl font-heading text-pf-blue text-lg md:text-2xl font-light"
+                    class="md:mt-2 mb-8 px-2 max-w-3xl font-heading text-pf-blue text-md md:text-2xl font-light"
                 >
-                    Porchfest is a free, walkable music festival that takes place on porches. Come
-                    meet your neighbors and find your new favorite band!
+                    Porchfest is a free, walkable music festival that takes place on porches.
+                    <br />
+                    Come meet your neighbors and find your new favorite band!
                 </p>
                 <div class="mx-auto flex gap-4 w-[90%] justify-around flex-wrap -top-20">
                     <img
@@ -55,7 +56,6 @@ import Base from "../layouts/Base.astro";
                     />
                 </div>
                 <div class="text-pf-brown md:my-16 my-8 font-body">
-                    <h2 class="font-heading text-lg mb-2">This machine builds community.</h2>
                     <div class="text-sm font-light">
                         <p>
                             Tacoma Porchfest is organized by community members in partnership with
@@ -63,10 +63,40 @@ import Base from "../layouts/Base.astro";
                             Sixth Ave Business District.
                         </p>
                         <p>
-                            It is made possible with funding from Tacoma Venues & Events and
-                            individual donations from festival attendees.
+                            The festival is made possible with funding from Tacoma Venues & Events
+                            and individual donations from festival attendees.
                         </p>
-                        <p>Tacoma Porchfest is a City of Tacoma Sponsored Event.</p>
+                        <p>Tacoma Porchfest is a designated City Event.</p>
+                    </div>
+                    <h2 class="font-heading text-3xl md:text-5xl mt-8 mb-6">
+                        This machine builds community.
+                    </h2>
+                    <div class="flex flex-wrap justify-center gap-6 items-center my-8">
+                        <img
+                            src="/city_of_tacoma.avif"
+                            alt="City of Tacoma"
+                            class="max-h-28 object-contain"
+                        />
+                        <img
+                            src="/tacoma_venues_and_events.avif"
+                            alt="Tacoma Venues & Events"
+                            class="max-h-22 object-contain"
+                        />
+                        <img
+                            src="/central_neighborhood_council.avif"
+                            alt="Central Neighborhood Council"
+                            class="max-h-22 object-contain"
+                        />
+                        <img
+                            src="/north_end_neighborhood_council.avif"
+                            alt="North End Neighborhood Council"
+                            class="max-h-22 object-contain"
+                        />
+                        <img
+                            src="/sixth_ave.avif"
+                            alt="6th Ave Business District"
+                            class="max-h-22 object-contain bg-white rounded-sm p-2"
+                        />
                     </div>
                 </div>
                 <DonateButton />
