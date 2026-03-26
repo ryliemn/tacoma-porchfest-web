@@ -1,4 +1,5 @@
 ---
+import InstagramFeed from "../components/InstagramFeed.astro";
 import MailIcon from "../components/icons/MailIcon.astro";
 import Base from "../layouts/Base.astro";
 ---
@@ -8,12 +9,13 @@ import Base from "../layouts/Base.astro";
         <div class="mx-auto max-w-3xl text-center">
             <h1 class="font-heading text-pf-red text-4xl md:text-6xl uppercase mb-8">Contact</h1>
             <a
-                href="mailto:tacomaporchfest@gmail.com"
+                href="mailto:info@tacomaporchfest.org"
                 class="inline-flex items-center gap-3 font-body text-pf-brown text-xl no-underline hover:opacity-80 transition-opacity"
             >
                 <MailIcon />
-                tacomaporchfest@gmail.com
+                info@tacomaporchfest.org
             </a>
         </div>
     </section>
+    <InstagramFeed class="px-4 py-8" />
 </Base>
