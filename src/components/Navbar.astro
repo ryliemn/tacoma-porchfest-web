@@ -3,14 +3,11 @@ import Button from "./Button.astro";
 import HamburgerIcon from "./icons/HamburgerIcon.astro";
 
 const navLinks = [
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-];
-
-const ctaLinks = [
     { label: "Perform", href: "/perform" },
     { label: "Host", href: "/host" },
     { label: "Volunteer", href: "/volunteer" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
 ];
 
 const donateHref = "https://account.venmo.com/u/tacomaporchfest";
@@ -77,9 +74,6 @@ const donateHref = "https://account.venmo.com/u/tacomaporchfest";
                 </a>
             ))
         }
-        <div class="mt-2 flex gap-2 border-t border-pf-red/10 pt-3">
-            {ctaLinks.map((link) => <Button href={link.href} text={link.label} />)}
-        </div>
     </div>
 </nav>
 

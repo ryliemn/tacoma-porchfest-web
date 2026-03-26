@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import CtaBar from "../components/CtaBar.astro";
 import FollowUs from "../components/FollowUs.astro";
 import Navbar from "../components/Navbar.astro";
 
@@ -29,8 +28,9 @@ const { title = "Tacoma Porchfest", description } = Astro.props;
     </head>
     <body class="font-sans bg-pf-cream">
         <Navbar />
-        <CtaBar />
-        <slot />
+        <div class="mt-12 md:mt-14">
+            <slot />
+        </div>
         <FollowUs />
     </body>
 </html>
