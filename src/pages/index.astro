@@ -1,19 +1,21 @@
 ---
-import DonateButton from "../components/DonateButton.astro";
+import Button from "../components/Button.astro";
 import Base from "../layouts/Base.astro";
+
+const donateHref = "https://account.venmo.com/u/tacomaporchfest";
 ---
 
 <Base
     description="Tacoma Porchfest is a free, walkable music festival that takes place on porches in Tacoma, Washington."
 >
     <section
-        class="flex items-center justify-center bg-pf-red bg-cover bg-center py-8"
+        class="flex items-center justify-center bg-pf-red bg-cover bg-center pt-4 pb-8"
         style="background-image: url('/red-texture.webp');"
     >
         <img
             src="/Hero-Full-Lockup.svg"
             alt="Tacoma Porchfest 2026 — July 18 & 19 — Free Live Music"
-            class="w-[85vw] max-w-2xl px-4 py-8 md:py-16"
+            class="w-[85vw] max-w-2xl px-4 pb-8 pt-4 md:pb-16"
         />
     </section>
     <section class="bg-pf-yellow px-4">
@@ -99,7 +101,7 @@ import Base from "../layouts/Base.astro";
                         />
                     </div>
                 </div>
-                <DonateButton />
+                <Button href={donateHref} text="Donate" external />
             </div>
         </div>
     </section>

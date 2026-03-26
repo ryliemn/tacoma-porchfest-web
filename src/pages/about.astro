@@ -1,11 +1,13 @@
 ---
-import DonateButton from "../components/DonateButton.astro";
+import Button from "../components/Button.astro";
 import Base from "../layouts/Base.astro";
+
+const donateHref = "https://account.venmo.com/u/tacomaporchfest";
 ---
 
 <Base title="About - Tacoma Porchfest">
     <section
-        class="flex items-center justify-center bg-pf-red bg-cover bg-center pt-16 pb-8 md:pt-20"
+        class="flex items-center justify-center bg-pf-red bg-cover bg-center pb-8"
         style="background-image: url('/red-texture.webp');"
     >
         <div class="flex flex-col items-center text-center px-4 max-w-3xl">
@@ -17,7 +19,7 @@ import Base from "../layouts/Base.astro";
                 AND to build community connections through music, joyful celebration, and
                 collaborative placemaking.
             </p>
-            <DonateButton variant="inverted" />
+            <Button href={donateHref} text="Donate" variant="inverted" external />
         </div>
     </section>
     <section class="bg-pf-yellow px-6 py-12 md:px-12 md:py-16">
@@ -106,7 +108,7 @@ import Base from "../layouts/Base.astro";
                         This machine builds community.
                     </h2>
                     <div class="flex justify-center md:justify-start">
-                        <DonateButton />
+                        <Button href={donateHref} text="Donate" external />
                     </div>
                 </div>
                 <div class="md:w-1/2 flex flex-wrap justify-center gap-6 items-center content-center">
