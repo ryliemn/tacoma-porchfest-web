@@ -1,11 +1,13 @@
 ---
 interface Props {
+    href: string;
+    text: string;
     variant?: "default" | "inverted";
+    external?: boolean;
     class?: string;
 }
 
-const { variant = "default", class: className = "" } = Astro.props;
-const donateHref = "https://account.venmo.com/u/tacomaporchfest";
+const { href, text, variant = "default", external = false, class: className = "" } = Astro.props;
 
 const variantStyles = {
     default: "bg-pf-red text-pf-cream",
@@ -14,9 +16,9 @@ const variantStyles = {
 ---
 
 <a
-    href={donateHref}
-    target="_blank"
-    rel="noopener noreferrer"
+    href={href}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener noreferrer" : undefined}
     class:list={[
         "rounded-md px-4 py-0 text-xl font-bold uppercase tracking-widest",
         "font-heading no-underline transition-opacity hover:opacity-90",
@@ -24,5 +26,5 @@ const variantStyles = {
         className,
     ]}
 >
-    Donate
+    {text}
 </a>
