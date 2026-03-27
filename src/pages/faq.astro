@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import FAQEntry from "../components/FAQEntry.astro";
 ---
 
 <Base title="FAQ - Tacoma Porchfest">
@@ -7,30 +8,174 @@ import Base from "../layouts/Base.astro";
         class="flex items-center justify-center bg-pf-red bg-cover bg-center py-8"
         style="background-image: url('/red-texture.webp');"
     >
-        <h1 class="font-heading text-pf-brown text-4xl md:text-6xl uppercase">FAQ</h1>
+        <h1 class="font-heading text-pf-brown text-4xl md:text-6xl uppercase text-center px-4">Frequently Asked Questions</h1>
     </section>
-    <section id="perform" class="bg-pf-yellow px-6 py-12 md:px-12 md:py-16">
+    <section id="perform" class="bg-pf-yellow px-4 py-12 md:px-12 md:py-16">
         <div class="mx-auto max-w-3xl">
             <h2 class="font-heading text-pf-brown text-3xl md:text-5xl uppercase mb-8">
                 Performer FAQ
             </h2>
-            <p class="font-body text-pf-brown text-sm md:text-base leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <div class="space-y-4">
+                <FAQEntry question="1. What is Tacoma Porchfest?">
+                    <p>Porchfest is a free, walkable music festival held in the Central and North End neighborhoods of Tacoma, using residents' porches and front yards as stages.</p>
+                </FAQEntry>
+
+                <FAQEntry question="2. When and where is Tacoma Porchfest 2026?">
+                    <p>Saturday, July 18 south of 6th Ave; and Sunday, July 19 north of 6th Ave.</p>
+                    <p class="mt-2 font-medium">See map!</p>
+                    <img
+                        src="/map.png"
+                        alt="Map of Tacoma Porchfest 2026 festival area showing the boundary split at 6th Ave"
+                        class="mt-4 rounded-sm w-full"
+                    />
+                </FAQEntry>
+
+                <FAQEntry question="3. Who can perform at Porchfest?">
+                    <p>All kinds of performers, including all genres of music, spoken word, improvisation, comedy, etc. Local Tacoma acts and those who identify as BIPOC and LGBTQIA+ are encouraged to perform. Please help us understand how we can make this space welcoming to you and all of your band members.</p>
+                </FAQEntry>
+
+                <FAQEntry question="4. How can I apply to perform at Porchfest?">
+                    <p>Fill out the <a href="/perform" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-70">Performer Application</a>.</p>
+                </FAQEntry>
+
+                <FAQEntry question="5. Do performers get paid to play Porchfest?">
+                    <div class="space-y-3">
+                        <p>We are pleased to offer an honorarium for sharing your time and talents with the community. We cannot guarantee a specific amount up front as it is highly dependent on our fundraising efforts. However, it has been around $100 per band each year. Bands that have BIPOC membership get a premium honorarium, which has been around $150 per band each year.</p>
+                        <p>We will have a digital Porchfest tip jar/donation code at each porch to fundraise for the festival. You are more than welcome to set up your own tip jar, links, or merch table.</p>
+                    </div>
+                </FAQEntry>
+
+                <FAQEntry question="6. My band only has a few songs and can only play a very short set. Is that okay?">
+                    <p>Yes! Just let us know in the form and we'll schedule accordingly. Bands should try hard to keep their set to the time they've stated in the form to keep the day on schedule for everyone.</p>
+                </FAQEntry>
+
+                <FAQEntry question="7. I live outside of Tacoma, am I eligible to perform at Tacoma Porchfest?">
+                    <p>Yes! Although if we come up on limitations we will prioritize local performers.</p>
+                </FAQEntry>
+
+                <FAQEntry question="8. I want to play at a particular location. Can you make that happen?">
+                    <p>We will try! There's a question in the form where you can tell us your preferred location. Make sure the Porch Host at that location fills out a <a href="/host" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-70">Porch Host Form</a>.</p>
+                </FAQEntry>
+
+                <FAQEntry question="9. Does Porchfest provide amps, PAs, and other equipment?">
+                    <p>No. You will need to bring all of your own instruments, audio equipment, etc. Please coordinate to have everything you need when you show up. If you are in a bind, reach out and we will try to help, but we do not own any audio gear.</p>
+                </FAQEntry>
+
+                <FAQEntry question="10. How are performers assigned to porches?">
+                    <div class="space-y-3">
+                        <p>Bands are assigned based on a number of factors, including preferences, genre, group size, volume, and electrical needs. We work hard to accommodate requests whenever possible.</p>
+                        <p>Performers and Porch Hosts will receive a "matchmaking email" prior to the event. This message will include the location, lineup, and contact info for everyone involved with their porch, as well as info for nearby porches, if any.</p>
+                    </div>
+                </FAQEntry>
+
+                <FAQEntry question="11. What else will I need to do prior to the event?">
+                    <div class="space-y-3">
+                        <p>Once matched, we strongly encourage performers and Porch Hosts to get in touch with each other. Set up a meet & greet prior to the event, so you all can plan the perfect porch performance. Be clear and upfront with your Porch Host on what needs your band has (outlets, extension cords, etc.). Also keep in mind that they are a community resident and may not be accustomed to hosting bands on their porch.</p>
+                        <p>For any performers sharing a porch or nearby other porches, we will share contact info to allow you all to coordinate with each other on set times or the possibility of sharing gear.</p>
+                    </div>
+                </FAQEntry>
+
+                <FAQEntry question="12. What will day-of logistics look like, and can I park by my porch?">
+                    <p>To ensure public safety, we ask all participants to minimize car traffic during the festival. Please coordinate with your Porch Host to drop off equipment <strong>before</strong> Porchfest starts. The night before is fine, Porchfest morning is fine, and the hour before Porchfest is also fine! Just please do not drive through during the festival unless it is absolutely unavoidable. There will be A LOT of people walking through the streets and several streets will be closed to traffic. If you absolutely have to drive/park during the event, please drive with extreme care.</p>
+                </FAQEntry>
+
+                <FAQEntry question="13. How can I be the best Porchfest Performer ever?">
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Porchfest is organized by a small group of unpaid volunteers. Please be kind and bear with us!</li>
+                        <li>Please communicate in a clear and timely manner.</li>
+                        <li>Please make one band member the main point of contact.</li>
+                        <li>Please keep us posted on any changes to your application.</li>
+                    </ul>
+                    <p class="mt-4 font-medium">During the festival:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-2">
+                        <li>Mind your airtime! Make sure all the bands around you are able to perform.</li>
+                        <li>Consider slimming down your set to require less gear.</li>
+                        <li>Invite all your friends and family</li>
+                        <li>Enjoy a fun day performing to an enthusiastic audience!</li>
+                    </ul>
+                </FAQEntry>
+            </div>
         </div>
     </section>
-    <section id="host" class="bg-pf-cream px-6 py-12 md:px-12 md:py-16">
+    <section id="host" class="bg-pf-cream px-4 py-12 md:px-12 md:py-16">
         <div class="mx-auto max-w-3xl">
             <h2 class="font-heading text-pf-brown text-3xl md:text-5xl uppercase mb-8">
                 Host FAQ
             </h2>
-            <p class="font-body text-pf-brown text-sm md:text-base leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <div class="space-y-4">
+                <FAQEntry question="1. What is Tacoma Porchfest?">
+                    <p>Porchfest is a free, walkable music festival held in the Central and North End neighborhoods of Tacoma, using residents' porches and front yards as stages.</p>
+                </FAQEntry>
+
+                <FAQEntry question="2. When and where is Tacoma Porchfest 2026?">
+                    <p>Saturday, July 18 south of 6th Ave; and Sunday, July 19 north of 6th Ave.</p>
+                    <p class="mt-2 font-medium">See map!</p>
+                    <img
+                        src="/map.png"
+                        alt="Map of Tacoma Porchfest 2026 festival area showing the boundary split at 6th Ave"
+                        class="mt-4 rounded-sm w-full"
+                    />
+                </FAQEntry>
+
+                <FAQEntry question="3. How can I apply to be a Porch Host at Porchfest?">
+                    <p>Fill out the <a href="/host" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-70">Porch Host Form</a>!</p>
+                </FAQEntry>
+
+                <FAQEntry question="4. I live just outside of the boundaries of Porchfest. Can I still host?">
+                    <p>Unfortunately, no. We have traffic control plans and other logistics in place so we need to keep the festival within its set boundaries. Consider volunteering instead! Fill out the <a href="/volunteer" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-70">Volunteer Form</a>!</p>
+                </FAQEntry>
+
+                <FAQEntry question="5. I don't have a porch. Can I still host?">
+                    <p>A front yard or driveway works too! We've seen Porch Hosts get creative. Please ensure there is enough space for the performer(s) to stand or sit with their instruments and safely move around - and also space for an audience to gather.</p>
+                </FAQEntry>
+
+                <FAQEntry question="6. How are performers assigned to porches?">
+                    <p>Bands are assigned based on a number of factors, including preferences, genre, group size, volume, and electrical needs. We work hard to accommodate requests whenever possible.</p>
+                </FAQEntry>
+
+                <FAQEntry question="7. Can I perform on my own porch? Or can I have my friends perform on my porch?">
+                    <p>Absolutely! Just make sure to submit both your "porch host" application and your or your friends' <a href="/perform" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-70">Performer Application</a>. Include enough information for us to be able to connect the dots!</p>
+                </FAQEntry>
+
+                <FAQEntry question="8. How are performers assigned to porches?">
+                    <div class="space-y-3">
+                        <p>Bands are assigned based on a number of factors, including preferences, genre, group size, volume, and electrical needs. We work hard to accommodate requests whenever possible.</p>
+                        <p>Performers and Porch Hosts will receive a "matchmaking email" prior to the event. This message will include the location, lineup, and contact info for everyone involved with their porch, as well as info for nearby porches, if any.</p>
+                    </div>
+                </FAQEntry>
+
+                <FAQEntry question="9. Does Porchfest provide amps, PAs, and other equipment?">
+                    <p>No. Performers will need to bring all of their own instruments, audio equipment, etc. They are asked to coordinate, and potentially share gear.</p>
+                </FAQEntry>
+
+                <FAQEntry question="10. Will performers need to come inside my house?">
+                    <p>We do ask that you please let performers use your bathroom. There will be ample portable toilets set up throughout the festival for everyone else.</p>
+                </FAQEntry>
+
+                <FAQEntry question="11. What else will I need to do?">
+                    <div class="space-y-3">
+                        <p>Once matched, we strongly encourage performers and Porch Hosts to get in touch with each other. Set up a meet & greet prior to the event, so you all can plan the perfect porch performance. Be clear and upfront with the bands on what you can provide (outlets, extension cords, etc.). Bands may ask to drop off and store equipment at your house prior to Porchfest.</p>
+                        <p>We ask that the Porch Host or a designated person remains onsite throughout the porch performances in case the bands run into any issues or have questions.</p>
+                        <p>Prior to the festival, Porch Hosts will receive a "Porch Host Packet" with festival guides to pass out, donation QR codes to hang up around the yard, and any additional info for the day.</p>
+                    </div>
+                </FAQEntry>
+
+                <FAQEntry question="12. How can I be the best Porch Host ever?">
+                    <p class="mb-3">You tell us! But here are some suggestions:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Please communicate in a clear and timely manner.</li>
+                        <li>Please make one person the main point of contact.</li>
+                        <li>Please keep us posted on any changes to your application.</li>
+                    </ul>
+                    <p class="mt-4 font-medium">During the festival:</p>
+                    <ul class="list-disc pl-5 space-y-1 mt-2">
+                        <li>Provide shade, water, refreshments to the bands on your porch</li>
+                        <li>Set out some chairs for the audience</li>
+                        <li>Invite all your friends and family</li>
+                        <li>Enjoy a fun day meeting your neighbors!</li>
+                    </ul>
+                </FAQEntry>
+            </div>
         </div>
     </section>
 </Base>
