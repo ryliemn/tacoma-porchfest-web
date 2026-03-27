@@ -3,9 +3,10 @@ import Button from "./Button.astro";
 import HamburgerIcon from "./icons/HamburgerIcon.astro";
 
 const navLinks = [
-    { label: "Perform", href: "/perform" },
-    { label: "Host", href: "/host" },
-    { label: "Volunteer", href: "/volunteer" },
+    { label: "Perform", href: "/perform", external: true },
+    { label: "Host", href: "/host", external: true },
+    { label: "Volunteer", href: "/volunteer", external: true },
+    { label: "FAQ", href: "/faq" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
 ];
@@ -43,6 +44,8 @@ const donateHref = "https://account.venmo.com/u/tacomaporchfest";
                 navLinks.map((link) => (
                     <a
                         href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noopener noreferrer" : undefined}
                         class="text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
                     >
                         {link.label}
@@ -68,6 +71,8 @@ const donateHref = "https://account.venmo.com/u/tacomaporchfest";
             navLinks.map((link) => (
                 <a
                     href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
                     class="block py-2 text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
                 >
                     {link.label}
