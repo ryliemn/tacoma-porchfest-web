@@ -2,7 +2,7 @@
 interface Props {
     href: string;
     text: string;
-    variant?: "default" | "inverted";
+    variant?: "default" | "inverted" | "blue";
     external?: boolean;
     class?: string;
 }
@@ -12,6 +12,7 @@ const { href, text, variant = "default", external = false, class: className = ""
 const variantStyles = {
     default: "bg-pf-red text-pf-cream",
     inverted: "bg-pf-cream text-pf-red",
+    blue: "bg-pf-blue text-pf-cream",
 };
 ---
 
@@ -21,7 +22,7 @@ const variantStyles = {
     rel={external ? "noopener noreferrer" : undefined}
     class:list={[
         "rounded-md px-4 py-0 text-xl font-bold uppercase tracking-widest",
-        "font-heading no-underline transition-opacity hover:opacity-90",
+        "font-heading no-underline transition-transform hover:scale-105 active:scale-95",
         variantStyles[variant],
         className,
     ]}

@@ -1,0 +1,159 @@
+---
+interface Props {
+    class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["carousel-wrap", className]}>
+    <div class="carousel">
+        <slot />
+    </div>
+    <button
+        type="button"
+        class="carousel-nav carousel-nav--prev"
+        aria-label="Previous photo"></button>
+    <button
+        type="button"
+        class="carousel-nav carousel-nav--next"
+        aria-label="Next photo"></button>
+</div>
+
+<script>
+    // Manual infinite loop for scroll-snap carousels (no library).
+    for (const wrap of document.querySelectorAll<HTMLElement>(".carousel-wrap")) {
+        const carousel = wrap.querySelector<HTMLElement>(".carousel");
+        if (!carousel || carousel.children.length <= 1) continue;
+
+        const originals = [...carousel.children];
+        const n = originals.length;
+
+        // Clone a full set of slides before and after the originals so the
+        // peeking neighbours are always real content and looping is seamless.
+        // Clones are `inert`: hidden from assistive tech and non-focusable.
+        const head = originals[0];
+        for (const slide of originals) {
+            const before = slide.cloneNode(true) as HTMLElement;
+            const after = slide.cloneNode(true) as HTMLElement;
+            before.inert = true;
+            after.inert = true;
+            carousel.insertBefore(before, head);
+            carousel.appendChild(after);
+        }
+
+        const slideAt = (i: number) => carousel.children[i] as HTMLElement;
+        // scrollLeft at which the first real slide is snap-centered.
+        const homePos = () =>
+            slideAt(n).offsetLeft - (carousel.clientWidth - slideAt(n).clientWidth) / 2;
+        // Pixel distance of one full set of slides.
+        const setWidth = () => slideAt(2 * n).offsetLeft - slideAt(n).offsetLeft;
+        // Pixel distance between adjacent slides.
+        const step = () => slideAt(n + 1).offsetLeft - slideAt(n).offsetLeft;
+
+        carousel.scrollTo({ left: homePos(), behavior: "instant" });
+
+        // Once a scroll settles inside a cloned set, jump by one set width onto
+        // the identical real slide — invisible because the content matches.
+        const recenter = () => {
+            const start = homePos();
+            const width = setWidth();
+            const x = carousel.scrollLeft;
+            if (x < start - 1) {
+                carousel.scrollTo({ left: x + width, behavior: "instant" });
+            } else if (x > start + width - 1) {
+                carousel.scrollTo({ left: x - width, behavior: "instant" });
+            }
+        };
+
+        if ("onscrollend" in window) {
+            carousel.addEventListener("scrollend", recenter);
+        } else {
+            let timer: ReturnType<typeof setTimeout>;
+            carousel.addEventListener("scroll", () => {
+                clearTimeout(timer);
+                timer = setTimeout(recenter, 120);
+            });
+        }
+
+        window.addEventListener("resize", () => {
+            carousel.scrollTo({ left: homePos(), behavior: "instant" });
+        });
+
+        // Prev/next zones over the peeking neighbours advance one slide; the
+        // loop wrap is handled by recenter once the scroll settles.
+        const nudge = (dir: number) =>
+            carousel.scrollBy({ left: dir * step(), behavior: "smooth" });
+        wrap.querySelector(".carousel-nav--prev")?.addEventListener("click", () =>
+            nudge(-1),
+        );
+        wrap.querySelector(".carousel-nav--next")?.addEventListener("click", () =>
+            nudge(1),
+        );
+    }
+</script>
+
+<style>
+    .carousel-wrap {
+        position: relative;
+    }
+
+    /* Pure-CSS scroll-snap carousel. Slides are narrower than the track so the
+     * neighbours peek; the track is masked at the edges so those peeking
+     * neighbours fade into the gutter, signalling that it scrolls. */
+    .carousel {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none; /* Firefox */
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+    }
+
+    .carousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Each slide sits narrower than the track so neighbours peek. min-width: 0
+     * keeps flex-basis from being overridden by content's intrinsic size.
+     * :global so the rule reaches slotted children (which carry their own
+     * component scope, not this one's). */
+    .carousel > :global(*) {
+        flex: 0 0 65%;
+        min-width: 0;
+        scroll-snap-align: center;
+    }
+
+    /* Invisible prev/next controls sitting over the peeking neighbours — the
+     * cursor turning into an arrow is the only affordance. Shown only for fine
+     * pointers so on touch they never intercept native swipe scrolling. */
+    .carousel-nav {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 17%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+    }
+
+    .carousel-nav--prev {
+        left: 0;
+        cursor: url("/cursor-prev.png") 24 24, pointer;
+    }
+
+    .carousel-nav--next {
+        right: 0;
+        cursor: url("/cursor-next.png") 24 24, pointer;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .carousel-nav {
+            display: block;
+        }
+    }
+</style>

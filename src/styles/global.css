@@ -12,10 +12,12 @@
     --font-body: "Libre Franklin", sans-serif;
     --color-golden: #725926;
     --color-pf-red: #f93e10;
-    --color-pf-light-blue: #ccf6ff;
+    --color-pf-sky-blue: #ccf6ff;
     --color-pf-cream: #fdf4ac;
+    --color-pf-off-white: #ffe2d2;
     --color-pf-yellow: #e8bc16;
-    --color-pf-blue: #104fc3;
+    --color-pf-blue: #3490f3;
+    --color-pf-navy: #20425d;
     --color-pf-brown: #3d2828;
 }
 

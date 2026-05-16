@@ -3,31 +3,50 @@ import FacebookIcon from "./icons/FacebookIcon.astro";
 import InstagramIcon from "./icons/InstagramIcon.astro";
 ---
 
-<section
-    class="bg-pf-red bg-cover bg-center px-6 py-12 md:px-12"
-    style="background-image: url('/red-texture.webp');"
->
-    <div class="mx-auto max-w-4xl text-center">
-        <h2 class="font-heading text-pf-cream text-3xl md:text-5xl uppercase mb-8">Follow Us</h2>
-        <nav aria-label="Social media" class="flex gap-8 justify-center">
-            <a
-                href="https://www.facebook.com/TacomaPorchFest/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                class="social-link"
-            >
-                <FacebookIcon />
-            </a>
-            <a
-                href="https://www.instagram.com/tacomaporchfest"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                class="social-link"
-            >
-                <InstagramIcon />
-            </a>
-        </nav>
+<section class="bg-pf-red px-6 py-6 flex items-center gap-2">
+    <div class="fade-right flex-1 justify-end overflow-hidden">
+        <img src="/footer-left.svg" alt="" class="h-20 max-w-none shrink-0" />
+    </div>
+    <div>
+        <h2 class="text-center font-heading text-pf-off-white text-3xl uppercase">Follow Us</h2>
+        <div class="mt-3 flex items-center justify-center gap-4">
+            <nav aria-label="Social media" class="flex shrink-0 gap-8">
+                <a
+                    href="https://www.facebook.com/TacomaPorchFest/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    class="social-link"
+                >
+                    <FacebookIcon />
+                </a>
+                <a
+                    href="https://www.instagram.com/tacomaporchfest"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    class="social-link"
+                >
+                    <InstagramIcon />
+                </a>
+            </nav>
+        </div>
+    </div>
+    <div class="fade-left flex-1 overflow-hidden">
+        <img src="/footer-right.svg" alt="" class="h-20 max-w-none shrink-0" />
     </div>
 </section>
+
+<style>
+    /* Fade each note strip out toward the centre, so the notes dissolve as
+     * they approach the "Follow Us" block. */
+    .fade-right {
+        -webkit-mask-image: linear-gradient(to right, #000 50%, transparent);
+        mask-image: linear-gradient(to right, #000 50%, transparent);
+    }
+
+    .fade-left {
+        -webkit-mask-image: linear-gradient(to left, #000 50%, transparent);
+        mask-image: linear-gradient(to left, #000 50%, transparent);
+    }
+</style>
