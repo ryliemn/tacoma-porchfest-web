@@ -2,14 +2,15 @@
 import Button from "../components/Button.astro";
 import Carousel from "../components/Carousel.astro";
 import FramedPhoto from "../components/FramedPhoto.astro";
+import ShroomLink from "../components/ShroomLink.astro";
 import Base from "../layouts/Base.astro";
 ---
 
 <Base
     description="Tacoma Porchfest is a free, walkable music festival that takes place on porches in Tacoma, Washington."
 >
-    <section class="flex flex-col items-center bg-pf-cream pt-4 pb-0">
-        <div class="hero-crop mb-4">
+    <section class="flex flex-col items-center bg-pf-cream">
+        <div class="hero-crop">
             <img
                 src="/hero_v2.png"
                 alt="Tacoma Porchfest 2026 — July 18 & 19 — Free Live Music"
@@ -38,18 +39,17 @@ import Base from "../layouts/Base.astro";
         </div>
     </section>
     <section class="red-arc bg-pf-red px-4 py-8">
-        <div class="mx-auto flex max-w-4xl flex-col items-center text-center">
-            <div class="flex items-center justify-center gap-3">
-                <img src="/music-bar-left.svg" alt="" class="sm:w-30 w-20" />
+        <div class="mx-auto flex max-w-4xl flex-col items-center text-center gap-4">
+            <div class="flex items-center justify-center gap-4">
+                <img src="/music-bar-left.svg" class="sm:w-30 w-20" />
                 <p class="font-heading text-pf-cream text-2xl uppercase font-medium">
                     Free Live Music
                 </p>
-                <img src="/music-bar-right.svg" alt="" class="sm:w-30 w-20" />
+                <img src="/music-bar-right.svg" class="sm:w-30 w-20" />
             </div>
-            <div class="mt-4 flex w-full items-center justify-between gap-2">
+            <div class="flex w-full items-center justify-between gap-2">
                 <img
                     src="/shroom-left.svg"
-                    alt=""
                     class="sm:w-20 w-12 shrink-0"
                     width="142"
                     height="132"
@@ -63,13 +63,12 @@ import Base from "../layouts/Base.astro";
                 </h2>
                 <img
                     src="/shroom-right.svg"
-                    alt=""
                     class="sm:w-20 w-12 shrink-0"
                     width="164"
                     height="126"
                 />
             </div>
-            <p class="mt-6 max-w-2xl font-heading text-pf-cream text-2xl uppercase font-medium">
+            <p class="max-w-2xl font-heading text-pf-cream text-2xl uppercase font-medium">
                 Porchfest is a free, walkable music festival that takes place on porches. Come meet
                 your neighbors and find your new favorite band!
             </p>
@@ -82,17 +81,17 @@ import Base from "../layouts/Base.astro";
             class="photo-fade mx-auto block h-[clamp(200px,42vw,460px)] w-full max-w-4xl object-cover object-bottom"
         />
     </section>
-    <section class="bg-pf-blue px-4 py-8">
+    <section class="bg-pf-blue px-4 py-6">
         <div class="mx-auto flex max-w-4xl flex-col items-center gap-6 md:flex-row">
             <img
                 src="/map.png"
                 alt="Tacoma Porchfest festival map"
-                class="w-full max-w-md rounded-sm md:flex-1"
+                class="w-full max-w-md rounded-sm"
             />
             <div class="relative w-full">
                 <div class="flex justify-center md:justify-start">
                     <h2
-                        class="relative font-heading text-pf-off-white text-4xl uppercase font-medium self-end text-center md:text-left"
+                        class="font-heading text-pf-off-white text-4xl uppercase font-medium self-end text-center md:text-left"
                     >
                         Two Days
                         <br />
@@ -101,7 +100,7 @@ import Base from "../layouts/Base.astro";
                     <img src="/lions-mane.svg" alt="" class="w-44 relative md:right-10" />
                 </div>
                 <p
-                    class="relative font-heading text-pf-cream text-xl uppercase font-medium md:text-left text-center mt-4"
+                    class="font-heading text-pf-cream text-xl uppercase font-medium md:text-left text-center mt-4"
                 >
                     Too much goodness for one day. Too much music for one ’hood. Porchfest takes
                     place over 2 days in the central Tacoma area on each side of 6th Ave.
@@ -109,7 +108,7 @@ import Base from "../layouts/Base.astro";
             </div>
         </div>
     </section>
-    <section class="bg-cream pt-2 pb-4">
+    <section class="bg-pf-cream py-2">
         <Carousel class="mx-auto max-w-4xl">
             <FramedPhoto
                 src="/photos/home-1.webp"
@@ -136,51 +135,24 @@ import Base from "../layouts/Base.astro";
     <section class="bg-pf-yellow px-4 py-8">
         <div class="mx-auto max-w-4xl">
             <div class="flex flex-wrap justify-center gap-x-2 gap-y-6 sm:gap-8">
-                <a
+                <ShroomLink
                     href="https://forms.gle/5DRSttNLzSgi3pxh8"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex basis-[44%] flex-col items-center transition-transform hover:scale-105 active:scale-95 sm:grow sm:basis-0"
-                >
-                    <div class="flex h-28 w-full items-end justify-center sm:h-44">
-                        <img src="/host-shroom.svg" alt="" class="max-h-full max-w-full" />
-                    </div>
-                    <span
-                        class="mt-1 text-center font-heading text-pf-red text-2xl sm:text-4xl uppercase font-medium"
-                    >
-                        Host a Band
-                    </span>
-                </a>
-                <a
+                    image="/host-shroom.svg"
+                    label="Host a Band"
+                    labelClass="text-pf-red"
+                />
+                <ShroomLink
                     href="https://forms.gle/F5HCWt6P7pZDd4ew9"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex basis-[44%] flex-col items-center transition-transform hover:scale-105 active:scale-95 sm:grow sm:basis-0"
-                >
-                    <div class="flex h-28 w-full items-end justify-center sm:h-44">
-                        <img src="/perform-shroom.svg" alt="" class="max-h-full max-w-full" />
-                    </div>
-                    <span
-                        class="mt-1 text-center font-heading text-pf-cream text-2xl sm:text-4xl uppercase font-medium"
-                    >
-                        Perform
-                    </span>
-                </a>
-                <a
+                    image="/perform-shroom.svg"
+                    label="Perform"
+                    labelClass="text-pf-cream"
+                />
+                <ShroomLink
                     href="https://forms.gle/HB6YgTvMBpBNP4C27"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex basis-[44%] flex-col items-center transition-transform hover:scale-105 active:scale-95 sm:grow sm:basis-0"
-                >
-                    <div class="flex h-28 w-full items-end justify-center sm:h-44">
-                        <img src="/volunteer-shroom.svg" alt="" class="max-h-full max-w-full" />
-                    </div>
-                    <span
-                        class="mt-1 text-center font-heading text-pf-blue text-2xl sm:text-4xl uppercase font-medium"
-                    >
-                        Volunteer
-                    </span>
-                </a>
+                    image="/volunteer-shroom.svg"
+                    label="Volunteer"
+                    labelClass="text-pf-blue"
+                />
             </div>
             <div class="mt-4 text-center font-heading text-pf-navy uppercase">
                 <div class="mx-auto max-w-2xl space-y-3 text-base sm:text-lg">
