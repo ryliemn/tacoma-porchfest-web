@@ -1,0 +1,44 @@
+---
+interface Props {
+    src: string;
+    alt: string;
+    /** Instagram handle (without @) credited below the photo. */
+    credit?: string;
+    class?: string;
+}
+
+const { src, alt, credit, class: className } = Astro.props;
+---
+
+<div class:list={[className]}>
+    <div class="relative aspect-1205/910">
+        <img src={src} alt={alt} class="framed-photo absolute inset-0 h-full w-full object-cover" />
+        <img src="/frame.svg" alt="" class="pointer-events-none absolute inset-0 h-full w-full" />
+    </div>
+    {
+        credit && (
+            <p class=" mr-4 text-right font-body text-xs text-pf-brown/50">
+                Photo by{" "}
+                <a
+                    href={`https://instagram.com/${credit}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-pf-brown/70"
+                >
+                    @{credit}
+                </a>
+            </p>
+        )
+    }
+</div>
+
+<style>
+    /* Clip the photo to the frame's wavy silhouette so it never bleeds past
+     * the border (the rectangular corners otherwise poke out). */
+    .framed-photo {
+        -webkit-mask-image: url("/frame-mask.png");
+        mask-image: url("/frame-mask.png");
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
+</style>
