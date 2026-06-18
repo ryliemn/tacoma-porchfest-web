@@ -1,12 +1,28 @@
 ---
 import Button from "./Button.astro";
+import ClosingSoon from "./ClosingSoon.astro";
 import HamburgerIcon from "./icons/HamburgerIcon.astro";
 
-const navLinks = [
-    { label: "Perform", href: "/perform", external: true },
+type NavChild = { label: string; href: string; external?: boolean };
+type NavLink = {
+    label: string;
+    href?: string;
+    external?: boolean;
+    badge?: boolean;
+    children?: NavChild[];
+};
+
+const navLinks: NavLink[] = [
+    { label: "Perform", href: "/perform", external: true, badge: true },
     { label: "Host", href: "/host", external: true },
     { label: "Volunteer", href: "/volunteer", external: true },
-    { label: "Shows", href: "/benefit-shows" },
+    {
+        label: "Events",
+        children: [
+            { label: "Shows", href: "/benefit-shows" },
+            { label: "Workshops", href: "/workshops" },
+        ],
+    },
     { label: "FAQ", href: "/faq" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -42,16 +58,60 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
 
         <div class="hidden items-center gap-6 md:flex">
             {
-                navLinks.map((link) => (
-                    <a
-                        href={link.href}
-                        target={link.external ? "_blank" : undefined}
-                        rel={link.external ? "noopener noreferrer" : undefined}
-                        class="text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
-                    >
-                        {link.label}
-                    </a>
-                ))
+                navLinks.map((link) =>
+                    link.children ? (
+                        <div class="group relative flex items-center">
+                            <button
+                                type="button"
+                                class="flex items-center gap-1 text-xl text-pf-red transition-opacity hover:opacity-70"
+                                aria-haspopup="true"
+                            >
+                                {link.label}
+                                <svg
+                                    class="h-3 w-3 transition-transform group-hover:rotate-180 group-focus-within:rotate-180"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M2 4.5 6 8.5l4-4"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </button>
+                            <div class="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                                <div class="flex flex-col gap-2 rounded-md border border-pf-red/10 bg-pf-sky-blue px-5 py-3 shadow-lg">
+                                    {link.children.map((child) => (
+                                        <a
+                                            href={child.href}
+                                            target={child.external ? "_blank" : undefined}
+                                            rel={child.external ? "noopener noreferrer" : undefined}
+                                            class="whitespace-nowrap text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
+                                        >
+                                            {child.label}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <a
+                            href={link.href}
+                            target={link.external ? "_blank" : undefined}
+                            rel={link.external ? "noopener noreferrer" : undefined}
+                            class:list={[
+                                "text-xl text-pf-red no-underline transition-opacity hover:opacity-70",
+                                link.badge && "flex flex-col items-center gap-0.5 leading-none",
+                            ]}
+                        >
+                            {link.label}
+                            {link.badge && <ClosingSoon />}
+                        </a>
+                    )
+                )
             }
         </div>
 
@@ -69,16 +129,37 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
         class="hidden border-t border-pf-red/10 bg-pf-sky-blue px-4 pb-4 pt-2 md:hidden"
     >
         {
-            navLinks.map((link) => (
-                <a
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    class="block py-2 text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
-                >
-                    {link.label}
-                </a>
-            ))
+            navLinks.map((link) =>
+                link.children ? (
+                    <div>
+                        <p class="pt-3 pb-1 text-sm uppercase tracking-wide text-pf-red/60">
+                            {link.label}
+                        </p>
+                        <div class="flex flex-col pl-4">
+                            {link.children.map((child) => (
+                                <a
+                                    href={child.href}
+                                    target={child.external ? "_blank" : undefined}
+                                    rel={child.external ? "noopener noreferrer" : undefined}
+                                    class="block py-2 text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
+                                >
+                                    {child.label}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <a
+                        href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noopener noreferrer" : undefined}
+                        class="block py-2 text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
+                    >
+                        {link.label}
+                        {link.badge && <ClosingSoon class="ml-1 align-middle" />}
+                    </a>
+                )
+            )
         }
     </div>
 </nav>

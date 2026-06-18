@@ -1,0 +1,18 @@
+---
+interface Props {
+    /** Extra classes for positioning/spacing in context (no font-size/padding). */
+    class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<span
+    class:list={[
+        "inline-block whitespace-nowrap rounded-full bg-pf-red text-pf-cream",
+        "font-heading uppercase leading-none tracking-wide px-2 py-1 text-xs",
+        className,
+    ]}
+>
+    Closing Soon
+</span>

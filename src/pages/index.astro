@@ -1,6 +1,7 @@
 ---
 import Button from "../components/Button.astro";
 import Carousel from "../components/Carousel.astro";
+import ClosingSoon from "../components/ClosingSoon.astro";
 import FramedPhoto from "../components/FramedPhoto.astro";
 import ShroomLink from "../components/ShroomLink.astro";
 import Base from "../layouts/Base.astro";
@@ -18,12 +19,15 @@ import Base from "../layouts/Base.astro";
             />
         </div>
         <div class="flex items-center justify-center gap-4 relative top-4">
-            <Button
-                href="https://forms.gle/F5HCWt6P7pZDd4ew9"
-                text="Perform"
-                variant="blue"
-                external
-            />
+            <div class="relative">
+                <ClosingSoon class="absolute -top-5 left-1/2 z-10 -translate-x-1/2" />
+                <Button
+                    href="https://forms.gle/F5HCWt6P7pZDd4ew9"
+                    text="Perform"
+                    variant="blue"
+                    external
+                />
+            </div>
             <Button
                 href="https://forms.gle/5DRSttNLzSgi3pxh8"
                 text="Host"
@@ -146,6 +150,7 @@ import Base from "../layouts/Base.astro";
                     image="/perform-shroom.svg"
                     label="Perform"
                     labelClass="text-pf-cream"
+                    badge
                 />
                 <ShroomLink
                     href="https://forms.gle/HB6YgTvMBpBNP4C27"
