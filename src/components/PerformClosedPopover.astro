@@ -1,0 +1,35 @@
+---
+/*
+ * Shared "performer applications closed" popover.
+ * Triggered by any element with popovertarget="perform-closed" (the Perform
+ * CTAs across the site). Rendered once in the Base layout so every trigger can
+ * reach it. Uses the native HTML Popover API — no JS, light-dismiss + Esc come
+ * for free.
+ */
+---
+
+<div
+    id="perform-closed"
+    popover="auto"
+    class="fixed inset-0 m-auto h-fit max-h-[85vh] w-[min(28rem,calc(100%-2rem))] overflow-y-auto rounded-xl border-2 border-pf-red bg-pf-cream p-6 text-pf-navy shadow-2xl backdrop:bg-black/50"
+>
+    <h2 class="font-heading text-2xl uppercase text-pf-red sm:text-3xl">Applications Closed</h2>
+    <p class="mt-3 font-body text-base leading-relaxed">
+        Thank you for your interest in performing at Tacoma Porchfest. We have closed applications,
+        as we have begun the process of matching performers to host porches. Please email us at
+        <a
+            href="mailto:bands@tacomaporchfest.org"
+            class="font-semibold text-pf-red underline hover:opacity-70">bands@tacomaporchfest.org</a
+        > to be added to our waitlist. We will reach out as we determine how much room we have.
+    </p>
+    <div class="mt-5 flex justify-end">
+        <button
+            type="button"
+            popovertarget="perform-closed"
+            popovertargetaction="hide"
+            class="cursor-pointer rounded-md border-0 bg-pf-red px-4 py-1.5 font-heading text-lg uppercase tracking-wide text-pf-cream transition-transform hover:scale-105 active:scale-95"
+        >
+            Got it
+        </button>
+    </div>
+</div>

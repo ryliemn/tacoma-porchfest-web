@@ -1,31 +1,48 @@
 ---
 interface Props {
-    href: string;
+    href?: string;
     text: string;
     variant?: "default" | "inverted" | "blue";
     external?: boolean;
     class?: string;
+    /** Render a <button> that toggles the popover with this id instead of a link. */
+    popovertarget?: string;
 }
 
-const { href, text, variant = "default", external = false, class: className = "" } = Astro.props;
+const {
+    href,
+    text,
+    variant = "default",
+    external = false,
+    class: className = "",
+    popovertarget,
+} = Astro.props;
 
 const variantStyles = {
     default: "bg-pf-red text-pf-cream",
     inverted: "bg-pf-cream text-pf-red",
     blue: "bg-pf-blue text-pf-cream",
 };
+
+const Tag = popovertarget ? "button" : "a";
+const tagProps = popovertarget
+    ? { type: "button", popovertarget }
+    : {
+          href,
+          target: external ? "_blank" : undefined,
+          rel: external ? "noopener noreferrer" : undefined,
+      };
 ---
 
-<a
-    href={href}
-    target={external ? "_blank" : undefined}
-    rel={external ? "noopener noreferrer" : undefined}
+<Tag
+    {...tagProps}
     class:list={[
         "rounded-md px-4 py-0 text-xl font-bold uppercase tracking-widest",
         "font-heading no-underline transition-transform hover:scale-105 active:scale-95",
         variantStyles[variant],
+        popovertarget && "cursor-pointer border-0",
         className,
     ]}
 >
     {text}
-</a>
+</Tag>
