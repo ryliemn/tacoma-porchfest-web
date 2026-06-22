@@ -1,26 +1,34 @@
 ---
-import ClosingSoon from "./ClosingSoon.astro";
+import ClosedBadge from "./ClosedBadge.astro";
 
 interface Props {
-    href: string;
+    href?: string;
     image: string;
     label: string;
     /** Tailwind text-color class for the label (e.g. "text-pf-red"). */
     labelClass: string;
-    /** Show a "Closing Soon" badge above the shroom. */
+    /** Show a "Closed" badge above the shroom. */
     badge?: boolean;
+    /** Render a <button> that toggles the popover with this id instead of a link. */
+    popovertarget?: string;
 }
 
-const { href, image, label, labelClass, badge = false } = Astro.props;
+const { href, image, label, labelClass, badge = false, popovertarget } = Astro.props;
+
+const Tag = popovertarget ? "button" : "a";
+const tagProps = popovertarget
+    ? { type: "button", popovertarget }
+    : { href, target: "_blank", rel: "noopener noreferrer" };
 ---
 
-<a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="relative flex basis-[44%] flex-col items-center transition-transform hover:scale-105 active:scale-95 sm:grow sm:basis-0"
+<Tag
+    {...tagProps}
+    class:list={[
+        "relative flex basis-[44%] flex-col items-center transition-transform hover:scale-105 active:scale-95 sm:grow sm:basis-0",
+        popovertarget && "cursor-pointer border-0 bg-transparent p-0",
+    ]}
 >
-    {badge && <ClosingSoon class="absolute top-0 left-1/2 z-10 -translate-x-1/2" />}
+    {badge && <ClosedBadge class="absolute top-0 left-1/2 z-10 -translate-x-1/2" />}
     <div class="flex h-28 w-full items-end justify-center sm:h-44">
         <img src={image} alt="" class="max-h-full max-w-full" />
     </div>
@@ -32,4 +40,4 @@ const { href, image, label, labelClass, badge = false } = Astro.props;
     >
         {label}
     </span>
-</a>
+</Tag>

@@ -1,6 +1,6 @@
 ---
 import Button from "./Button.astro";
-import ClosingSoon from "./ClosingSoon.astro";
+import ClosedBadge from "./ClosedBadge.astro";
 import HamburgerIcon from "./icons/HamburgerIcon.astro";
 
 type NavChild = { label: string; href: string; external?: boolean };
@@ -8,12 +8,13 @@ type NavLink = {
     label: string;
     href?: string;
     external?: boolean;
-    badge?: boolean;
+    /** Render as a "Closed" popover trigger instead of a link (Perform). */
+    closed?: boolean;
     children?: NavChild[];
 };
 
 const navLinks: NavLink[] = [
-    { label: "Perform", href: "/perform", external: true, badge: true },
+    { label: "Perform", closed: true },
     { label: "Host", href: "/host", external: true },
     { label: "Volunteer", href: "/volunteer", external: true },
     {
@@ -97,18 +98,23 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
                                 </div>
                             </div>
                         </div>
+                    ) : link.closed ? (
+                        <button
+                            type="button"
+                            popovertarget="perform-closed"
+                            class="flex cursor-pointer flex-col items-center gap-0.5 border-0 bg-transparent p-0 font-heading text-xl leading-none text-pf-red transition-opacity hover:opacity-70"
+                        >
+                            {link.label}
+                            <ClosedBadge />
+                        </button>
                     ) : (
                         <a
                             href={link.href}
                             target={link.external ? "_blank" : undefined}
                             rel={link.external ? "noopener noreferrer" : undefined}
-                            class:list={[
-                                "text-xl text-pf-red no-underline transition-opacity hover:opacity-70",
-                                link.badge && "flex flex-col items-center gap-0.5 leading-none",
-                            ]}
+                            class="text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
                         >
                             {link.label}
-                            {link.badge && <ClosingSoon />}
                         </a>
                     )
                 )
@@ -148,6 +154,15 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
                             ))}
                         </div>
                     </div>
+                ) : link.closed ? (
+                    <button
+                        type="button"
+                        popovertarget="perform-closed"
+                        class="block w-full cursor-pointer border-0 bg-transparent px-0 py-2 text-left font-heading text-xl text-pf-red transition-opacity hover:opacity-70"
+                    >
+                        {link.label}
+                        <ClosedBadge class="ml-1 align-middle" />
+                    </button>
                 ) : (
                     <a
                         href={link.href}
@@ -156,7 +171,6 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
                         class="block py-2 text-xl text-pf-red no-underline transition-opacity hover:opacity-70"
                     >
                         {link.label}
-                        {link.badge && <ClosingSoon class="ml-1 align-middle" />}
                     </a>
                 )
             )
