@@ -1,0 +1,88 @@
+---
+// EXPERIMENT: tappable block overlay on the raster festival map.
+// Block rects are auto-extracted from the image (see scripts/extract-map-blocks.mjs).
+// Not wired to schedule filtering yet — tapping just highlights a block.
+import data from "../data/schedule/saturday-map-blocks.json";
+
+interface Props {
+    src: string;
+    alt?: string;
+    /** Block ids that have porches — marked so users know where to tap. */
+    highlightBlocks?: string[];
+}
+const { src, alt = "Festival map", highlightBlocks = [] } = Astro.props;
+const { width, height, blocks } = data;
+const hasPorches = new Set(highlightBlocks);
+---
+
+<div
+    class="map-interactive relative block w-full md:mx-auto md:max-w-4xl md:overflow-hidden md:rounded-md md:shadow-sm"
+>
+    <img src={src} alt={alt} class="block w-full select-none" draggable="false" />
+    <svg
+        class="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+    >
+        {
+            blocks.map((b) => (
+                <rect
+                    data-block={b.id}
+                    data-has={hasPorches.has(b.id) ? "" : undefined}
+                    x={b.x}
+                    y={b.y}
+                    width={b.w}
+                    height={b.h}
+                    rx="6"
+                />
+            ))
+        }
+    </svg>
+</div>
+
+<style>
+    .map-interactive svg rect {
+        pointer-events: none; /* blocks with no porches are inert */
+        fill: transparent;
+        stroke: transparent;
+        stroke-width: 3;
+        transition:
+            fill 0.12s ease,
+            stroke 0.12s ease;
+    }
+    /* Only blocks that have porches are tappable (no persistent marker). */
+    .map-interactive svg rect[data-has] {
+        pointer-events: all;
+        cursor: pointer;
+    }
+    .map-interactive svg rect[data-has]:hover {
+        fill: color-mix(in srgb, #eb6836 32%, transparent);
+        stroke: #eb6836;
+    }
+    .map-interactive svg rect.is-active {
+        fill: color-mix(in srgb, #eb6836 55%, transparent);
+        stroke: #b8431b;
+    }
+</style>
+
+<script>
+    const rects = document.querySelectorAll<SVGRectElement>(".map-interactive svg rect[data-has]");
+    let selected: string | null = null;
+
+    function select(id: string | null) {
+        selected = id;
+        rects.forEach((r) => r.classList.toggle("is-active", id !== null && r.dataset.block === id));
+        document.dispatchEvent(new CustomEvent("pf:block", { detail: id }));
+    }
+
+    rects.forEach((rect) =>
+        rect.addEventListener("click", () => {
+            const id = rect.dataset.block ?? null;
+            select(id === selected ? null : id);
+        }),
+    );
+
+    // Allow the schedule's "Show all" control to clear the map selection.
+    document.addEventListener("pf:clear", () => select(null));
+</script>

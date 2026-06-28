@@ -1,0 +1,331 @@
+---
+type Set = {
+    time: string;
+    name: string;
+    durationMinutes: number | null;
+    endTime?: string;
+    tentative?: boolean;
+};
+type Porch = {
+    address: string | null;
+    venue: string | null;
+    cluster: string | null;
+    notes: string | null;
+    sets: Set[];
+    extra?: string[];
+    block?: string | null;
+};
+
+interface Props {
+    /** Heading, e.g. "Saturday" */
+    day: string;
+    /** Sub-heading, e.g. "July 18 · South of 6th Ave" */
+    dateLabel: string;
+    porches: Porch[];
+    /** Optional day map shown above the schedule. */
+    mapSrc?: string;
+    mapAlt?: string;
+}
+
+const { day, dateLabel, porches, mapSrc, mapAlt } = Astro.props;
+
+// Only show porches that actually have something scheduled.
+const withSets = porches.filter((p) => p.sets.length > 0);
+
+// The day splits into two sessions that also map to two halves of the map:
+// 12–3 happens on the west side, 4–6 on the east. Each becomes a table "page".
+// Half-hour slots decide which session a porch belongs to; the table itself uses
+// hour-wide columns, annotating any act that starts on the half hour.
+const AM_HALF = ["12:00", "12:30", "1:00", "1:30", "2:00", "2:30"];
+const PM_HALF = ["4:00", "4:30", "5:00", "5:30", "6:00", "6:30"];
+const AM_HOURS = ["12:00", "1:00", "2:00"];
+const PM_HOURS = ["4:00", "5:00", "6:00"];
+const ALL_SLOTS = [...AM_HALF, "3:00", "3:30", ...PM_HALF, "7:00"];
+const slotIdx = (t: string) => ALL_SLOTS.indexOf(t);
+const onHalfHour = (t: string) => t.endsWith(":30");
+
+type Cell = { sets: Set[]; span: number };
+// Lay a porch's sets into hour-wide columns. Each column holds whatever starts
+// within that hour; a continuous act spans multiple columns via colspan.
+function rowCells(porch: Porch, cols: string[]): Cell[] {
+    const cells: Cell[] = [];
+    for (let i = 0; i < cols.length; ) {
+        const colStart = slotIdx(cols[i]);
+        const colEnd = colStart + 2; // each hour column covers two half-hour slots
+        const here = porch.sets.filter((s) => {
+            const t = slotIdx(s.time);
+            return t >= colStart && t < colEnd;
+        });
+        const span = here.find((s) => s.endTime && slotIdx(s.endTime) > colEnd);
+        if (span) {
+            let cspan = 0;
+            const end = slotIdx(span.endTime!);
+            while (i + cspan < cols.length && slotIdx(cols[i + cspan]) < end) cspan++;
+            cells.push({ sets: [span], span: Math.max(cspan, 1) });
+            i += Math.max(cspan, 1);
+        } else {
+            cells.push({ sets: here, span: 1 });
+            i++;
+        }
+    }
+    return cells;
+}
+
+const pages = [
+    {
+        title: "12–3 PM",
+        side: "West side",
+        cols: AM_HOURS,
+        porches: withSets.filter((p) => p.sets.some((s) => AM_HALF.includes(s.time))),
+    },
+    {
+        title: "4–6 PM",
+        side: "East side",
+        cols: PM_HOURS,
+        porches: withSets.filter((p) => p.sets.some((s) => PM_HALF.includes(s.time))),
+    },
+];
+---
+
+<section
+    class="flex flex-col items-center justify-center bg-pf-red bg-cover bg-center py-8"
+    style="background-image: url('/red-texture.webp');"
+>
+    <h1 class="font-heading text-pf-brown text-4xl md:text-6xl uppercase text-center px-4">
+        Schedule — {day}
+    </h1>
+    <p class="font-heading text-pf-brown/80 text-xl md:text-2xl uppercase mt-1">{dateLabel}</p>
+</section>
+
+{
+    (mapSrc || Astro.slots.has("map")) && (
+        <section data-day-map class="sticky top-12 z-30 bg-pf-cream md:top-14 md:px-12 md:py-8">
+            <slot name="map">
+                <img
+                    src={mapSrc}
+                    alt={mapAlt ?? `${day} festival map`}
+                    class="block w-full md:mx-auto md:max-w-4xl md:rounded-md md:shadow-sm"
+                />
+            </slot>
+        </section>
+    )
+}
+
+<section id="schedule-section" class="bg-pf-yellow px-4 py-12 md:px-12 md:py-16">
+    {
+        withSets.length === 0 ? (
+            <p class="mx-auto max-w-3xl text-center font-heading text-pf-brown text-2xl md:text-3xl uppercase">
+                Schedule coming soon
+            </p>
+        ) : (
+            <div class="schedule mx-auto max-w-5xl">
+                {/* Pager controls: one button toggles between the two pages. */}
+                <div class="mb-4 flex items-end justify-between gap-3">
+                    <p class="font-heading text-pf-brown text-2xl uppercase" data-page-title>
+                        {pages[0].title} · {pages[0].side}
+                    </p>
+                    <button
+                        type="button"
+                        data-page-toggle
+                        class="cursor-pointer rounded-full bg-pf-red px-4 py-2 font-heading text-pf-cream text-sm uppercase whitespace-nowrap transition-opacity hover:opacity-80"
+                    >
+                        {pages[1].title} · East →
+                    </button>
+                </div>
+
+                {/* Block filter banner (driven by the map). */}
+                <div
+                    id="schedule-filter"
+                    hidden
+                    class="mb-4 flex items-center justify-between gap-3 rounded-md bg-pf-cream px-5 py-3 shadow-sm"
+                >
+                    <p class="font-heading text-pf-brown text-lg uppercase">
+                        <span data-filter-count>0</span> porches at the selected block
+                    </p>
+                    <button
+                        type="button"
+                        data-filter-clear
+                        class="cursor-pointer rounded-full bg-pf-red px-4 py-1.5 font-heading text-pf-cream text-sm uppercase transition-opacity hover:opacity-80"
+                    >
+                        Clear filter
+                    </button>
+                </div>
+
+                <div
+                    id="schedule-pages"
+                    class="-mx-4 flex snap-x snap-mandatory overflow-x-auto scroll-smooth md:mx-0"
+                >
+                    {pages.map((page, p) => (
+                        <div class="w-full shrink-0 snap-start px-px" data-page={p}>
+                            <table class="w-full table-fixed border-collapse text-pf-brown">
+                                <thead>
+                                    <tr class="bg-pf-red text-pf-cream">
+                                        <th class="w-[26%] p-1.5 text-left font-heading text-sm uppercase md:w-[22%] md:text-base">
+                                            Porch
+                                        </th>
+                                        {page.cols.map((t) => (
+                                            <th class="p-1.5 text-center font-heading text-xs tabular-nums md:text-base">
+                                                {t}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {page.porches.map((porch) => (
+                                        <tr
+                                            data-block={porch.block ?? ""}
+                                            data-addr={porch.address ?? porch.venue}
+                                            class="border-b border-pf-red/15 odd:bg-pf-cream/60"
+                                        >
+                                            <th
+                                                scope="row"
+                                                class="p-1.5 text-left align-top font-heading text-sm leading-tight text-pf-brown uppercase md:text-lg"
+                                            >
+                                                {porch.address ?? porch.venue}
+                                            </th>
+                                            {rowCells(porch, page.cols).map((cell) =>
+                                                cell.sets.length ? (
+                                                    <td
+                                                        colspan={cell.span}
+                                                        class="space-y-1 border-l border-pf-red/15 p-1.5 align-top text-[11px] leading-tight md:text-sm"
+                                                    >
+                                                        {cell.sets.map((s) => (
+                                                            <div>
+                                                                {s.name}
+                                                                {onHalfHour(s.time) && (
+                                                                    <span class="whitespace-nowrap text-pf-brown/60">
+                                                                        {" "}
+                                                                        ({s.time})
+                                                                    </span>
+                                                                )}
+                                                                {s.tentative && (
+                                                                    <span class="text-pf-brown/50 italic">
+                                                                        {" "}
+                                                                        (tbd)
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                ) : (
+                                                    <td class="border-l border-pf-red/15" />
+                                                ),
+                                            )}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ))}
+                </div>
+                <p
+                    data-filter-empty
+                    hidden
+                    class="mt-4 font-heading text-pf-brown/70 text-lg uppercase"
+                >
+                    No scheduled porches on this block for this session.
+                </p>
+            </div>
+        )
+    }
+</section>
+
+<style>
+    /* Navigation is via the toggle button / swipe — hide the native scrollbar. */
+    #schedule-pages {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* old Edge/IE */
+    }
+    #schedule-pages::-webkit-scrollbar {
+        display: none; /* Chrome / Safari */
+    }
+</style>
+
+<script>
+    const pagesEl = document.getElementById("schedule-pages");
+    const banner = document.getElementById("schedule-filter");
+    if (pagesEl && banner) {
+        // --- two-page pager (12–3 West / 4–6 East) --------------------------
+        const PAGES = [
+            { title: "12–3 PM", side: "West side", go: "4–6 PM · East →" },
+            { title: "4–6 PM", side: "East side", go: "← 12–3 PM · West" },
+        ];
+        const titleEl = document.querySelector<HTMLElement>("[data-page-title]");
+        const toggle = document.querySelector<HTMLButtonElement>("[data-page-toggle]");
+        let current = 0;
+
+        function render() {
+            const pg = PAGES[current];
+            if (titleEl) titleEl.textContent = `${pg.title} · ${pg.side}`;
+            if (toggle)
+                toggle.textContent =
+                    current === 0 ? `${PAGES[1].title} · East →` : `← ${PAGES[0].title} · West`;
+        }
+        function goTo(i: number) {
+            current = Math.max(0, Math.min(PAGES.length - 1, i));
+            pagesEl!.scrollTo({ left: pagesEl!.clientWidth * current });
+            render();
+        }
+        toggle?.addEventListener("click", () => goTo(current === 0 ? 1 : 0));
+
+        let raf = 0;
+        pagesEl.addEventListener("scroll", () => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+                const i = Math.round(pagesEl.scrollLeft / pagesEl.clientWidth);
+                if (i !== current) {
+                    current = i;
+                    render();
+                }
+            });
+        });
+        render();
+
+        // --- block filter (driven by the map via "pf:block") ----------------
+        const rows = Array.from(pagesEl.querySelectorAll<HTMLElement>("tr[data-block]"));
+        const countEl = banner.querySelector("[data-filter-count]");
+        const clearBtn = banner.querySelector("[data-filter-clear]");
+        const emptyEl = document.querySelector<HTMLElement>("[data-filter-empty]");
+
+        function pageOf(row: HTMLElement) {
+            return Number(row.closest("[data-page]")?.getAttribute("data-page") ?? 0);
+        }
+
+        // On a new filter, scroll the table section just below the sticky map.
+        const section = document.getElementById("schedule-section");
+        const mapEl = document.querySelector<HTMLElement>("[data-day-map]");
+        function scrollToTable() {
+            if (!section) return;
+            const navH = window.matchMedia("(min-width: 768px)").matches ? 56 : 48;
+            const mapH = mapEl?.getBoundingClientRect().height ?? 0;
+            const top = section.getBoundingClientRect().top + window.scrollY - navH - mapH;
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        }
+
+        function apply(id: string | null) {
+            const matchedAddrs = new Set<string>();
+            const matchedPages = new Set<number>();
+            rows.forEach((row) => {
+                const match = !id || row.dataset.block === id;
+                row.hidden = !match;
+                if (match && id) {
+                    matchedAddrs.add(row.dataset.addr ?? "");
+                    matchedPages.add(pageOf(row));
+                }
+            });
+            banner.hidden = id === null;
+            if (countEl) countEl.textContent = String(matchedAddrs.size);
+            if (emptyEl) emptyEl.hidden = id === null || matchedAddrs.size > 0;
+            // Jump to a page that actually contains the selected block.
+            if (id && matchedPages.size && !matchedPages.has(current)) {
+                goTo(Math.min(...matchedPages));
+            }
+            if (id) scrollToTable();
+        }
+
+        document.addEventListener("pf:block", (e) => apply((e as CustomEvent<string | null>).detail));
+        clearBtn?.addEventListener("click", () =>
+            document.dispatchEvent(new CustomEvent("pf:clear")),
+        );
+    }
+</script>

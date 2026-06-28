@@ -1,0 +1,9 @@
+---
+import Base from "../../layouts/Base.astro";
+import ScheduleDay from "../../components/ScheduleDay.astro";
+import porches from "../../data/schedule/sunday.json";
+---
+
+<Base title="Schedule: Sunday - Tacoma Porchfest">
+    <ScheduleDay day="Sunday" dateLabel="July 19 · North of 6th Ave" porches={porches} />
+</Base>

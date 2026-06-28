@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+import ScheduleDay from "../../components/ScheduleDay.astro";
+import MapInteractive from "../../components/MapInteractive.astro";
+import porches from "../../data/schedule/saturday.json";
+
+const blocksWithPorches = [...new Set(porches.map((p) => p.block).filter(Boolean))] as string[];
+---
+
+<Base title="Schedule: Saturday - Tacoma Porchfest">
+    <ScheduleDay day="Saturday" dateLabel="July 18 · South of 6th Ave" porches={porches}>
+        <MapInteractive
+            slot="map"
+            src="/map-south.jpg"
+            alt="Tacoma Porchfest Saturday map — the festival area south of 6th Ave"
+            highlightBlocks={blocksWithPorches}
+        />
+    </ScheduleDay>
+</Base>

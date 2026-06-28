@@ -1,0 +1,1561 @@
+[
+    {
+        "address": "2202 6th Ave",
+        "venue": "Salon di Stile",
+        "cluster": null,
+        "notes": "reggae, folk, jazz, indie - no screaming",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Smooth Kiwi",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Colonies",
+                "durationMinutes": 40
+            }
+        ],
+        "block": "b1"
+    },
+    {
+        "address": "2501 S 12th St",
+        "venue": "People's Pilates",
+        "cluster": "cluster 8",
+        "notes": "chill vibe but open",
+        "sets": [],
+        "block": "b35"
+    },
+    {
+        "address": "633 S Fife St",
+        "venue": null,
+        "cluster": "cluster 7",
+        "notes": "no preference",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Creature Hole",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "College Radio",
+                "durationMinutes": 25
+            }
+        ],
+        "block": "b7"
+    },
+    {
+        "address": "637 S Fife St",
+        "venue": null,
+        "cluster": "cluster 7",
+        "notes": "stage host? what does that mean?",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Painted Pills",
+                "durationMinutes": 35
+            },
+            {
+                "time": "4:30",
+                "name": "14g",
+                "durationMinutes": 25
+            },
+            {
+                "time": "5:00",
+                "name": "Birds With Arms",
+                "durationMinutes": 25
+            },
+            {
+                "time": "6:00",
+                "name": "Sun Spots",
+                "durationMinutes": null
+            },
+            {
+                "time": "6:30",
+                "name": "Fluung",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b7"
+    },
+    {
+        "address": "639 S Fife St",
+        "venue": null,
+        "cluster": "cluster 7",
+        "notes": "any genre",
+        "sets": [
+            {
+                "time": "12:30",
+                "name": "The Unsundered",
+                "durationMinutes": 25
+            },
+            {
+                "time": "1:30",
+                "name": "The Proffits",
+                "durationMinutes": null
+            }
+        ],
+        "block": "b7"
+    },
+    {
+        "address": "1130 S Fife St",
+        "venue": null,
+        "cluster": "cluster 8",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Goodbye Viking",
+                "durationMinutes": 15
+            },
+            {
+                "time": "2:00",
+                "name": "Omega Theory",
+                "durationMinutes": 25
+            },
+            {
+                "time": "4:00",
+                "name": "FF00FF",
+                "durationMinutes": null
+            },
+            {
+                "time": "4:30",
+                "name": "Ponty's Revenge",
+                "durationMinutes": 20
+            },
+            {
+                "time": "5:00",
+                "name": "Cab and the Rats",
+                "durationMinutes": 25
+            },
+            {
+                "time": "5:30",
+                "name": "Next Stop Cosmos",
+                "durationMinutes": 20
+            },
+            {
+                "time": "6:00",
+                "name": "LIFE RIPS",
+                "durationMinutes": 20
+            },
+            {
+                "time": "6:30",
+                "name": "Vanier",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b40"
+    },
+    {
+        "address": "2708 6th Ave",
+        "venue": "The Porch Light",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Comedy Porch",
+                "durationMinutes": null,
+                "endTime": "7:00"
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "710 S Anderson St",
+        "venue": "The Spire",
+        "cluster": null,
+        "notes": null,
+        "sets": [],
+        "block": "b9"
+    },
+    {
+        "address": "2802 6th Ave",
+        "venue": "TAPCO",
+        "cluster": "cluster 10",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Daesean Brooks",
+                "durationMinutes": 20
+            },
+            {
+                "time": "12:30",
+                "name": "1130",
+                "durationMinutes": null
+            }
+        ],
+        "block": "b9"
+    },
+    {
+        "address": "2714 6th Ave",
+        "venue": "Hi-Voltage",
+        "cluster": "cluster 10",
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "JT Hatchet",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b8"
+    },
+    {
+        "address": "2502 6th Ave",
+        "venue": "Mission Thrift",
+        "cluster": null,
+        "notes": null,
+        "sets": [],
+        "block": null
+    },
+    {
+        "address": null,
+        "venue": "Kid St N",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Royale Princess Wishes Character Parties",
+                "durationMinutes": null
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": null,
+        "venue": "Kid St S",
+        "cluster": null,
+        "notes": null,
+        "sets": [],
+        "block": null
+    },
+    {
+        "address": "619 S Oakes St",
+        "venue": null,
+        "cluster": "cluster 6",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Grant Stillwell? Carter?",
+                "durationMinutes": null,
+                "tentative": true
+            },
+            {
+                "time": "1:00",
+                "name": "The Astrotecs",
+                "durationMinutes": null
+            },
+            {
+                "time": "2:00",
+                "name": "Sons of the Force",
+                "durationMinutes": null
+            },
+            {
+                "time": "2:30",
+                "name": "Lungduster",
+                "durationMinutes": null
+            },
+            {
+                "time": "4:00",
+                "name": "Swedey",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "Federdale",
+                "durationMinutes": 45
+            },
+            {
+                "time": "6:00",
+                "name": "Desert Sushi",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b8"
+    },
+    {
+        "address": "2020 S 10th St",
+        "venue": "Dalton Rouse",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Grit City Kitty",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Slim Wizzy",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:00",
+                "name": "The Bridgemen",
+                "durationMinutes": 50
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "2308 S 10th St",
+        "venue": null,
+        "cluster": "cluster 2",
+        "notes": "recruited their own people",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Disintegration C.E",
+                "durationMinutes": null
+            },
+            {
+                "time": "1:00",
+                "name": "recruiting his own people?",
+                "durationMinutes": null,
+                "tentative": true
+            }
+        ],
+        "block": "b25"
+    },
+    {
+        "address": "2311 S 10th St",
+        "venue": null,
+        "cluster": "cluster 2",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Amber Ambedo",
+                "durationMinutes": 30
+            },
+            {
+                "time": "12:30",
+                "name": "CHILDSPEAK",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:30",
+                "name": "A Collective Subconscious",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:30",
+                "name": "X Suns",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b25"
+    },
+    {
+        "address": "2417 S 10th St",
+        "venue": null,
+        "cluster": "cluster 5",
+        "notes": null,
+        "sets": [
+            {
+                "time": "1:00",
+                "name": "Cheff Chang",
+                "durationMinutes": 60
+            }
+        ],
+        "block": "b24"
+    },
+    {
+        "address": "2031 S 7th St",
+        "venue": null,
+        "cluster": null,
+        "notes": "rock, pop, hip hop, funk, soul, indie, but I’m flexible",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "The Calderas",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Cute Young Man",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "The Cortage Suite",
+                "durationMinutes": 20
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "820 S Ferry St",
+        "venue": "small porch",
+        "cluster": null,
+        "notes": "Garage rock, grunge, jazz, guitarist, banjo, original music, happy with anything",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Clash Vilian",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "KingPinX and Ryan Steele",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:00",
+                "name": "LeFT cOaSt",
+                "durationMinutes": 45
+            }
+        ],
+        "block": "b12"
+    },
+    {
+        "address": "1027 S Ferry St",
+        "venue": "Keith Musig",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "The Musig - Contris Duo",
+                "durationMinutes": 45
+            },
+            {
+                "time": "1:00",
+                "name": "Left Turn on Blue",
+                "durationMinutes": 15
+            }
+        ],
+        "block": "b26"
+    },
+    {
+        "address": "640 S Prospet St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Fantasy A",
+                "durationMinutes": 15
+            },
+            {
+                "time": "1:00",
+                "name": "2pc. the dj",
+                "durationMinutes": 25
+            }
+        ],
+        "block": "b5"
+    },
+    {
+        "address": "831 S Prospect St",
+        "venue": "Drew and Allison",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Old Growth",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Small Yards",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:00",
+                "name": "Night Paving",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b18"
+    },
+    {
+        "address": "1001 S Prospect St",
+        "venue": null,
+        "cluster": "cluster 5",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "albuquerque press",
+                "durationMinutes": 45
+            }
+        ],
+        "block": "b22"
+    },
+    {
+        "address": "1116 S Prospect St",
+        "venue": "porch is very small",
+        "cluster": "cluster 8",
+        "notes": "punk or metal",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Jarred Katz, Pro Account",
+                "durationMinutes": null
+            },
+            {
+                "time": "1:00",
+                "name": "Pretty Bayou",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Ben Grillet",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b39"
+    },
+    {
+        "address": "1120 S Prospet St",
+        "venue": "small porch",
+        "cluster": "cluster 8",
+        "notes": "open",
+        "sets": [
+            {
+                "time": "12:30",
+                "name": "Grand Pause",
+                "durationMinutes": 60
+            },
+            {
+                "time": "1:30",
+                "name": "Vanier",
+                "durationMinutes": 15
+            },
+            {
+                "time": "2:30",
+                "name": "Adam",
+                "durationMinutes": 120
+            }
+        ],
+        "block": "b39"
+    },
+    {
+        "address": "838 S Sprague Ave",
+        "venue": null,
+        "cluster": null,
+        "notes": "indie rock, shoegaze, bedroom bop",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Isaac Lasky",
+                "durationMinutes": 15
+            },
+            {
+                "time": "1:00",
+                "name": "Seola Station",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Sadomasochistic Candy",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b12"
+    },
+    {
+        "address": "619 S State St",
+        "venue": "big space",
+        "cluster": null,
+        "notes": "anything",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Modern Daze",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Hayman Hitmen: Vinatge Drumers Battle",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:00",
+                "name": "Honeyed",
+                "durationMinutes": 25
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "815 S State St",
+        "venue": "loud - metal - hardcore",
+        "cluster": null,
+        "notes": "not metal",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "C Average",
+                "durationMinutes": 35
+            },
+            {
+                "time": "1:00",
+                "name": "The Devil in High Def",
+                "durationMinutes": 25
+            },
+            {
+                "time": "2:00",
+                "name": "Teeth Bone",
+                "durationMinutes": 15
+            }
+        ],
+        "block": "b2"
+    },
+    {
+        "address": "1001 S State St",
+        "venue": null,
+        "cluster": null,
+        "notes": "wrestling porch",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Wrestling Porch",
+                "durationMinutes": null,
+                "endTime": "3:00"
+            }
+        ],
+        "block": "b25"
+    },
+    {
+        "address": "1031 S State St",
+        "venue": "Anna Lee",
+        "cluster": "cluster 11",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Billy's Universe",
+                "durationMinutes": null
+            },
+            {
+                "time": "1:00",
+                "name": "Jonathan Ray",
+                "durationMinutes": 15
+            },
+            {
+                "time": "2:00",
+                "name": "The Driftwood Walkers",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b25"
+    },
+    {
+        "address": "610 S Steele St",
+        "venue": "looks fenced in",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Peter Hammer",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Sayless - Shop Sesh",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:00",
+                "name": "the dead end",
+                "durationMinutes": 45
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "630 S Steele St",
+        "venue": null,
+        "cluster": null,
+        "notes": "folk, indie, pop",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Erina McLaren & Friends",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Happy Heartbreak",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Toya ✨ Victoria Fragoso",
+                "durationMinutes": 30
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "821 S Steele St",
+        "venue": null,
+        "cluster": null,
+        "notes": "no other bands",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Hills and Valleys",
+                "durationMinutes": 15
+            },
+            {
+                "time": "1:00",
+                "name": "Tom Costanza",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b3"
+    },
+    {
+        "address": "839 S Steele St",
+        "venue": "Geiles",
+        "cluster": "cluster 3",
+        "notes": "similar to grey matter (??)",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Grey Matter",
+                "durationMinutes": 60
+            },
+            {
+                "time": "2:00",
+                "name": "Blackwater Unplugged",
+                "durationMinutes": 45
+            }
+        ],
+        "block": "b3"
+    },
+    {
+        "address": "844 S Steele St",
+        "venue": null,
+        "cluster": "cluster 3",
+        "notes": "Rock & Roll, Pop, Reggae",
+        "sets": [
+            {
+                "time": "1:00",
+                "name": "Steve Russell",
+                "durationMinutes": 60
+            },
+            {
+                "time": "2:30",
+                "name": "Tim Bertsch Soulresonance",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b3"
+    },
+    {
+        "address": "1004 S Steele St",
+        "venue": "Claudia",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "The Antenna Project",
+                "durationMinutes": 60
+            },
+            {
+                "time": "12:30",
+                "name": "The Marrying Type",
+                "durationMinutes": 25
+            },
+            {
+                "time": "1:00",
+                "name": "Western Sister",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:30",
+                "name": "The Singing McGills with Gavin Guss",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Gavin and Jenny",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:30",
+                "name": "ETNO from Oly Town",
+                "durationMinutes": null
+            }
+        ],
+        "block": "b23"
+    },
+    {
+        "address": "1017 S Steele St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Whitfield Straits",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "High Glow",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Fantastic Flying Foelschs",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b23"
+    },
+    {
+        "address": "806 S Trafton St",
+        "venue": null,
+        "cluster": null,
+        "notes": "Reggae, R&B, indie",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Henry Hagen Band",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Ok Bucko",
+                "durationMinutes": 25
+            },
+            {
+                "time": "2:00",
+                "name": "Love Victory Rose",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b4"
+    },
+    {
+        "address": "814 S Trafton St",
+        "venue": null,
+        "cluster": null,
+        "notes": "not heavy metal",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "East Morton St. Band",
+                "durationMinutes": 45
+            },
+            {
+                "time": "1:00",
+                "name": "Gator Duke",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Ruthie and the Muted Earthtones",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b4"
+    },
+    {
+        "address": "844 S Trafton St",
+        "venue": null,
+        "cluster": "cluster 2",
+        "notes": "gospel, folk, country, R&B, soul, pop, blues",
+        "sets": [
+            {
+                "time": "2:00",
+                "name": "The Wednesday Night Band",
+                "durationMinutes": 60
+            }
+        ],
+        "block": "b4"
+    },
+    {
+        "address": "1034 S Trafton St",
+        "venue": "backyard",
+        "cluster": null,
+        "notes": "asked for Tributary - but they haven't signed up",
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "The Geyers",
+                "durationMinutes": 15
+            },
+            {
+                "time": "1:00",
+                "name": "Tributary",
+                "durationMinutes": null
+            },
+            {
+                "time": "2:00",
+                "name": "Nothing Sounds Good",
+                "durationMinutes": 15
+            }
+        ],
+        "block": "b24"
+    },
+    {
+        "address": "S 11th closure",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Tacoma Ceili: Irish Music & Dance with Margaret",
+                "durationMinutes": 45
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "806 S Steele St",
+        "venue": "Clairiss and Sam",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Clairriss",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "Seperator",
+                "durationMinutes": 20
+            },
+            {
+                "time": "2:00",
+                "name": "Xek",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b3"
+    },
+    {
+        "address": "1030 S State St",
+        "venue": "single or small group",
+        "cluster": "cluster 11",
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "The Margarets",
+                "durationMinutes": 20
+            },
+            {
+                "time": "1:00",
+                "name": "LowLightRoom",
+                "durationMinutes": null
+            },
+            {
+                "time": "2:00",
+                "name": "Hamacist (Trance)",
+                "durationMinutes": 60
+            }
+        ],
+        "block": "b25"
+    },
+    {
+        "address": "2216 S 8th St",
+        "venue": "no preference",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "12:00",
+                "name": "Ephmeral Tide",
+                "durationMinutes": 30
+            },
+            {
+                "time": "1:00",
+                "name": "OjczymeK",
+                "durationMinutes": 30
+            },
+            {
+                "time": "2:00",
+                "name": "Dylan Lost!",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b12"
+    },
+    {
+        "address": "2607 S 11th St",
+        "venue": null,
+        "cluster": "cluster 9",
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Jays & Co.",
+                "durationMinutes": 45
+            },
+            {
+                "time": "5:00",
+                "name": "Eijah Bossenbroek",
+                "durationMinutes": 60
+            }
+        ],
+        "block": "b40"
+    },
+    {
+        "address": "2610 S 11th St",
+        "venue": null,
+        "cluster": "cluster 9",
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Verota",
+                "durationMinutes": 20
+            },
+            {
+                "time": "5:00",
+                "name": "Cool Nerd Mark",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b40"
+    },
+    {
+        "address": "2910 S 7th St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Jay Mabin and Friends?",
+                "durationMinutes": null,
+                "tentative": true
+            },
+            {
+                "time": "5:00",
+                "name": "Jay Mabin and Friends?",
+                "durationMinutes": null,
+                "tentative": true
+            },
+            {
+                "time": "6:00",
+                "name": "Jay Mabin and Friends?",
+                "durationMinutes": null,
+                "tentative": true
+            }
+        ],
+        "block": "b10"
+    },
+    {
+        "address": "3108 S 7th St",
+        "venue": "big yard",
+        "cluster": null,
+        "notes": "pop, folk, rock",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Jamarage",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "Logan and The Big Dogs",
+                "durationMinutes": 15
+            },
+            {
+                "time": "6:00",
+                "name": "Party Store",
+                "durationMinutes": 20
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "3119 S 7th St",
+        "venue": "small porch",
+        "cluster": null,
+        "notes": "would love / welcome lgbtq+",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Rough Tail",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:00",
+                "name": "Edboy",
+                "durationMinutes": 30
+            },
+            {
+                "time": "6:00",
+                "name": "The Habits of Water",
+                "durationMinutes": 30
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "2809 S 8th St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Monaco",
+                "durationMinutes": null,
+                "endTime": "7:00"
+            }
+        ],
+        "block": "b9"
+    },
+    {
+        "address": "2907 S 8th St",
+        "venue": "Irina",
+        "cluster": null,
+        "notes": "open",
+        "sets": [],
+        "block": "b10"
+    },
+    {
+        "address": "611 S Anderson St, A4",
+        "venue": "small porch",
+        "cluster": "cluster 10",
+        "notes": "anything but country",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Sean G.M.",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:00",
+                "name": "Faith Martin",
+                "durationMinutes": 30
+            },
+            {
+                "time": "6:00",
+                "name": "Me My Uke and I",
+                "durationMinutes": 15
+            }
+        ],
+        "block": null
+    },
+    {
+        "address": "616 S Anderson St",
+        "venue": "small porch",
+        "cluster": "cluster 10",
+        "notes": "might recruit more bands, managing own lineup",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Whitney Ballen",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "knuckle beach.",
+                "durationMinutes": 30
+            },
+            {
+                "time": "6:00",
+                "name": "Skyler Ford",
+                "durationMinutes": null
+            }
+        ],
+        "block": "b9"
+    },
+    {
+        "address": "626 S Anderson St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Motorboat",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:00",
+                "name": "Macroaggression",
+                "durationMinutes": 15
+            },
+            {
+                "time": "6:00",
+                "name": "Prickly Paranoia",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b9"
+    },
+    {
+        "address": "812 S Anderson St",
+        "venue": null,
+        "cluster": "cluster 4",
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:30",
+                "name": "The Now!?",
+                "durationMinutes": 30,
+                "tentative": true
+            },
+            {
+                "time": "5:30",
+                "name": "Minor Keys",
+                "durationMinutes": 35
+            },
+            {
+                "time": "6:30",
+                "name": "Kick Fu Squad",
+                "durationMinutes": 40
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "814 S Anderson St",
+        "venue": null,
+        "cluster": "cluster 4",
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Hell Pony",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:00",
+                "name": "Jacks and Aces",
+                "durationMinutes": 45
+            },
+            {
+                "time": "6:00",
+                "name": "Scott Taylor",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "818 S Anderson St",
+        "venue": null,
+        "cluster": "cluster 4",
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "The Mayonnaise",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "Taylor Sizemore",
+                "durationMinutes": null
+            },
+            {
+                "time": "6:00",
+                "name": "Echo Ravine",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "819 S Anderson St",
+        "venue": null,
+        "cluster": "cluster 4",
+        "notes": "art show",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Matthew Cheramy Art Show",
+                "durationMinutes": null
+            },
+            {
+                "time": "5:00",
+                "name": "Matthew Cheramy Art Show",
+                "durationMinutes": null
+            },
+            {
+                "time": "6:00",
+                "name": "Matthew Cheramy Art Show",
+                "durationMinutes": null
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "831 S Anderson St",
+        "venue": "Douvilles",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:30",
+                "name": "Flür",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:30",
+                "name": "Loud Noises",
+                "durationMinutes": 30
+            },
+            {
+                "time": "6:30",
+                "name": "The Villains Inside",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "847 S Anderson St",
+        "venue": null,
+        "cluster": null,
+        "notes": "recruited their own bands",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Accendino",
+                "durationMinutes": 45
+            },
+            {
+                "time": "5:00",
+                "name": "The Cover Changers",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b15"
+    },
+    {
+        "address": "802 S Junett St",
+        "venue": "fem / folk indie",
+        "cluster": null,
+        "notes": "female of folk, folk rock, kids, quirky, melodic punk - not metal, hard rock, reggae",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Kristen Marlo",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "Steep & Salty",
+                "durationMinutes": 20
+            },
+            {
+                "time": "6:00",
+                "name": "Karen Laura Peters",
+                "durationMinutes": 40
+            }
+        ],
+        "block": "b10"
+    },
+    {
+        "address": "819 S Junett St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "The Madisons",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:00",
+                "name": "TaytorsPrecious",
+                "durationMinutes": 30
+            },
+            {
+                "time": "6:00",
+                "name": "Barditch",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b14"
+    },
+    {
+        "address": "625 S Oakes St",
+        "venue": "next to HOC",
+        "cluster": "cluster 6",
+        "notes": "no preference",
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Bobby Soxxer",
+                "durationMinutes": 20
+            },
+            {
+                "time": "5:00",
+                "name": "Moss Grunt",
+                "durationMinutes": 45
+            },
+            {
+                "time": "6:00",
+                "name": "Hollow Daze",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b8"
+    },
+    {
+        "address": "802 S Oakes St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Hard Softee",
+                "durationMinutes": 20
+            },
+            {
+                "time": "5:00",
+                "name": "Great Comet",
+                "durationMinutes": null
+            },
+            {
+                "time": "5:30",
+                "name": "Haunted House",
+                "durationMinutes": 30
+            },
+            {
+                "time": "6:00",
+                "name": "Emo Sing-A-Long: A Tribute to Dashboard Confessional",
+                "durationMinutes": 20
+            }
+        ],
+        "block": "b8"
+    },
+    {
+        "address": "826 S Oakes St",
+        "venue": "Catherine Satava",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Kye Alfred Hillig",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "Jazz Therapy and friends",
+                "durationMinutes": 45
+            },
+            {
+                "time": "6:00",
+                "name": "Jazz Therapy and friends",
+                "durationMinutes": null
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "844 S Oakes St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:30",
+                "name": "Stephcynie",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:30",
+                "name": "donhavi",
+                "durationMinutes": 15
+            },
+            {
+                "time": "6:30",
+                "name": "Reaper PunX",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b16"
+    },
+    {
+        "address": "922 S Pine St",
+        "venue": "Joe Filkins",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Haystack Slim and the Broken Arow",
+                "durationMinutes": 30
+            },
+            {
+                "time": "5:00",
+                "name": "Jupe Jupen",
+                "durationMinutes": 35
+            },
+            {
+                "time": "6:00",
+                "name": "Evan Purcell and the Big Hello",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b29"
+    },
+    {
+        "address": "1015 S Pine St",
+        "venue": "Nic Daniel",
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Joy Priest",
+                "durationMinutes": 60
+            },
+            {
+                "time": "4:30",
+                "name": "Forro Branquelo",
+                "durationMinutes": 15
+            },
+            {
+                "time": "5:30",
+                "name": "Wild Rose Orca-Stra",
+                "durationMinutes": 25
+            },
+            {
+                "time": "6:30",
+                "name": "Puget Sounds",
+                "durationMinutes": 30
+            }
+        ],
+        "extra": ["A Gathering of Poets"],
+        "block": "b30"
+    },
+    {
+        "address": "2913 S 10th St",
+        "venue": null,
+        "cluster": null,
+        "notes": null,
+        "sets": [
+            {
+                "time": "4:00",
+                "name": "Stringlove",
+                "durationMinutes": 60
+            },
+            {
+                "time": "5:00",
+                "name": "T-Town Low Down Trad Jazz Band",
+                "durationMinutes": 30
+            }
+        ],
+        "block": "b13"
+    }
+]
