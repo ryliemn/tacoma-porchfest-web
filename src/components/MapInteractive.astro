@@ -38,10 +38,19 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
     .map-interactive .block {
         transition: filter 0.12s ease;
     }
-    /* Blocks without porches: dimmed and inert. */
+    /* Blocks without porches: dimmed and inert. Uses a muted fill + opacity
+       rather than a CSS filter, because mobile Safari drops CSS filters on
+       inline SVG groups (which made the dimming vanish on phones). */
     .map-interactive .block:not(.has-porches) {
-        filter: grayscale(0.8) opacity(0.45);
+        opacity: 0.55;
         pointer-events: none;
+    }
+    .map-interactive .block:not(.has-porches) .cls-1,
+    .map-interactive .block:not(.has-porches) .cls-7,
+    .map-interactive .block:not(.has-porches) .cls-10,
+    .map-interactive .block:not(.has-porches) .cls-11,
+    .map-interactive .block:not(.has-porches) .cls-east {
+        fill: #9b968a;
     }
     /* Blocks with porches: tappable. */
     .map-interactive .block.has-porches {
