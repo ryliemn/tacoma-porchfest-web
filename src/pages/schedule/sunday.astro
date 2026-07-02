@@ -1,9 +1,32 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ScheduleDay from "../../components/ScheduleDay.astro";
+import MapInteractive from "../../components/MapInteractive.astro";
 import porches from "../../data/schedule/sunday.json";
+import otherPorches from "../../data/schedule/saturday.json";
+
+const blocksWithPorches = [
+    ...new Set(porches.filter((p) => p.sets.length > 0).map((p) => p.block).filter(Boolean)),
+] as string[];
+
+// Artist index for the other day (Saturday), for cross-day search.
+const otherArtists = otherPorches
+    .filter((p) => p.sets.length > 0)
+    .flatMap((p) => p.sets.map((s) => ({ name: s.name, block: p.block })));
 ---
 
 <Base title="Schedule: Sunday - Tacoma Porchfest">
-    <ScheduleDay day="Sunday" dateLabel="July 19 · North of 6th Ave" porches={porches} />
+    <ScheduleDay
+        day="Sunday"
+        dateLabel="July 19 · North of 6th Ave"
+        porches={porches}
+        otherDay={{ label: "Saturday", href: "/schedule/saturday", artists: otherArtists }}
+    >
+        <MapInteractive
+            slot="map"
+            map="north"
+            alt="Tacoma Porchfest Sunday map — the festival area north of 6th Ave"
+            highlightBlocks={blocksWithPorches}
+        />
+    </ScheduleDay>
 </Base>

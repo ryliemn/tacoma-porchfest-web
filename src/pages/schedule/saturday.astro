@@ -3,15 +3,30 @@ import Base from "../../layouts/Base.astro";
 import ScheduleDay from "../../components/ScheduleDay.astro";
 import MapInteractive from "../../components/MapInteractive.astro";
 import porches from "../../data/schedule/saturday.json";
+import otherPorches from "../../data/schedule/sunday.json";
 
-const blocksWithPorches = [...new Set(porches.map((p) => p.block).filter(Boolean))] as string[];
+// Only highlight blocks that have a porch with something actually scheduled —
+// a porch with no sets isn't shown in the table, so its block shouldn't be tappable.
+const blocksWithPorches = [
+    ...new Set(porches.filter((p) => p.sets.length > 0).map((p) => p.block).filter(Boolean)),
+] as string[];
+
+// Artist index for the other day (Sunday), for cross-day search.
+const otherArtists = otherPorches
+    .filter((p) => p.sets.length > 0)
+    .flatMap((p) => p.sets.map((s) => ({ name: s.name, block: p.block })));
 ---
 
 <Base title="Schedule: Saturday - Tacoma Porchfest">
-    <ScheduleDay day="Saturday" dateLabel="July 18 · South of 6th Ave" porches={porches}>
+    <ScheduleDay
+        day="Saturday"
+        dateLabel="July 18 · South of 6th Ave"
+        porches={porches}
+        otherDay={{ label: "Sunday", href: "/schedule/sunday", artists: otherArtists }}
+    >
         <MapInteractive
             slot="map"
-            src="/map-south.jpg"
+            map="south"
             alt="Tacoma Porchfest Saturday map — the festival area south of 6th Ave"
             highlightBlocks={blocksWithPorches}
         />

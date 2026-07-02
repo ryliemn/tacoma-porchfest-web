@@ -1,88 +1,96 @@
 ---
-// EXPERIMENT: tappable block overlay on the raster festival map.
-// Block rects are auto-extracted from the image (see scripts/extract-map-blocks.mjs).
-// Not wired to schedule filtering yet — tapping just highlights a block.
-import data from "../data/schedule/saturday-map-blocks.json";
+// Interactive festival map: the labeled SVG (public/Map-{North,South}.svg) is
+// inlined so each city block <g id="block-N" class="block"> can be styled and
+// tapped directly. Blocks with porches are highlighted + tappable; tapping one
+// dispatches "pf:block" so the schedule table can filter to it.
+// Inline the SVG source at build time (?raw) so we can style/tap its blocks.
+import northSvg from "../../public/Map-North.svg?raw";
+import southSvg from "../../public/Map-South.svg?raw";
 
 interface Props {
-    src: string;
-    alt?: string;
-    /** Block ids that have porches — marked so users know where to tap. */
+    /** Which map to render. */
+    map: "north" | "south";
+    /** Block ids (e.g. "block-7") that have porches — these become tappable. */
     highlightBlocks?: string[];
+    alt?: string;
 }
-const { src, alt = "Festival map", highlightBlocks = [] } = Astro.props;
-const { width, height, blocks } = data;
-const hasPorches = new Set(highlightBlocks);
+const { map, highlightBlocks = [], alt = "Festival map" } = Astro.props;
+
+// Drop the XML prolog so the SVG embeds cleanly inside the HTML document.
+const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, "").trim();
 ---
 
 <div
-    class="map-interactive relative block w-full md:mx-auto md:max-w-4xl md:overflow-hidden md:rounded-md md:shadow-sm"
+    class="map-interactive relative mx-auto block w-full md:max-w-4xl"
+    role="img"
+    aria-label={alt}
+    data-has-porches={JSON.stringify(highlightBlocks)}
 >
-    <img src={src} alt={alt} class="block w-full select-none" draggable="false" />
-    <svg
-        class="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox={`0 0 ${width} ${height}`}
-        preserveAspectRatio="none"
-        aria-hidden="true"
-    >
-        {
-            blocks.map((b) => (
-                <rect
-                    data-block={b.id}
-                    data-has={hasPorches.has(b.id) ? "" : undefined}
-                    x={b.x}
-                    y={b.y}
-                    width={b.w}
-                    height={b.h}
-                    rx="6"
-                />
-            ))
-        }
-    </svg>
+    <Fragment set:html={svg} />
 </div>
 
-<style>
-    .map-interactive svg rect {
-        pointer-events: none; /* blocks with no porches are inert */
-        fill: transparent;
-        stroke: transparent;
-        stroke-width: 3;
-        transition:
-            fill 0.12s ease,
-            stroke 0.12s ease;
+<style is:global>
+    .map-interactive svg {
+        display: block;
+        width: 100%;
+        height: auto;
     }
-    /* Only blocks that have porches are tappable (no persistent marker). */
-    .map-interactive svg rect[data-has] {
-        pointer-events: all;
+    .map-interactive .block {
+        transition: filter 0.12s ease;
+    }
+    /* Blocks without porches: dimmed and inert. */
+    .map-interactive .block:not(.has-porches) {
+        filter: grayscale(0.8) opacity(0.45);
+        pointer-events: none;
+    }
+    /* Blocks with porches: tappable. */
+    .map-interactive .block.has-porches {
         cursor: pointer;
     }
-    .map-interactive svg rect[data-has]:hover {
-        fill: color-mix(in srgb, #eb6836 32%, transparent);
-        stroke: #eb6836;
+    .map-interactive .block.has-porches:hover {
+        filter: brightness(1.08) saturate(1.3);
     }
-    .map-interactive svg rect.is-active {
-        fill: color-mix(in srgb, #eb6836 55%, transparent);
-        stroke: #b8431b;
+    /* Selected block: bold red fill + navy outline so it clearly stands out. */
+    .map-interactive .block.is-active {
+        filter: drop-shadow(0 0 2px #20425d) drop-shadow(0 0 1px #20425d);
+    }
+    .map-interactive .block.is-active .cls-1, /* south inner */
+    .map-interactive .block.is-active .cls-10, /* north inner */
+    .map-interactive .block.is-active .cls-east { /* north solid east block */
+        fill: #f93e10;
+    }
+    .map-interactive .block.is-active .cls-7, /* south frame */
+    .map-interactive .block.is-active .cls-11 { /* north frame */
+        fill: #b8431b;
     }
 </style>
 
 <script>
-    const rects = document.querySelectorAll<SVGRectElement>(".map-interactive svg rect[data-has]");
-    let selected: string | null = null;
+    document.querySelectorAll<HTMLElement>(".map-interactive").forEach((root) => {
+        const svg = root.querySelector("svg");
+        if (!svg) return;
+        const withPorches = new Set<string>(JSON.parse(root.dataset.hasPorches || "[]"));
+        const blocks = Array.from(root.querySelectorAll<SVGGElement>("g.block"));
+        blocks.forEach((g) => {
+            if (withPorches.has(g.id)) g.classList.add("has-porches");
+        });
 
-    function select(id: string | null) {
-        selected = id;
-        rects.forEach((r) => r.classList.toggle("is-active", id !== null && r.dataset.block === id));
-        document.dispatchEvent(new CustomEvent("pf:block", { detail: id }));
-    }
+        let selected: string | null = null;
 
-    rects.forEach((rect) =>
-        rect.addEventListener("click", () => {
-            const id = rect.dataset.block ?? null;
-            select(id === selected ? null : id);
-        }),
-    );
+        // Reflect the current selection — fired by map clicks OR table clicks.
+        document.addEventListener("pf:block", (e) => {
+            selected = (e as CustomEvent<string | null>).detail;
+            blocks.forEach((g) =>
+                g.classList.toggle("is-active", selected !== null && g.id === selected),
+            );
+        });
 
-    // Allow the schedule's "Show all" control to clear the map selection.
-    document.addEventListener("pf:clear", () => select(null));
+        svg.addEventListener("click", (e) => {
+            const g = (e.target as Element).closest<SVGGElement>("g.block.has-porches");
+            if (!g) return;
+            // Toggle: clicking the selected block again clears the selection.
+            const id = g.id === selected ? null : g.id;
+            document.dispatchEvent(new CustomEvent("pf:block", { detail: id }));
+        });
+    });
 </script>
