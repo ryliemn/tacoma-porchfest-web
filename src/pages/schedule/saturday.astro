@@ -2,8 +2,14 @@
 import Base from "../../layouts/Base.astro";
 import ScheduleDay from "../../components/ScheduleDay.astro";
 import MapInteractive from "../../components/MapInteractive.astro";
-import porches from "../../data/schedule/saturday.json";
-import otherPorches from "../../data/schedule/sunday.json";
+import { buildDay } from "../../lib/schedule";
+import saturdayPorch from "../../data/schedule/saturday-porch.json";
+import saturdayBand from "../../data/schedule/saturday-band.json";
+import sundayPorch from "../../data/schedule/sunday-porch.json";
+import sundayBand from "../../data/schedule/sunday-band.json";
+
+const porches = buildDay(saturdayPorch, saturdayBand);
+const otherPorches = buildDay(sundayPorch, sundayBand);
 
 // Only highlight blocks that have a porch with something actually scheduled —
 // a porch with no sets isn't shown in the table, so its block shouldn't be tappable.
@@ -22,6 +28,7 @@ const otherArtists = otherPorches
         day="Saturday"
         dateLabel="July 18 · South of 6th Ave"
         porches={porches}
+        columns={{ am: ["12:00", "1:00", "2:00"], pm: ["4:00", "5:00", "6:00"] }}
         otherDay={{ label: "Sunday", href: "/schedule/sunday", artists: otherArtists }}
     >
         <MapInteractive

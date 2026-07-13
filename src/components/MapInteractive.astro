@@ -1,6 +1,6 @@
 ---
 // Interactive festival map: the labeled SVG (public/Map-{North,South}.svg) is
-// inlined so each city block <g id="block-N" class="block"> can be styled and
+// inlined so each city block <g id="N" class="block"> can be styled and
 // tapped directly. Blocks with porches are highlighted + tappable; tapping one
 // dispatches "pf:block" so the schedule table can filter to it.
 // Inline the SVG source at build time (?raw) so we can style/tap its blocks.
@@ -10,7 +10,7 @@ import southSvg from "../../public/Map-South.svg?raw";
 interface Props {
     /** Which map to render. */
     map: "north" | "south";
-    /** Block ids (e.g. "block-7") that have porches — these become tappable. */
+    /** Block ids (e.g. "7") that have porches — these become tappable. */
     highlightBlocks?: string[];
     alt?: string;
 }
@@ -75,6 +75,9 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
 </style>
 
 <script>
+    // DEBUG: overlay each block's id number on the map. Flip to false to hide.
+    const DEBUG_BLOCK_NUMBERS = true;
+
     document.querySelectorAll<HTMLElement>(".map-interactive").forEach((root) => {
         const svg = root.querySelector("svg");
         if (!svg) return;
@@ -83,6 +86,32 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
         blocks.forEach((g) => {
             if (withPorches.has(g.id)) g.classList.add("has-porches");
         });
+
+        // Paint the block id at each block's centre (SVG has no transforms, so a
+        // block's getBBox is already in root user space). Appended to the root so
+        // the labels sit on top at full opacity, untouched by block dimming.
+        if (DEBUG_BLOCK_NUMBERS) {
+            const NS = "http://www.w3.org/2000/svg";
+            for (const g of blocks) {
+                const b = g.getBBox();
+                if (!b.width || !b.height) continue;
+                const fs = Math.max(5, Math.min(b.width * 0.35, b.height * 0.5));
+                const t = document.createElementNS(NS, "text");
+                t.textContent = g.id;
+                t.setAttribute("x", String(b.x + b.width / 2));
+                t.setAttribute("y", String(b.y + b.height / 2));
+                t.setAttribute("text-anchor", "middle");
+                t.setAttribute("dominant-baseline", "central");
+                t.setAttribute("font-size", String(fs));
+                t.setAttribute("font-weight", "700");
+                t.setAttribute("fill", "#0b1f3a");
+                t.setAttribute("stroke", "#fff");
+                t.setAttribute("stroke-width", String(fs * 0.14));
+                t.setAttribute("paint-order", "stroke");
+                t.setAttribute("pointer-events", "none");
+                svg.appendChild(t);
+            }
+        }
 
         let selected: string | null = null;
 

@@ -22,6 +22,12 @@ interface Props {
     /** Sub-heading, e.g. "July 18 · South of 6th Ave" */
     dateLabel: string;
     porches: Porch[];
+    /**
+     * Hour columns for the morning (before 3:00) and afternoon (3:00 on) tables.
+     * Saturday omits a 3:00 column (parade hour) with pm ["4:00","5:00","6:00"];
+     * Sunday has no parade with pm ["3:00","4:00","5:00"]. Defaults to Saturday.
+     */
+    columns?: { am: string[]; pm: string[] };
     /** Optional day map shown above the schedule. */
     mapSrc?: string;
     mapAlt?: string;
@@ -33,10 +39,17 @@ interface Props {
     };
 }
 
-const { day, dateLabel, porches, mapSrc, mapAlt, otherDay } = Astro.props;
+const { day, dateLabel, porches, columns, mapSrc, mapAlt, otherDay } = Astro.props;
 
 // Only show porches that actually have something scheduled.
 const withSets = porches.filter((p) => p.sets.length > 0);
+
+// Deep-link each porch to Google Maps (opens the Maps app if installed, else the
+// browser). The city is appended so bare street addresses resolve to Tacoma.
+const mapsHref = (p: Porch) =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        `${p.address ?? p.venue ?? ""}, Tacoma, WA`,
+    )}`;
 
 // Unique artist name -> the block their porch is on (for search-to-highlight).
 const artistPills: { name: string; block: string }[] = [];
@@ -52,57 +65,90 @@ for (const p of withSets) {
 }
 const otherArtists = otherDay?.artists ?? [];
 
-// The day splits into two sessions that also map to two halves of the map:
-// 12–3 happens on the east side, 4–6 on the west. Each becomes a table "page".
-// Half-hour slots decide which session a porch belongs to; the table itself uses
-// hour-wide columns, annotating any act that starts on the half hour.
-const AM_HALF = ["12:00", "12:30", "1:00", "1:30", "2:00", "2:30"];
-const PM_HALF = ["4:00", "4:30", "5:00", "5:30", "6:00", "6:30"];
-const AM_HOURS = ["12:00", "1:00", "2:00"];
-const PM_HOURS = ["4:00", "5:00", "6:00"];
-const ALL_SLOTS = [...AM_HALF, "3:00", "3:30", ...PM_HALF, "7:00"];
+// The day splits into two tables at 3:00: a porch is in the morning table if it
+// has a set starting before 3:00, in the afternoon table if it has one at/after
+// 3:00. Each table renders its own hour-wide columns (passed per day). An act
+// that doesn't start exactly on its column's hour is labeled with its real time;
+// a continuous act spans multiple columns via colspan.
+//
+// Saturday's afternoon columns start at 4:00 (no 3:00 column — the parade hour),
+// so 3:00/3:30 acts fold into the 4:00 column as time-labeled entries; a morning
+// act that runs past 3:00 shows its full range so the spill reads. Sunday has no
+// parade, so its afternoon columns start at 3:00.
+const ALL_SLOTS = [
+    "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30",
+    "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00",
+];
 const slotIdx = (t: string) => ALL_SLOTS.indexOf(t);
-const onHalfHour = (t: string) => t.endsWith(":30");
+const SPLIT = slotIdx("3:00"); // afternoon table owns sets starting here on
 
-type Cell = { sets: Set[]; span: number };
-// Lay a porch's sets into hour-wide columns. Each column holds whatever starts
-// within that hour; a continuous act spans multiple columns via colspan.
-function rowCells(porch: Porch, cols: string[]): Cell[] {
+type Entry = { name: string; note: string | null; tentative?: boolean };
+type Cell = { entries: Entry[]; span: number };
+
+// Label a set unless it exactly fills its column (starts on the column's hour and
+// runs no longer than an hour). A set that runs past its column shows a start–end
+// range so its duration reads even when it isn't drawn as a spanning bar.
+function noteFor(s: Set, colLabel: string): string | null {
+    const runsLong = !!s.endTime && slotIdx(s.endTime) > slotIdx(colLabel) + 2;
+    if (runsLong) return s.endTime ? `${s.time}–${s.endTime}` : s.time;
+    return s.time === colLabel ? null : s.time;
+}
+
+// Lay a porch's sets into hour-wide columns by start time. The first column of a
+// table catches everything from `fromIdx` (so the afternoon's first column can
+// pick up pre-column parade-hour acts). A lone long act spans later columns via
+// colspan, but ONLY when nothing else occupies the columns it would cover — so a
+// dense or back-to-back schedule never drops an act.
+function rowCells(porch: Porch, cols: string[], fromIdx: number): Cell[] {
+    const toEntry = (s: Set, colLabel: string): Entry => ({
+        name: s.name,
+        note: noteFor(s, colLabel),
+        tentative: s.tentative,
+    });
     const cells: Cell[] = [];
     for (let i = 0; i < cols.length;) {
         const colStart = slotIdx(cols[i]);
+        const lower = i === 0 ? fromIdx : colStart; // first col catches earlier starts
         const colEnd = colStart + 2; // each hour column covers two half-hour slots
         const here = porch.sets.filter((s) => {
             const t = slotIdx(s.time);
-            return t >= colStart && t < colEnd;
+            return t >= lower && t < colEnd;
         });
-        const span = here.find((s) => s.endTime && slotIdx(s.endTime) > colEnd);
-        if (span) {
-            let cspan = 0;
-            const end = slotIdx(span.endTime!);
+        const long = here.length === 1 && here[0].endTime && slotIdx(here[0].endTime!) > colEnd
+            ? here[0]
+            : null;
+        if (long) {
+            let cspan = 1;
+            const end = slotIdx(long.endTime!);
             while (i + cspan < cols.length && slotIdx(cols[i + cspan]) < end) cspan++;
-            cells.push({ sets: [span], span: Math.max(cspan, 1) });
-            i += Math.max(cspan, 1);
-        } else {
-            cells.push({ sets: here, span: 1 });
-            i++;
+            const covered = i + cspan < cols.length ? slotIdx(cols[i + cspan]) : Infinity;
+            const collision = porch.sets.some(
+                (s) => s !== long && slotIdx(s.time) >= lower && slotIdx(s.time) < covered,
+            );
+            if (!collision) {
+                cells.push({ entries: [toEntry(long, cols[i])], span: cspan });
+                i += cspan;
+                continue;
+            }
         }
+        cells.push({ entries: here.map((s) => toEntry(s, cols[i])), span: 1 });
+        i++;
     }
     return cells;
 }
 
+const amCols = columns?.am ?? ["12:00", "1:00", "2:00"];
+const pmCols = columns?.pm ?? ["4:00", "5:00", "6:00"];
 const pages = [
     {
-        title: "12–3 PM",
-        side: "East side",
-        cols: AM_HOURS,
-        porches: withSets.filter((p) => p.sets.some((s) => AM_HALF.includes(s.time))),
+        cols: amCols,
+        from: slotIdx(amCols[0]),
+        porches: withSets.filter((p) => p.sets.some((s) => slotIdx(s.time) < SPLIT)),
     },
     {
-        title: "4–6 PM",
-        side: "West side",
-        cols: PM_HOURS,
-        porches: withSets.filter((p) => p.sets.some((s) => PM_HALF.includes(s.time))),
+        cols: pmCols,
+        from: SPLIT,
+        porches: withSets.filter((p) => p.sets.some((s) => slotIdx(s.time) >= SPLIT)),
     },
 ];
 ---
@@ -216,24 +262,55 @@ const pages = [
                                                     scope="row"
                                                     class="p-1.5 text-left align-top font-heading text-sm leading-tight text-pf-brown uppercase md:text-lg"
                                                 >
-                                                    {porch.address ?? porch.venue}
+                                                    <div class="flex items-start gap-1">
+                                                        <span class="min-w-0 flex-1">
+                                                            {porch.venue ? (
+                                                                <>
+                                                                    {porch.venue}
+                                                                    <span class="mt-0.5 block font-sans text-[10px] font-normal normal-case tracking-normal text-pf-brown/55 md:text-xs">
+                                                                        {porch.address}
+                                                                    </span>
+                                                                </>
+                                                            ) : (
+                                                                porch.address ?? porch.venue
+                                                            )}
+                                                        </span>
+                                                        <a
+                                                            href={mapsHref(porch)}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            title="Open in Google Maps"
+                                                            aria-label={`Open ${porch.venue ?? porch.address ?? "porch"} in Google Maps`}
+                                                            class="-m-1 shrink-0 p-1 text-pf-red/70 transition-colors hover:text-pf-red"
+                                                        >
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                                fill="currentColor"
+                                                                aria-hidden="true"
+                                                                class="h-4 w-4 md:h-5 md:w-5"
+                                                            >
+                                                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                                            </svg>
+                                                        </a>
+                                                    </div>
                                                 </th>
-                                                {rowCells(porch, page.cols).map((cell) =>
-                                                    cell.sets.length ? (
+                                                {rowCells(porch, page.cols, page.from).map((cell) =>
+                                                    cell.entries.length ? (
                                                         <td
                                                             colspan={cell.span}
                                                             class="space-y-1 border-l border-pf-red/15 p-1.5 align-top text-[11px] leading-tight md:text-sm"
                                                         >
-                                                            {cell.sets.map((s) => (
+                                                            {cell.entries.map((e) => (
                                                                 <div>
-                                                                    {s.name}
-                                                                    {onHalfHour(s.time) && (
+                                                                    {e.name}
+                                                                    {e.note && (
                                                                         <span class="whitespace-nowrap text-pf-brown/60">
                                                                             {" "}
-                                                                            ({s.time})
+                                                                            ({e.note})
                                                                         </span>
                                                                     )}
-                                                                    {s.tentative && (
+                                                                    {e.tentative && (
                                                                         <span class="text-pf-brown/50 italic">
                                                                             {" "}
                                                                             (tbd)
@@ -311,8 +388,10 @@ const pages = [
         );
 
         // Clicking a porch row selects its block (highlights the map + filters).
+        // Clicks on the porch's Maps link are left alone so it opens directions.
         rows.forEach((row) => {
-            row.addEventListener("click", () => {
+            row.addEventListener("click", (e) => {
+                if ((e.target as Element).closest("a")) return;
                 const id = row.dataset.block || null;
                 if (id) document.dispatchEvent(new CustomEvent("pf:block", { detail: id }));
             });
@@ -401,7 +480,7 @@ const pages = [
             input.addEventListener("input", () => render(input.value.trim()));
         }
 
-        // Cross-day deep link: /schedule/<day>?block=block-N selects it on load.
+        // Cross-day deep link: /schedule/<day>?block=N selects it on load.
         const deep = new URLSearchParams(location.search).get("block");
         if (deep) {
             window.addEventListener("load", () =>
