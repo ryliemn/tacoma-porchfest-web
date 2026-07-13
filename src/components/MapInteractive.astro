@@ -76,7 +76,7 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
 
 <script>
     // DEBUG: overlay each block's id number on the map. Flip to false to hide.
-    const DEBUG_BLOCK_NUMBERS = true;
+    const DEBUG_BLOCK_NUMBERS = false;
 
     document.querySelectorAll<HTMLElement>(".map-interactive").forEach((root) => {
         const svg = root.querySelector("svg");
