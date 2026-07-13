@@ -14,6 +14,8 @@
         "prepare": "husky"
     },
     "dependencies": {
+        "@fontsource-variable/libre-franklin": "^5.2.8",
+        "@fontsource/londrina-solid": "^5.2.7",
         "@tailwindcss/vite": "^4.2.1",
         "astro": "^5.17.1",
         "tailwindcss": "^4.2.1"
