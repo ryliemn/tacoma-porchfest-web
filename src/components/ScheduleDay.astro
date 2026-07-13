@@ -401,7 +401,7 @@ const pages = [
             document.dispatchEvent(new CustomEvent("pf:block", { detail: null })),
         );
 
-        // --- artist search -------------------------------------------------
+        // === artist search ===================================================
         type Artist = { name: string; block: string | null };
         const searchEl = document.querySelector<HTMLElement>("[data-search]");
         const input = searchEl?.querySelector<HTMLInputElement>("[data-artist-search]");
