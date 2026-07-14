@@ -1621,11 +1621,11 @@
     },
     {
         "name": "Atribe4peace",
-        "porch": "1113 N Anderson St",
+        "porch": "1025 N Anderson St",
         "slots": [
             {
-                "startTime": "4:00",
-                "endTime": "4:30"
+                "startTime": "3:00",
+                "endTime": "4:00"
             }
         ]
     },

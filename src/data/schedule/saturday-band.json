@@ -200,16 +200,6 @@
         ]
     },
     {
-        "name": "Girl Parallel",
-        "porch": "S 11th St @ S Ferry St",
-        "slots": [
-            {
-                "startTime": "5:00",
-                "endTime": "6:00"
-            }
-        ]
-    },
-    {
         "name": "Giant Octopus",
         "porch": "S 11th St @ S Ferry St",
         "slots": [
@@ -1554,8 +1544,8 @@
         "porch": "616 S Anderson St",
         "slots": [
             {
-                "startTime": "4:00",
-                "endTime": "4:30"
+                "startTime": "5:00",
+                "endTime": "5:30"
             }
         ]
     },
@@ -1564,8 +1554,8 @@
         "porch": "616 S Anderson St",
         "slots": [
             {
-                "startTime": "4:30",
-                "endTime": "5:30"
+                "startTime": "4:00",
+                "endTime": "5:00"
             }
         ]
     },
