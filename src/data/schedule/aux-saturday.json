@@ -1,27 +1,17 @@
 {
     "food": [
         {
-            "name": "Dough Daddy Sourdough",
-            "block": 5,
-            "location": "TAPCO Parking Lot @ 6th and Pine"
-        },
-        {
-            "name": "Stacks Burgers",
-            "block": 5,
-            "location": "TAPCO Parking Lot @ 6th and Pine"
-        },
-        {
-            "name": "Zantrel Franklin Jerk Chicken",
-            "block": 5,
-            "location": "TAPCO Parking Lot @ 6th and Pine"
-        },
-        {
-            "name": "Stacks Burgers",
+            "name": "Turger Burger",
             "block": 13,
             "location": "The Spire @ S 7th and Anderson"
         },
         {
             "name": "Rebel Coffee",
+            "block": 13,
+            "location": "The Spire @ S 7th and Anderson"
+        },
+        {
+            "name": "Crewdish",
             "block": 13,
             "location": "The Spire @ S 7th and Anderson"
         },
@@ -59,6 +49,11 @@
             "name": "Kona Ice of Tacoma",
             "block": 29,
             "location": "Fife St between S 8th and S 11th"
+        },
+        {
+            "name": "Stacks Burgers",
+            "block": 45,
+            "location": "11th Street Party @ S 11th and Ferry St"
         },
         {
             "name": "Raspados La Rana",
