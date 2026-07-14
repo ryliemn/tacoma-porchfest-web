@@ -2120,22 +2120,12 @@
         ]
     },
     {
-        "name": "Will FM",
-        "porch": "641 N Pine St",
-        "slots": [
-            {
-                "startTime": "3:00",
-                "endTime": "4:00"
-            }
-        ]
-    },
-    {
         "name": "The Honey Bee Breakfast",
-        "porch": "641 N Pine St",
+        "porch": "3018 N 7th St",
         "slots": [
             {
-                "startTime": "4:00",
-                "endTime": "5:00"
+                "startTime": "5:00",
+                "endTime": "6:00"
             }
         ]
     },
@@ -2144,7 +2134,7 @@
         "porch": "641 N Pine St",
         "slots": [
             {
-                "startTime": "5:00",
+                "startTime": "3:00",
                 "endTime": "6:00"
             }
         ]
