@@ -36,6 +36,17 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
         width: 100%;
         height: auto;
     }
+    /* On desktop the map scales up to its full width, which makes it taller than
+       it needs to be. Cap the height and let the width shrink to match, keeping
+       the SVG centered. */
+    @media (min-width: 768px) {
+        .map-interactive svg {
+            width: auto;
+            max-width: 100%;
+            max-height: 340px;
+            margin-inline: auto;
+        }
+    }
     .map-interactive .block {
         transition:
             filter 0.12s ease,
