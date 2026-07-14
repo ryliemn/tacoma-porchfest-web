@@ -38,6 +38,8 @@ interface Props {
         label: string;
         href: string;
         artists: { name: string; block: string | null }[];
+        /** The other day is the one with the parade — search links to it. */
+        hasParade?: boolean;
     };
     /**
      * Auxiliary festival amenities (food, restrooms, info/merch, water, screen
@@ -321,6 +323,7 @@ const pages = [
                     data-other={JSON.stringify(otherArtists)}
                     data-other-label={otherDay?.label ?? ""}
                     data-other-href={otherDay?.href ?? ""}
+                    data-other-parade={otherDay?.hasParade ? "1" : undefined}
                 >
                     <input
                         type="search"
@@ -822,6 +825,7 @@ const pages = [
             const there: Artist[] = JSON.parse(searchEl.dataset.other || "[]");
             const otherLabel = searchEl.dataset.otherLabel || "";
             const otherHref = searchEl.dataset.otherHref || "";
+            const otherHasParade = searchEl.dataset.otherParade === "1";
 
             const dedupe = (list: Artist[]) => {
                 const seen = new Set<string>();
@@ -847,6 +851,27 @@ const pages = [
                     0,
                     4,
                 );
+                // The parade isn't an artist, but people search for it by name. On the
+                // day that has one, offer it as a hit that toggles the same filter as
+                // the parade icon; on the other day it joins the cross-day group below,
+                // since there's no route on this day's map to highlight.
+                const paradeMatch = "parade".includes(ql);
+                const paradeHere = paradeMatch && !!paradeBtn;
+                const paradeThere = paradeMatch && !paradeBtn && otherHasParade;
+
+                if (paradeHere) {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className =
+                        "cursor-pointer rounded-full bg-pf-brown px-3 py-1.5 font-heading text-sm text-pf-cream uppercase transition-opacity hover:opacity-80";
+                    b.textContent = "Parade";
+                    b.addEventListener("click", () => {
+                        input!.value = "";
+                        render("");
+                        dispatch({ type: "parade" });
+                    });
+                    results!.appendChild(b);
+                }
 
                 for (const a of hits) {
                     const b = document.createElement("button");
@@ -862,7 +887,7 @@ const pages = [
                     results!.appendChild(b);
                 }
 
-                if (others.length) {
+                if (others.length || paradeThere) {
                     const label = document.createElement("span");
                     label.className = "w-full pt-1 font-heading text-pf-brown/60 text-xs uppercase";
                     label.textContent = `Playing ${otherLabel}`;
@@ -877,9 +902,17 @@ const pages = [
                         link.textContent = `${a.name} ↗`;
                         results!.appendChild(link);
                     }
+                    if (paradeThere) {
+                        const link = document.createElement("a");
+                        link.className =
+                            "rounded-full border-2 border-pf-brown/50 px-3 py-1.5 font-heading text-sm text-pf-brown uppercase no-underline transition-colors hover:bg-pf-brown/10";
+                        link.href = `${otherHref}?aux=parade`;
+                        link.textContent = "Parade ↗";
+                        results!.appendChild(link);
+                    }
                 }
 
-                if (!hits.length && !others.length) {
+                if (!paradeHere && !paradeThere && !hits.length && !others.length) {
                     const none = document.createElement("span");
                     none.className = "font-heading text-pf-brown/50 text-sm uppercase";
                     none.textContent = "No artists found";
