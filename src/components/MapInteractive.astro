@@ -1,0 +1,191 @@
+---
+// Interactive festival map: the labeled SVG (public/Map-{North,South}.svg) is
+// inlined so each city block <g id="N" class="block"> can be styled and
+// tapped directly. Blocks with porches are highlighted + tappable; tapping one
+// dispatches "pf:block" so the schedule table can filter to it.
+// Inline the SVG source at build time (?raw) so we can style/tap its blocks.
+import northSvg from "../../public/Map-North.svg?raw";
+import southSvg from "../../public/Map-South.svg?raw";
+
+interface Props {
+    /** Which map to render. */
+    map: "north" | "south";
+    /** Block ids (e.g. "7") that are points of interest — a porch or an amenity.
+     *  These are highlighted (not dimmed) and become tappable. */
+    highlightBlocks?: string[];
+    alt?: string;
+}
+const { map, highlightBlocks = [], alt = "Festival map" } = Astro.props;
+
+// Drop the XML prolog so the SVG embeds cleanly inside the HTML document.
+const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, "").trim();
+---
+
+<div
+    class="map-interactive relative mx-auto block w-full md:max-w-4xl"
+    role="img"
+    aria-label={alt}
+    data-has-porches={JSON.stringify(highlightBlocks)}
+>
+    <Fragment set:html={svg} />
+</div>
+
+<style is:global>
+    .map-interactive svg {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .map-interactive .block {
+        transition:
+            filter 0.12s ease,
+            opacity 0.15s ease;
+    }
+    /* Amenity (or parade) filter active: fade every block that isn't part of the
+       highlighted set, so the highlighted blocks — or the parade route — pop. */
+    .map-interactive.is-amenity-filtered .block:not(.is-active) {
+        opacity: 0.25;
+    }
+    /* Blocks without porches: dimmed and inert. Uses a muted fill + opacity
+       rather than a CSS filter, because mobile Safari drops CSS filters on
+       inline SVG groups (which made the dimming vanish on phones). */
+    .map-interactive .block:not(.has-porches) {
+        opacity: 0.55;
+        pointer-events: none;
+    }
+    .map-interactive .block:not(.has-porches) .cls-1,
+    .map-interactive .block:not(.has-porches) .cls-7,
+    .map-interactive .block:not(.has-porches) .cls-10,
+    .map-interactive .block:not(.has-porches) .cls-11,
+    .map-interactive .block:not(.has-porches) .cls-east {
+        fill: #9b968a;
+    }
+    /* Blocks with porches: tappable. */
+    .map-interactive .block.has-porches {
+        cursor: pointer;
+    }
+    .map-interactive .block.has-porches:hover {
+        filter: brightness(1.08) saturate(1.3);
+    }
+    /* Selected block: bold red fill + navy outline so it clearly stands out.
+       Aux filters (food/restroom/…) highlight several blocks at once with the
+       same treatment — visually a block is either selected or it isn't. */
+    .map-interactive .block.is-active {
+        filter: drop-shadow(0 0 2px #20425d) drop-shadow(0 0 1px #20425d);
+    }
+    .map-interactive .block.is-active .cls-1, /* south inner */
+    .map-interactive .block.is-active .cls-10, /* north inner */
+    .map-interactive .block.is-active .cls-east {
+        /* north solid east block */
+        fill: #f93e10;
+    }
+    .map-interactive .block.is-active .cls-7, /* south frame */
+    .map-interactive .block.is-active .cls-11 {
+        /* north frame */
+        fill: #b8431b;
+    }
+
+    /* Parade route: always faintly visible in the SVG; tapping the parade
+       filter brightens and thickens it so the path clearly reads. */
+    .map-interactive #parade-route {
+        transition:
+            stroke-opacity 0.15s ease,
+            stroke-width 0.15s ease;
+    }
+    .map-interactive #parade-route.is-active {
+        stroke-opacity: 1;
+        stroke-width: 11;
+        filter: drop-shadow(0 0 3px rgba(225, 29, 42, 0.5));
+    }
+    /* A non-parade amenity filter is active: fade the route along with the
+       blocks so only the highlighted amenity stands out. */
+    .map-interactive.is-amenity-filtered #parade-route:not(.is-active) {
+        stroke-opacity: 0.12;
+    }
+</style>
+
+<script>
+    // DEBUG: overlay each block's id number on the map. Flip to false to hide.
+    const DEBUG_BLOCK_NUMBERS = false;
+
+    document.querySelectorAll<HTMLElement>(".map-interactive").forEach((root) => {
+        const svg = root.querySelector("svg");
+        if (!svg) return;
+        const withPorches = new Set<string>(JSON.parse(root.dataset.hasPorches || "[]"));
+        const blocks = Array.from(root.querySelectorAll<SVGGElement>("g.block"));
+        blocks.forEach((g) => {
+            if (withPorches.has(g.id)) g.classList.add("has-porches");
+        });
+
+        // Paint the block id at each block's centre (SVG has no transforms, so a
+        // block's getBBox is already in root user space). Appended to the root so
+        // the labels sit on top at full opacity, untouched by block dimming.
+        if (DEBUG_BLOCK_NUMBERS) {
+            const NS = "http://www.w3.org/2000/svg";
+            for (const g of blocks) {
+                const b = g.getBBox();
+                if (!b.width || !b.height) continue;
+                const fs = Math.max(5, Math.min(b.width * 0.35, b.height * 0.5));
+                const t = document.createElementNS(NS, "text");
+                t.textContent = g.id;
+                t.setAttribute("x", String(b.x + b.width / 2));
+                t.setAttribute("y", String(b.y + b.height / 2));
+                t.setAttribute("text-anchor", "middle");
+                t.setAttribute("dominant-baseline", "central");
+                t.setAttribute("font-size", String(fs));
+                t.setAttribute("font-weight", "700");
+                t.setAttribute("fill", "#0b1f3a");
+                t.setAttribute("stroke", "#fff");
+                t.setAttribute("stroke-width", String(fs * 0.14));
+                t.setAttribute("paint-order", "stroke");
+                t.setAttribute("pointer-events", "none");
+                svg.appendChild(t);
+            }
+        }
+
+        // A single active filter drives the whole map: either one block, a set
+        // of blocks (an aux category like food/restrooms), or the parade route.
+        // Only one can be active at a time — selecting any clears the others.
+        type PfFilter =
+            | null
+            | { type: "block"; block: string }
+            | { type: "aux"; category: string; blocks: string[] }
+            | { type: "parade" };
+
+        const paradeRoute = svg.querySelector<SVGElement>("#parade-route");
+        let selectedBlock: string | null = null; // for click-to-toggle on the map
+
+        // Reflect the current filter — fired by map clicks, table clicks, the
+        // aux icon bar, artist search, and deep links.
+        document.addEventListener("pf:filter", (e) => {
+            const f = (e as CustomEvent<PfFilter>).detail;
+            blocks.forEach((g) => g.classList.remove("is-active"));
+            paradeRoute?.classList.remove("is-active");
+            // Fade the rest of the map only for amenity/parade filters, not a
+            // single-block selection (there the table already narrows the focus).
+            root.classList.toggle(
+                "is-amenity-filtered",
+                f?.type === "aux" || f?.type === "parade",
+            );
+            selectedBlock = null;
+            if (!f) return;
+            if (f.type === "block") {
+                selectedBlock = f.block;
+                blocks.forEach((g) => g.classList.toggle("is-active", g.id === f.block));
+            } else if (f.type === "aux") {
+                const set = new Set(f.blocks);
+                blocks.forEach((g) => g.classList.toggle("is-active", set.has(g.id)));
+            } else if (f.type === "parade") {
+                paradeRoute?.classList.add("is-active");
+            }
+        });
+
+        svg.addEventListener("click", (e) => {
+            const g = (e.target as Element).closest<SVGGElement>("g.block.has-porches");
+            if (!g) return;
+            // Toggle: clicking the selected block again clears the selection.
+            const next = g.id === selectedBlock ? null : { type: "block" as const, block: g.id };
+            document.dispatchEvent(new CustomEvent("pf:filter", { detail: next }));
+        });
+    });
+</script>

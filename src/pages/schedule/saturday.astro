@@ -1,0 +1,57 @@
+---
+import Base from "../../layouts/Base.astro";
+import ScheduleDay from "../../components/ScheduleDay.astro";
+import MapInteractive from "../../components/MapInteractive.astro";
+import { buildDay } from "../../lib/schedule";
+import saturdayPorch from "../../data/schedule/saturday-porch.json";
+import saturdayBand from "../../data/schedule/saturday-band.json";
+import sundayPorch from "../../data/schedule/sunday-porch.json";
+import sundayBand from "../../data/schedule/sunday-band.json";
+import saturdayAux from "../../data/schedule/aux-saturday.json";
+
+const porches = buildDay(saturdayPorch, saturdayBand);
+const otherPorches = buildDay(sundayPorch, sundayBand);
+
+// Only highlight blocks that have a porch with something actually scheduled —
+// a porch with no sets isn't shown in the table, so its block shouldn't be tappable.
+const blocksWithPorches = [
+    ...new Set(porches.filter((p) => p.sets.length > 0).map((p) => p.block).filter(Boolean)),
+] as string[];
+
+// Blocks that host an amenity (food, restrooms, …) are tappable too, even with no
+// bands — tapping one shows what amenities are there.
+const blocksWithAmenities = [
+    ...new Set(
+        Object.values(saturdayAux)
+            .flat()
+            .map((a) => a.block)
+            .filter((b) => b != null)
+            .map(String),
+    ),
+];
+const tappableBlocks = [...new Set([...blocksWithPorches, ...blocksWithAmenities])];
+
+// Artist index for the other day (Sunday), for cross-day search.
+const otherArtists = otherPorches
+    .filter((p) => p.sets.length > 0)
+    .flatMap((p) => p.sets.map((s) => ({ name: s.name, block: p.block })));
+---
+
+<Base title="Schedule: Saturday - Tacoma Porchfest">
+    <ScheduleDay
+        day="Saturday"
+        dateLabel="July 18 · South of 6th Ave"
+        porches={porches}
+        columns={{ am: ["12:00", "1:00", "2:00"], pm: ["4:00", "5:00", "6:00"] }}
+        otherDay={{ label: "Sunday", href: "/schedule/sunday", artists: otherArtists }}
+        aux={saturdayAux}
+        hasParade={true}
+    >
+        <MapInteractive
+            slot="map"
+            map="south"
+            alt="Tacoma Porchfest Saturday map — the festival area south of 6th Ave"
+            highlightBlocks={tappableBlocks}
+        />
+    </ScheduleDay>
+</Base>

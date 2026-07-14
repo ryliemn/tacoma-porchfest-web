@@ -1,0 +1,2222 @@
+[
+    {
+        "name": "Grit City Cypher",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "A.G Joints",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "WordPlay T. Jay",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "J-One Blue Beast Ent",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "donhavi",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "Yungstf & Vealinium",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Avolan",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Bizzy Beaver",
+        "porch": "2705 6th Ave",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "GRRRizzly",
+        "porch": "2705 6th Ave",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Black Smoker",
+        "porch": "2705 6th Ave",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Abby Roadkill",
+        "porch": "2705 6th Ave",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "The Fun Police",
+        "porch": "2705 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Steel Rain Small Ensemble",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "No Monaco",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Cellophane Eyes",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Jovon Miller",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Royale Princess Wishes Character Parties",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Kevin Shintaku (solo harp set)",
+        "porch": "1119 N Fife St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Fibonacci's Revenge",
+        "porch": "1119 N Fife St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Unassuming Beekeepers",
+        "porch": "1119 N Fife St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Cosmo's Dream",
+        "porch": "1119 N Fife St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "SHED x SOUND SANCTUARY DJ DAY PARTY",
+        "porch": "636 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "FED BY RAVENS",
+        "porch": "2207 6th Ave",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Crack'd Black",
+        "porch": "2207 6th Ave",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Ground Loops",
+        "porch": "2406 N 12th St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Last Night's Munchies",
+        "porch": "2406 N 12th St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "free mechanics",
+        "porch": "2406 N 12th St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "D.Dilley Band",
+        "porch": "2516 N 12th St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Dead Pets",
+        "porch": "2516 N 12th St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Snowball's Chance",
+        "porch": "2516 N 12th St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Bibi Bordeaux",
+        "porch": "2510 N 8th St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "The Onward Ensemble",
+        "porch": "2517 N 8th St Apt B",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Maureen Parker and Friends",
+        "porch": "2517 N 8th St Apt B",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "burial cake",
+        "porch": "2517 N 8th St Apt B",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "The Smelters",
+        "porch": "1123 N Fife St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "12:30"
+            }
+        ]
+    },
+    {
+        "name": "Görst",
+        "porch": "1123 N Fife St",
+        "slots": [
+            {
+                "startTime": "12:30",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "College Radio",
+        "porch": "1123 N Fife St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Trash Panda Go Kart",
+        "porch": "609 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "WindpantS",
+        "porch": "609 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Dear Paula",
+        "porch": "609 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Beatbox Panda",
+        "porch": "801 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "battlestations!",
+        "porch": "801 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Chrissy",
+        "porch": "822 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "12:30"
+            }
+        ]
+    },
+    {
+        "name": "Shoecraft",
+        "porch": "822 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:30",
+                "endTime": "1:30"
+            }
+        ]
+    },
+    {
+        "name": "The Playgrounders",
+        "porch": "822 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:30",
+                "endTime": "2:30"
+            }
+        ]
+    },
+    {
+        "name": "Lukewarm Fusion",
+        "porch": "822 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:30",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "TaytorsPrecious",
+        "porch": "828 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Barditch",
+        "porch": "828 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "The Madisons",
+        "porch": "828 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Umbrafly",
+        "porch": "1007 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Falcon Slim",
+        "porch": "1007 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Michelle Martinez",
+        "porch": "1007 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Pent Up!",
+        "porch": "1019 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Worry Surfer",
+        "porch": "1019 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Generifus",
+        "porch": "1019 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Beecreeping",
+        "porch": "1121 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Midnight Movie",
+        "porch": "1121 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Only Tree",
+        "porch": "1128 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:30",
+                "endTime": "2:30"
+            }
+        ]
+    },
+    {
+        "name": "Emo Sing-A-Long",
+        "porch": "1131 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "12:30"
+            }
+        ]
+    },
+    {
+        "name": "Hard Softee",
+        "porch": "1131 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "1:30"
+            }
+        ]
+    },
+    {
+        "name": "The Finger Guns",
+        "porch": "1131 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Brittany Crystal",
+        "porch": "1202 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "12:30"
+            }
+        ]
+    },
+    {
+        "name": "Puget Sound Music",
+        "porch": "1202 N Prospect St",
+        "slots": [
+            {
+                "startTime": "12:30",
+                "endTime": "1:30"
+            }
+        ]
+    },
+    {
+        "name": "Black Mountain Music",
+        "porch": "1202 N Prospect St",
+        "slots": [
+            {
+                "startTime": "1:30",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Elwood Rockitt",
+        "porch": "1202 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Edboy",
+        "porch": "636 N State St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "12:30"
+            }
+        ]
+    },
+    {
+        "name": "The Habits of Water",
+        "porch": "636 N State St",
+        "slots": [
+            {
+                "startTime": "12:30",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Mike Votava",
+        "porch": "636 N State St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Cool Nerd Mark",
+        "porch": "636 N State St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Kristen Marlo",
+        "porch": "610 N Steele St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "12:30"
+            }
+        ]
+    },
+    {
+        "name": "Shaun Crawford & The Reasons",
+        "porch": "610 N Steele St",
+        "slots": [
+            {
+                "startTime": "12:30",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Full Ripley",
+        "porch": "610 N Steele St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Anchora",
+        "porch": "610 N Steele St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Noo Makes Music",
+        "porch": "623 N Steele St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "The Cosmic Neighborhood",
+        "porch": "623 N Steele St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Chris Wesley",
+        "porch": "623 N Steele St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Joe Izenman",
+        "porch": "1004 N Steele St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "Mark Robuck",
+        "porch": "1004 N Steele St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "rein.likely",
+        "porch": "1004 N Steele St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Chandler James (Melodic House/Techno/Progressive)",
+        "porch": "1104 N Steele St",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
+        "name": "DJ Ian",
+        "porch": "1104 N Steele St",
+        "slots": [
+            {
+                "startTime": "1:00",
+                "endTime": "2:00"
+            }
+        ]
+    },
+    {
+        "name": "Harmacist (Trance)",
+        "porch": "1104 N Steele St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
+        "name": "Bobby Soxxer",
+        "porch": "2717 6th Ave",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Gator Duke",
+        "porch": "2717 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "The Kimball Superstars",
+        "porch": "2717 6th Ave",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "David Brown & Frank Gold (6PM)",
+        "porch": "2717 6th Ave",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Shaun Crawford",
+        "porch": "2803 6th Ave",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Brittany Danielle (3:50)",
+        "porch": "2803 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "Alynn Naylor (4:25)",
+        "porch": "2803 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Karen Miller (5:15)",
+        "porch": "2803 6th Ave",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "the dead end",
+        "porch": "2805 6th Ave",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Koa Koala",
+        "porch": "2805 6th Ave",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Alexander E.P.",
+        "porch": "2805 6th Ave",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Kevin Cummings",
+        "porch": "3001 6th Ave Unit B",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Shifting Moon",
+        "porch": "3001 6th Ave Unit B",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "Golden Dance",
+        "porch": "3001 6th Ave Unit B",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "GUILDED LILLY",
+        "porch": "3001 6th Ave Unit B",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "The Honeyjacks",
+        "porch": "3015 N 11th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Housefinch",
+        "porch": "3015 N 11th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Hwy 16",
+        "porch": "3015 N 11th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Campfire Jelly",
+        "porch": "3012 N 12th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "The Puzzle Pieces",
+        "porch": "3012 N 12th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Zikomo",
+        "porch": "3012 N 12th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Stephcynie",
+        "porch": "3116 N 12th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "The Elephant Room",
+        "porch": "3116 N 12th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Apollo",
+        "porch": "3116 N 12th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Kacey Evans Band",
+        "porch": "3018 N 7th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Raegan Leilani",
+        "porch": "3018 N 7th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "The Traveling Bards",
+        "porch": "2612 N 8th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "The Winter Mead",
+        "porch": "2612 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "The Empty North",
+        "porch": "2612 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Foster Bunny",
+        "porch": "2705 N 8th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Tony Reed",
+        "porch": "2705 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Night Owl",
+        "porch": "2705 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Slut Penguin",
+        "porch": "2808 N 8th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "My Ragged Bones",
+        "porch": "2808 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "The Annas",
+        "porch": "2808 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Jonathan Ray",
+        "porch": "2808 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "3rd On Pike",
+        "porch": "3014 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "Reaper PunX",
+        "porch": "3014 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Crush On Her X",
+        "porch": "3016 N 8th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Crush",
+        "porch": "3016 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Brass Cheeks",
+        "porch": "3107 N 8th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Logan and The Big Dogs",
+        "porch": "3107 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Tom Costanza",
+        "porch": "3107 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Lexi Lalauni & The Pars",
+        "porch": "3115 N 8th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Laura and the Blue Revue",
+        "porch": "3115 N 8th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Blackberry Moonshine",
+        "porch": "3115 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Michael Defeats The Dragon",
+        "porch": "3115 N 8th St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Sweet Marilyn",
+        "porch": "2921 N 9th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Threocracy",
+        "porch": "2921 N 9th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Finnigan's Wake",
+        "porch": "2921 N 9th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Argyle Shred Quartet But Just One Guy",
+        "porch": "3110 N 9th St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Swavalito",
+        "porch": "3112 N 9th St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "Styles Bentley",
+        "porch": "3112 N 9th St",
+        "slots": [
+            {
+                "startTime": "3:30",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Lunar Pilots",
+        "porch": "3112 N 9th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "J. Ethan Thompson",
+        "porch": "925 N Alder St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Scott Taylor",
+        "porch": "925 N Alder St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "The John Bisagna Disaster",
+        "porch": "925 N Alder St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Beautiful Freaks",
+        "porch": "629 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Aterro",
+        "porch": "629 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "Fuck Marry Kill",
+        "porch": "629 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Margaret’s Sick",
+        "porch": "629 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Haight St.",
+        "porch": "629 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "PUNKTUALS",
+        "porch": "635 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Electric Boots - Elton John Time Machine",
+        "porch": "635 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Mad Maxxi",
+        "porch": "635 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Go Before You're Ready Improv",
+        "porch": "811 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "Grit City Improv",
+        "porch": "811 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:30",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Reed Oros",
+        "porch": "811 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Elijah Bossenbroek",
+        "porch": "811 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Collin Salcido",
+        "porch": "826 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Two Happy",
+        "porch": "826 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "G.i.u",
+        "porch": "826 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Puget Power",
+        "porch": "826 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Angie Lynn",
+        "porch": "1010 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Kirk Reese",
+        "porch": "1010 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Renee Constante",
+        "porch": "1010 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Disintegration C.E.",
+        "porch": "1025 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Serenity Marie-Starr",
+        "porch": "1025 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "BLDNDSTRY",
+        "porch": "1113 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "2pc. the dj",
+        "porch": "1113 N Anderson St",
+        "slots": [
+            {
+                "startTime": "3:30",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Atribe4peace",
+        "porch": "1113 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "HollyHood Cannonz",
+        "porch": "1113 N Anderson St",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "cozmo.",
+        "porch": "1113 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "grxtty",
+        "porch": "1113 N Anderson St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Fantastic Flying Foelschs",
+        "porch": "702 N Cedar St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Bone Theory",
+        "porch": "702 N Cedar St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "ptsd",
+        "porch": "702 N Cedar St",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "bottlerocket",
+        "porch": "702 N Cedar St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Teeth Bone",
+        "porch": "702 N Cedar St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "KRANE",
+        "porch": "711 N Cedar St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "Sons of Ferdinand",
+        "porch": "711 N Cedar St",
+        "slots": [
+            {
+                "startTime": "3:30",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "The Red Helens",
+        "porch": "711 N Cedar St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "4:30"
+            }
+        ]
+    },
+    {
+        "name": "Batangas!",
+        "porch": "711 N Cedar St",
+        "slots": [
+            {
+                "startTime": "4:30",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Blanco Bronco",
+        "porch": "711 N Cedar St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Erik Hansen Project",
+        "porch": "812 N Cedar St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Shred Monday",
+        "porch": "812 N Cedar St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "The Shady Jays",
+        "porch": "812 N Cedar St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Phantom 39",
+        "porch": "915 N Cedar St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Jay LeClair",
+        "porch": "916 N Cedar St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "Ludos",
+        "porch": "916 N Cedar St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Sun Wheel",
+        "porch": "916 N Cedar St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "J. Martin",
+        "porch": "1102 N Fife St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "ROVERS",
+        "porch": "1102 N Fife St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Off Off On",
+        "porch": "1102 N Fife St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "GO79MAN",
+        "porch": "718 N Junett St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "YOU HATE DRAVEN",
+        "porch": "718 N Junett St",
+        "slots": [
+            {
+                "startTime": "3:30",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Race to the Light",
+        "porch": "718 N Junett St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "DYLEUTH",
+        "porch": "718 N Junett St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Walter",
+        "porch": "718 N Junett St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Champagne Sunday",
+        "porch": "634 N Oakes St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Matthew the Animal",
+        "porch": "634 N Oakes St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Pretty Bayou",
+        "porch": "634 N Oakes St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Brat",
+        "porch": "1010 N Oakes St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Gemini Giant",
+        "porch": "1010 N Oakes St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Wyatt Bender",
+        "porch": "1010 N Oakes St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Unclouded",
+        "porch": "1010 N Oakes St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Ames",
+        "porch": "1028 N Oakes St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Ben Grillet",
+        "porch": "1028 N Oakes St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Cynthia Alexander",
+        "porch": "1028 N Oakes St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Guilty Bystanders",
+        "porch": "1110 N Oakes St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Rural Boy Radio",
+        "porch": "1116 N Oakes St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "3:30"
+            }
+        ]
+    },
+    {
+        "name": "Skyler Ford",
+        "porch": "1116 N Oakes St",
+        "slots": [
+            {
+                "startTime": "3:30",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Pink Moss",
+        "porch": "1116 N Oakes St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "The Wax Lips",
+        "porch": "1118 N Oakes St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "The Deep Unreal",
+        "porch": "611 N Pine St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Crunchbird",
+        "porch": "611 N Pine St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Level Sands",
+        "porch": "611 N Pine St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Windzer",
+        "porch": "623 N Pine St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Divorced Horses",
+        "porch": "623 N Pine St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Ate Alive",
+        "porch": "623 N Pine St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "The Honey Bee Breakfast",
+        "porch": "3018 N 7th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Matthew Cheramy Art",
+        "porch": "641 N Pine St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Hills and Valleys",
+        "porch": "702 N Pine St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Happy Chems",
+        "porch": "702 N Pine St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Pëtrichør",
+        "porch": "702 N Pine St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
+        "name": "Riley Egge",
+        "porch": "806 N Pine St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Blaze N' Saddles",
+        "porch": "807 N Pine St",
+        "slots": [
+            {
+                "startTime": "3:00",
+                "endTime": "4:00"
+            }
+        ]
+    },
+    {
+        "name": "Modern Daze",
+        "porch": "807 N Pine St",
+        "slots": [
+            {
+                "startTime": "4:00",
+                "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "Simon PW",
+        "porch": "807 N Pine St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Namazu",
+        "porch": "807 N Pine St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    }
+]

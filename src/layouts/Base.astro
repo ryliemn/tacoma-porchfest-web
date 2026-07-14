@@ -1,4 +1,10 @@
 ---
+// Self-hosted fonts (bundled + fingerprinted at build) — no runtime dependency
+// on Google Fonts. Londrina Solid (headings) only needs 400/900; Libre Franklin
+// (body) ships as a single variable file covering every weight in use.
+import "@fontsource/londrina-solid/latin-400.css";
+import "@fontsource/londrina-solid/latin-900.css";
+import "@fontsource-variable/libre-franklin/wght.css";
 import "../styles/global.css";
 import FollowUs from "../components/FollowUs.astro";
 import Navbar from "../components/Navbar.astro";
@@ -16,12 +22,6 @@ const { title = "Tacoma Porchfest", description } = Astro.props;
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/PF-Icon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Londrina+Solid:wght@100;300;400;900&display=swap"
-            rel="stylesheet"
-        />
         <meta name="viewport" content="width=device-width, viewport-fit=cover" />
         <meta name="generator" content={Astro.generator} />
         {description && <meta name="description" content={description} />}

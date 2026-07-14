@@ -1,0 +1,916 @@
+---
+import { Utensils, Toilet, Info, Droplet, Flag } from "lucide-astro";
+
+type Set = {
+    time: string;
+    name: string;
+    durationMinutes: number | null;
+    endTime?: string;
+    tentative?: boolean;
+};
+type Porch = {
+    address: string | null;
+    venue: string | null;
+    cluster: string | null;
+    notes: string | null;
+    sets: Set[];
+    extra?: string[];
+    block?: string | null;
+};
+
+interface Props {
+    /** Heading, e.g. "Saturday" */
+    day: string;
+    /** Sub-heading, e.g. "July 18 · South of 6th Ave" */
+    dateLabel: string;
+    porches: Porch[];
+    /**
+     * Hour columns for the morning (before 3:00) and afternoon (3:00 on) tables.
+     * Saturday omits a 3:00 column (parade hour) with pm ["4:00","5:00","6:00"];
+     * Sunday has no parade with pm ["3:00","4:00","5:00"]. Defaults to Saturday.
+     */
+    columns?: { am: string[]; pm: string[] };
+    /** Optional day map shown above the schedule. */
+    mapSrc?: string;
+    mapAlt?: string;
+    /** The other festival day — powers cross-day artist search. */
+    otherDay?: {
+        label: string;
+        href: string;
+        artists: { name: string; block: string | null }[];
+    };
+    /**
+     * Auxiliary festival amenities (food, restrooms, info/merch, water, screen
+     * printing). Each category is a list of locations pinned to a map block.
+     * Tapping a category's icon highlights all its blocks and swaps the band
+     * tables for a list of those locations.
+     */
+    aux?: AuxData;
+    /** Whether this day's map has a parade route to highlight (Saturday only). */
+    hasParade?: boolean;
+}
+
+type AuxItem = {
+    name: string;
+    block: string | number | null;
+    location?: string | null;
+    description?: string | null;
+};
+type AuxData = Partial<Record<string, AuxItem[]>>;
+
+const {
+    day,
+    dateLabel,
+    porches,
+    columns,
+    mapSrc,
+    mapAlt,
+    otherDay,
+    aux = {},
+    hasParade = false,
+} = Astro.props;
+
+// The aux icon bar — one circular, tappable icon per amenity category. `key`
+// matches a top-level property in the aux JSON; `icon` is a Lucide component.
+// Rendered in this fixed order so the row is stable.
+const AUX_DEFS = [
+    { key: "food", label: "Food", icon: Utensils },
+    { key: "restroom", label: "Restrooms", icon: Toilet },
+    { key: "info", label: "Info / Merch", icon: Info },
+    { key: "water", label: "Water", icon: Droplet },
+];
+
+// Normalize aux data for the client: stringify block ids (SVG element ids are
+// strings) and precompute the block set each category highlights.
+const auxNorm: Record<
+    string,
+    { name: string; block: string | null; location: string | null; description: string | null }[]
+> = {};
+const auxLabels: Record<string, string> = {};
+for (const def of AUX_DEFS) {
+    auxLabels[def.key] = def.label;
+    auxNorm[def.key] = (aux[def.key] ?? []).map((it) => ({
+        name: it.name,
+        block: it.block == null ? null : String(it.block),
+        location: it.location ?? null,
+        description: it.description ?? null,
+    }));
+}
+const auxBlocks: Record<string, string[]> = {};
+for (const def of AUX_DEFS) {
+    auxBlocks[def.key] = [
+        ...new Set(auxNorm[def.key].map((i) => i.block).filter((b): b is string => !!b)),
+    ];
+}
+const hasAux = AUX_DEFS.some((d) => auxNorm[d.key].length > 0) || hasParade;
+
+// Only show porches that actually have something scheduled.
+const withSets = porches.filter((p) => p.sets.length > 0);
+
+// Deep-link each porch to Google Maps (opens the Maps app if installed, else the
+// browser). The city is appended so bare street addresses resolve to Tacoma.
+const mapsHref = (p: Porch) =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        `${p.address ?? p.venue ?? ""}, Tacoma, WA`,
+    )}`;
+
+// Unique artist name -> the block their porch is on (for search-to-highlight).
+const artistPills: { name: string; block: string }[] = [];
+const seenArtists = new Set<string>();
+for (const p of withSets) {
+    if (!p.block) continue;
+    for (const s of p.sets) {
+        const key = s.name.toLowerCase();
+        if (seenArtists.has(key)) continue;
+        seenArtists.add(key);
+        artistPills.push({ name: s.name, block: p.block });
+    }
+}
+const otherArtists = otherDay?.artists ?? [];
+
+// The day splits into two tables at 3:00: a porch is in the morning table if it
+// has a set starting before 3:00, in the afternoon table if it has one at/after
+// 3:00. Each table renders its own hour-wide columns (passed per day). An act
+// that doesn't start exactly on its column's hour is labeled with its real time;
+// a continuous act spans multiple columns via colspan.
+//
+// Saturday's afternoon columns start at 4:00 (no 3:00 column — the parade hour),
+// so 3:00/3:30 acts fold into the 4:00 column as time-labeled entries; a morning
+// act that runs past 3:00 shows its full range so the spill reads. Sunday has no
+// parade, so its afternoon columns start at 3:00.
+const ALL_SLOTS = [
+    "12:00",
+    "12:30",
+    "1:00",
+    "1:30",
+    "2:00",
+    "2:30",
+    "3:00",
+    "3:30",
+    "4:00",
+    "4:30",
+    "5:00",
+    "5:30",
+    "6:00",
+    "6:30",
+    "7:00",
+];
+const slotIdx = (t: string) => ALL_SLOTS.indexOf(t);
+const SPLIT = slotIdx("3:00"); // afternoon table owns sets starting here on
+
+type Entry = { name: string; note: string | null; tentative?: boolean };
+type Cell = { entries: Entry[]; span: number };
+
+// Label a set unless it exactly fills its column (starts on the column's hour and
+// runs no longer than an hour). A set that runs past its column shows a start–end
+// range so its duration reads even when it isn't drawn as a spanning bar.
+function noteFor(s: Set, colLabel: string): string | null {
+    const runsLong = !!s.endTime && slotIdx(s.endTime) > slotIdx(colLabel) + 2;
+    if (runsLong) return s.endTime ? `${s.time}–${s.endTime}` : s.time;
+    return s.time === colLabel ? null : s.time;
+}
+
+// Lay a porch's sets into hour-wide columns by start time. The first column of a
+// table catches everything from `fromIdx` (so the afternoon's first column can
+// pick up pre-column parade-hour acts). A lone long act spans later columns via
+// colspan, but ONLY when nothing else occupies the columns it would cover — so a
+// dense or back-to-back schedule never drops an act.
+function rowCells(porch: Porch, cols: string[], fromIdx: number): Cell[] {
+    const toEntry = (s: Set, colLabel: string): Entry => ({
+        name: s.name,
+        note: noteFor(s, colLabel),
+        tentative: s.tentative,
+    });
+    const cells: Cell[] = [];
+    for (let i = 0; i < cols.length;) {
+        const colStart = slotIdx(cols[i]);
+        const lower = i === 0 ? fromIdx : colStart; // first col catches earlier starts
+        const colEnd = colStart + 2; // each hour column covers two half-hour slots
+        const here = porch.sets.filter((s) => {
+            const t = slotIdx(s.time);
+            return t >= lower && t < colEnd;
+        });
+        const long =
+            here.length === 1 && here[0].endTime && slotIdx(here[0].endTime!) > colEnd
+                ? here[0]
+                : null;
+        if (long) {
+            let cspan = 1;
+            const end = slotIdx(long.endTime!);
+            while (i + cspan < cols.length && slotIdx(cols[i + cspan]) < end) cspan++;
+            const covered = i + cspan < cols.length ? slotIdx(cols[i + cspan]) : Infinity;
+            const collision = porch.sets.some(
+                (s) => s !== long && slotIdx(s.time) >= lower && slotIdx(s.time) < covered,
+            );
+            if (!collision) {
+                cells.push({ entries: [toEntry(long, cols[i])], span: cspan });
+                i += cspan;
+                continue;
+            }
+        }
+        cells.push({ entries: here.map((s) => toEntry(s, cols[i])), span: 1 });
+        i++;
+    }
+    return cells;
+}
+
+const amCols = columns?.am ?? ["12:00", "1:00", "2:00"];
+const pmCols = columns?.pm ?? ["4:00", "5:00", "6:00"];
+const pages = [
+    {
+        cols: amCols,
+        from: slotIdx(amCols[0]),
+        porches: withSets.filter((p) => p.sets.some((s) => slotIdx(s.time) < SPLIT)),
+    },
+    {
+        cols: pmCols,
+        from: SPLIT,
+        porches: withSets.filter((p) => p.sets.some((s) => slotIdx(s.time) >= SPLIT)),
+    },
+];
+---
+
+{/* Fixed header: title + map stay pinned below the navbar while tables scroll. */}
+<div data-day-map class="sticky top-12 z-30 md:top-14">
+    <section
+        class="flex flex-col items-center justify-center bg-pf-red bg-cover bg-center py-2 md:py-3"
+        style="background-image: url('/red-texture.webp');"
+    >
+        <h1 class="font-heading text-pf-brown text-2xl md:text-4xl uppercase text-center px-4">
+            Schedule — {day}
+        </h1>
+        <p class="font-heading text-pf-brown/80 text-base md:text-lg uppercase mt-0.5">
+            {dateLabel}
+        </p>
+    </section>
+    {
+        (mapSrc || Astro.slots.has("map")) && (
+            <section class="bg-pf-yellow px-2 py-2 md:px-12 md:py-4">
+                <slot name="map">
+                    <img
+                        src={mapSrc}
+                        alt={mapAlt ?? `${day} festival map`}
+                        class="block w-full md:mx-auto md:max-w-4xl md:rounded-md md:shadow-sm"
+                    />
+                </slot>
+            </section>
+        )
+    }
+</div>
+
+<section
+    id="schedule-section"
+    class="min-h-screen bg-pf-cream px-1 pt-2 pb-12 md:px-6 md:pt-2 md:pb-16"
+>
+    {
+        withSets.length === 0 ? (
+            <p class="mx-auto max-w-3xl text-center font-heading text-pf-brown text-2xl md:text-3xl uppercase">
+                Schedule coming soon
+            </p>
+        ) : (
+            <div class="schedule mx-auto max-w-5xl" data-filter-kind="">
+                {/* Amenity icon bar — sits above the search bar by default, and
+                    drops below the tables once a block is selected (band info
+                    takes priority then). CSS `order` handles the repositioning. */}
+                {hasAux && (
+                    <div
+                        data-aux-bar
+                        class="mb-3 flex flex-wrap justify-center gap-x-3 gap-y-2 md:gap-x-5"
+                    >
+                        {AUX_DEFS.map((def) => {
+                            const Icon = def.icon;
+                            return (
+                                <button
+                                    type="button"
+                                    data-aux-btn
+                                    data-aux-key={def.key}
+                                    data-aux-blocks={JSON.stringify(auxBlocks[def.key])}
+                                    class="aux-btn group flex w-16 shrink-0 cursor-pointer flex-col items-center gap-1 md:w-20"
+                                >
+                                    <span class="aux-icon flex h-12 w-12 items-center justify-center rounded-full bg-pf-red text-pf-cream shadow-sm transition-colors md:h-14 md:w-14">
+                                        <Icon class="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
+                                    </span>
+                                    <span class="text-center font-heading text-[11px] leading-tight text-pf-brown uppercase md:text-sm">
+                                        {def.label}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                        {hasParade && (
+                            <button
+                                type="button"
+                                data-parade-btn
+                                class="aux-btn group flex w-16 shrink-0 cursor-pointer flex-col items-center gap-1 md:w-20"
+                            >
+                                <span class="aux-icon flex h-12 w-12 items-center justify-center rounded-full bg-pf-red text-pf-cream shadow-sm transition-colors md:h-14 md:w-14">
+                                    <Flag class="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
+                                </span>
+                                <span class="text-center font-heading text-[11px] leading-tight text-pf-brown uppercase md:text-sm">
+                                    Parade
+                                </span>
+                            </button>
+                        )}
+                    </div>
+                )}
+
+                {/* Artist search — highlights the porch on this day, links to the other day. */}
+                <div
+                    class="mb-2"
+                    data-search
+                    data-artists={JSON.stringify(artistPills)}
+                    data-other={JSON.stringify(otherArtists)}
+                    data-other-label={otherDay?.label ?? ""}
+                    data-other-href={otherDay?.href ?? ""}
+                >
+                    <input
+                        type="search"
+                        data-artist-search
+                        placeholder="Search artists…"
+                        autocomplete="off"
+                        class="w-full rounded-full border-2 border-pf-red/40 bg-white px-5 py-1 font-heading text-pf-brown text-lg uppercase placeholder:text-pf-brown/40 focus:border-pf-red focus:outline-none"
+                    />
+                    <div data-artist-results hidden class="mt-2 flex flex-wrap gap-2" />
+                </div>
+
+                <div
+                    id="schedule-filter"
+                    hidden
+                    class="mb-2 flex items-center justify-between gap-3 rounded-md bg-pf-yellow px-5 py-3 shadow-sm"
+                >
+                    <p data-filter-label class="font-heading text-pf-brown text-lg uppercase" />
+                    <button
+                        type="button"
+                        data-filter-clear
+                        class="shrink-0 cursor-pointer rounded-full bg-pf-red px-4 py-1.5 font-heading text-pf-cream text-sm uppercase transition-opacity hover:opacity-80"
+                    >
+                        Clear filter
+                    </button>
+                </div>
+
+                {/* Amenities on the selected block — shown alongside the band
+                    tables when a single block is tapped. Populated client-side. */}
+                <div
+                    data-block-amenities
+                    hidden
+                    class="mb-3 rounded-md border border-pf-red/25 bg-pf-cream/60 px-4 py-3"
+                />
+
+                {/* Amenity detail — replaces the band tables when an aux category
+                    (or the parade) is selected. Populated by the client script. */}
+                <div
+                    data-aux-detail
+                    data-aux={JSON.stringify(auxNorm)}
+                    data-aux-labels={JSON.stringify(auxLabels)}
+                    class="mb-4"
+                />
+
+                {/* Both sessions stacked: early (12–3) on top, later (4–6) below. */}
+                <div data-tables>
+                    {pages.map(
+                        (page, p) =>
+                            page.porches.length > 0 && (
+                                <div class="mb-4 last:mb-0" data-page={p}>
+                                    <table class="w-full table-fixed border-collapse text-pf-brown">
+                                        <thead>
+                                            <tr class="bg-pf-red text-pf-cream">
+                                                <th class="w-[26%] p-1.5 text-left font-heading text-sm uppercase md:w-[22%] md:text-base">
+                                                    Porch
+                                                </th>
+                                                {page.cols.map((t) => (
+                                                    <th class="p-1.5 text-center font-heading text-sm tabular-nums md:text-lg">
+                                                        {t}
+                                                    </th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {page.porches.map((porch) => (
+                                                <tr
+                                                    data-block={porch.block ?? ""}
+                                                    data-addr={porch.address ?? porch.venue}
+                                                    class:list={[
+                                                        "border-b border-pf-red/15 odd:bg-pf-cream/60",
+                                                        porch.block &&
+                                                            "cursor-pointer transition-colors hover:bg-pf-yellow/40",
+                                                    ]}
+                                                >
+                                                    <th
+                                                        scope="row"
+                                                        class="p-1.5 text-left align-top font-heading text-sm leading-tight text-pf-brown uppercase md:text-lg"
+                                                    >
+                                                        <div class="flex items-start gap-1">
+                                                            <span class="min-w-0 flex-1">
+                                                                {porch.venue ? (
+                                                                    <>
+                                                                        {porch.venue}
+                                                                        <span class="mt-0.5 block font-sans text-[10px] font-normal normal-case tracking-normal text-pf-brown/55 md:text-xs">
+                                                                            {porch.address}
+                                                                        </span>
+                                                                    </>
+                                                                ) : (
+                                                                    (porch.address ?? porch.venue)
+                                                                )}
+                                                            </span>
+                                                            <a
+                                                                href={mapsHref(porch)}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                title="Open in Google Maps"
+                                                                aria-label={`Open ${porch.venue ?? porch.address ?? "porch"} in Google Maps`}
+                                                                class="-m-1 shrink-0 p-1 text-pf-red/70 transition-colors hover:text-pf-red"
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="currentColor"
+                                                                    aria-hidden="true"
+                                                                    class="h-4 w-4 md:h-5 md:w-5"
+                                                                >
+                                                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    </th>
+                                                    {rowCells(porch, page.cols, page.from).map(
+                                                        (cell) =>
+                                                            cell.entries.length ? (
+                                                                <td
+                                                                    colspan={cell.span}
+                                                                    class="space-y-1 border-l border-pf-red/15 p-1.5 align-top text-[11px] leading-tight md:text-sm"
+                                                                >
+                                                                    {cell.entries.map((e) => (
+                                                                        <div>
+                                                                            {e.name}
+                                                                            {e.note && (
+                                                                                <span class="whitespace-nowrap text-pf-brown/60">
+                                                                                    {" "}
+                                                                                    ({e.note})
+                                                                                </span>
+                                                                            )}
+                                                                            {e.tentative && (
+                                                                                <span class="text-pf-brown/50 italic">
+                                                                                    {" "}
+                                                                                    (tbd)
+                                                                                </span>
+                                                                            )}
+                                                                        </div>
+                                                                    ))}
+                                                                </td>
+                                                            ) : (
+                                                                <td class="border-l border-pf-red/15 bg-pf-brown/10" />
+                                                            ),
+                                                    )}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ),
+                    )}
+                </div>
+            </div>
+        )
+    }
+</section>
+
+<style>
+    /* The schedule stacks as a flex column so the amenity icon bar can move
+       relative to the tables purely by changing `order` — no DOM shuffling.
+       Default order: icons, search, banner, detail, tables. */
+    .schedule {
+        display: flex;
+        flex-direction: column;
+    }
+    .schedule > [data-aux-bar] {
+        order: 1;
+    }
+    .schedule > [data-search] {
+        order: 2;
+    }
+    .schedule > #schedule-filter {
+        order: 3;
+    }
+    .schedule > [data-aux-detail] {
+        order: 4;
+        display: none;
+    }
+    /* Block amenities: sits below the band tables — block mode only, and only
+       when the client script found amenities on the block (else hidden). */
+    .schedule > [data-block-amenities] {
+        order: 6;
+        display: none;
+    }
+    .schedule[data-filter-kind="block"] > [data-block-amenities]:not([hidden]) {
+        display: block;
+        margin-top: 1rem;
+    }
+    .schedule > [data-tables] {
+        order: 5;
+    }
+
+    /* Block selected: prioritize band info — the band tables come first, then the
+       block's amenities, then the icon bar drops to the bottom. */
+    .schedule[data-filter-kind="block"] > [data-aux-bar] {
+        order: 7;
+        padding-top: 1rem;
+    }
+
+    /* Amenity / parade selected: drop the search + tables, show the detail panel
+       (icons stay pinned at the top). */
+    .schedule[data-filter-kind="aux"] > [data-search],
+    .schedule[data-filter-kind="parade"] > [data-search],
+    .schedule[data-filter-kind="aux"] > [data-tables],
+    .schedule[data-filter-kind="parade"] > [data-tables] {
+        display: none;
+    }
+    .schedule[data-filter-kind="aux"] > [data-aux-detail],
+    .schedule[data-filter-kind="parade"] > [data-aux-detail] {
+        display: block;
+    }
+
+    /* Active amenity icon: swap the red circle for brown so the selection reads. */
+    .aux-btn:hover .aux-icon {
+        filter: brightness(1.08);
+    }
+    .aux-btn.is-active .aux-icon {
+        background-color: var(--color-pf-brown);
+    }
+    .aux-btn.is-active span:last-child {
+        color: var(--color-pf-red);
+    }
+</style>
+
+<script>
+    // A single active filter drives the page: one block, an aux category (a set
+    // of blocks — food, restrooms, …), or the parade route. Only one at a time,
+    // so tapping a block overwrites an aux filter and vice versa. This mirrors
+    // the PfFilter type in MapInteractive.astro.
+    type PfFilter =
+        | null
+        | { type: "block"; block: string }
+        | { type: "aux"; category: string; blocks: string[] }
+        | { type: "parade" };
+
+    const section = document.getElementById("schedule-section");
+    const banner = document.getElementById("schedule-filter");
+    const scheduleEl = section?.querySelector<HTMLElement>(".schedule");
+    if (section && banner && scheduleEl) {
+        // Both session tables are always visible; selecting a map block filters
+        // their rows and hides any session with no porches on that block.
+        const pageEls = Array.from(section.querySelectorAll<HTMLElement>("[data-page]"));
+        const rows = Array.from(section.querySelectorAll<HTMLElement>("tr[data-block]"));
+        const labelEl = banner.querySelector<HTMLElement>("[data-filter-label]");
+        const clearBtn = banner.querySelector("[data-filter-clear]");
+        const mapEl = document.querySelector<HTMLElement>("[data-day-map]");
+
+        // Aux icon bar + detail panel.
+        const auxBtns = Array.from(scheduleEl.querySelectorAll<HTMLElement>("[data-aux-btn]"));
+        const paradeBtn = scheduleEl.querySelector<HTMLElement>("[data-parade-btn]");
+        const auxDetail = scheduleEl.querySelector<HTMLElement>("[data-aux-detail]");
+        type AuxLoc = {
+            name: string;
+            block: string | null;
+            location: string | null;
+            description: string | null;
+        };
+        const auxData: Record<string, AuxLoc[]> = JSON.parse(auxDetail?.dataset.aux || "{}");
+        const auxLabels: Record<string, string> = JSON.parse(auxDetail?.dataset.auxLabels || "{}");
+        const blockAmenitiesEl = scheduleEl.querySelector<HTMLElement>("[data-block-amenities]");
+
+        const dispatch = (f: PfFilter) =>
+            document.dispatchEvent(new CustomEvent("pf:filter", { detail: f }));
+
+        // On a new filter, scroll the tables up just below the sticky map.
+        function scrollToTable() {
+            if (!section) return;
+            const navH = window.matchMedia("(min-width: 768px)").matches ? 56 : 48;
+            const mapH = mapEl?.getBoundingClientRect().height ?? 0;
+            const top = section.getBoundingClientRect().top + window.scrollY - navH - mapH;
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        }
+
+        // Fill the detail panel with an aux category's locations (or a note about
+        // the parade route). Only visible when an aux/parade filter is active.
+        function renderAuxDetail(f: PfFilter) {
+            if (!auxDetail) return;
+            auxDetail.replaceChildren();
+            if (f?.type === "parade") {
+                const p = document.createElement("p");
+                p.className =
+                    "rounded-md bg-pf-yellow/60 px-5 py-4 font-sans text-sm text-pf-brown";
+                p.textContent =
+                    "The parade route begins at 3PM, at S 11th and Ferry St. It proceeds west to S 8th and Anderson St.";
+                auxDetail.appendChild(p);
+                return;
+            }
+            if (f?.type !== "aux") return;
+            const items = auxData[f.category] ?? [];
+            if (!items.length) {
+                const none = document.createElement("p");
+                none.className = "font-heading text-pf-brown/60 text-lg uppercase";
+                none.textContent = "Details coming soon";
+                auxDetail.appendChild(none);
+                return;
+            }
+            // Amenities that sit together (e.g. a row of food trucks in one lot)
+            // share a `location` and collapse into a single card. Items without a
+            // location stand alone, keyed by their own name.
+            const groups: { location: string | null; items: AuxLoc[] }[] = [];
+            const byLoc = new Map<string, { location: string; items: AuxLoc[] }>();
+            for (const it of items) {
+                if (it.location) {
+                    let g = byLoc.get(it.location);
+                    if (!g) {
+                        g = { location: it.location, items: [] };
+                        byLoc.set(it.location, g);
+                        groups.push(g);
+                    }
+                    g.items.push(it);
+                } else {
+                    groups.push({ location: null, items: [it] });
+                }
+            }
+
+            for (const group of groups) {
+                const card = document.createElement("div");
+                card.className =
+                    "mb-2 rounded-md border-l-4 border-pf-red bg-pf-cream/60 px-4 py-3 last:mb-0";
+
+                // Heading: the shared location, or the lone item's name when ungrouped.
+                const heading = document.createElement("span");
+                heading.className = "font-heading text-pf-brown text-lg uppercase";
+                heading.textContent = group.location ?? group.items[0].name;
+                card.appendChild(heading);
+
+                if (group.location) {
+                    // Grouped: list each amenity (name + optional description).
+                    const list = document.createElement("ul");
+                    list.className = "mt-1 space-y-1";
+                    for (const it of group.items) {
+                        const li = document.createElement("li");
+                        li.className = "font-sans text-sm text-pf-brown/75";
+                        const nm = document.createElement("span");
+                        nm.className = "font-semibold text-pf-brown";
+                        nm.textContent = it.name;
+                        li.appendChild(nm);
+                        if (it.description) li.append(` — ${it.description}`);
+                        list.appendChild(li);
+                    }
+                    card.appendChild(list);
+                } else if (group.items[0].description) {
+                    const desc = document.createElement("p");
+                    desc.className = "mt-1 font-sans text-sm text-pf-brown/75";
+                    desc.textContent = group.items[0].description;
+                    card.appendChild(desc);
+                }
+                auxDetail.appendChild(card);
+            }
+        }
+
+        // List the amenities that live on the tapped block, one row per category
+        // (icon + label + the amenity names). Hidden when the block has none.
+        function renderBlockAmenities(blockId: string) {
+            if (!blockAmenitiesEl) return;
+            blockAmenitiesEl.replaceChildren();
+
+            const hits: { key: string; items: AuxLoc[] }[] = [];
+            for (const key of Object.keys(auxLabels)) {
+                const items = (auxData[key] ?? []).filter((it) => it.block === blockId);
+                if (items.length) hits.push({ key, items });
+            }
+            if (!hits.length) {
+                blockAmenitiesEl.hidden = true;
+                return;
+            }
+            blockAmenitiesEl.hidden = false;
+
+            const heading = document.createElement("p");
+            heading.className = "mb-2 font-heading text-pf-brown text-base uppercase";
+            heading.textContent = "Amenities on this block";
+            blockAmenitiesEl.appendChild(heading);
+
+            for (const hit of hits) {
+                const row = document.createElement("div");
+                row.className = "flex items-start gap-2 py-0.5";
+
+                // Reuse the Lucide icon already rendered in the aux bar button.
+                const btn = scheduleEl!.querySelector<HTMLElement>(
+                    `[data-aux-btn][data-aux-key="${CSS.escape(hit.key)}"]`,
+                );
+                const icon = btn?.querySelector("svg")?.cloneNode(true) as SVGElement | undefined;
+                if (icon) {
+                    icon.setAttribute("class", "h-5 w-5 shrink-0 text-pf-red");
+                    row.appendChild(icon);
+                }
+
+                const text = document.createElement("p");
+                text.className = "font-sans text-sm text-pf-brown leading-tight";
+                const label = document.createElement("span");
+                label.className = "font-semibold";
+                label.textContent = `${auxLabels[hit.key]}: `;
+                text.appendChild(label);
+                text.append(hit.items.map((it) => it.name).join(", "));
+                row.appendChild(text);
+
+                blockAmenitiesEl.appendChild(row);
+            }
+        }
+
+        function apply(f: PfFilter) {
+            const kind = f?.type ?? "";
+            scheduleEl!.dataset.filterKind = kind;
+
+            // Row filtering only applies to a single-block selection.
+            const blockId = f?.type === "block" ? f.block : null;
+            const matchedAddrs = new Set<string>();
+            rows.forEach((row) => {
+                const match = !blockId || row.dataset.block === blockId;
+                row.hidden = !match;
+                if (match && blockId) matchedAddrs.add(row.dataset.addr ?? "");
+            });
+            // Hide a whole session table when the block has no porches in it.
+            pageEls.forEach((pg) => {
+                const visible = pg.querySelectorAll("tr[data-block]:not([hidden])").length;
+                pg.hidden = blockId !== null && visible === 0;
+            });
+
+            // Banner: label reflects the active filter; shown for any selection.
+            banner!.hidden = !f;
+            if (labelEl) {
+                if (f?.type === "block") {
+                    const n = matchedAddrs.size;
+                    labelEl.textContent =
+                        n === 0
+                            ? "No porches on this block"
+                            : `${n} ${n === 1 ? "porch" : "porches"} on this block`;
+                } else if (f?.type === "aux") {
+                    labelEl.textContent = auxLabels[f.category] ?? f.category;
+                } else if (f?.type === "parade") {
+                    labelEl.textContent = "Parade route";
+                }
+            }
+
+            renderAuxDetail(f);
+
+            // Show amenities on the tapped block (hidden for other filter kinds).
+            if (f?.type === "block") renderBlockAmenities(f.block);
+            else if (blockAmenitiesEl) blockAmenitiesEl.hidden = true;
+
+            // Reflect the active state on the icon bar.
+            auxBtns.forEach((b) =>
+                b.classList.toggle(
+                    "is-active",
+                    f?.type === "aux" && b.dataset.auxKey === f.category,
+                ),
+            );
+            paradeBtn?.classList.toggle("is-active", f?.type === "parade");
+
+            // Keep the URL in sync (shareable + survives reload); replaceState so
+            // selections don't stack up in the browser's back history.
+            const url = new URL(location.href);
+            url.searchParams.delete("block");
+            url.searchParams.delete("aux");
+            if (f?.type === "block") url.searchParams.set("block", f.block);
+            else if (f?.type === "aux") url.searchParams.set("aux", f.category);
+            else if (f?.type === "parade") url.searchParams.set("aux", "parade");
+            history.replaceState(null, "", url);
+
+            if (f) scrollToTable();
+        }
+
+        document.addEventListener("pf:filter", (e) => apply((e as CustomEvent<PfFilter>).detail));
+
+        // Clicking a porch row selects its block (highlights the map + filters).
+        // Clicks on the porch's Maps link are left alone so it opens directions.
+        rows.forEach((row) => {
+            row.addEventListener("click", (e) => {
+                if ((e.target as Element).closest("a")) return;
+                const id = row.dataset.block || null;
+                if (id) dispatch({ type: "block", block: id });
+            });
+        });
+
+        clearBtn?.addEventListener("click", () => dispatch(null));
+
+        // Aux icon bar: tapping a category filters to it; tapping the active one
+        // again clears. Selecting one always overwrites any block selection.
+        auxBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const category = btn.dataset.auxKey || "";
+                const active =
+                    scheduleEl!.dataset.filterKind === "aux" && btn.classList.contains("is-active");
+                if (active) {
+                    dispatch(null);
+                } else {
+                    const blocks: string[] = JSON.parse(btn.dataset.auxBlocks || "[]");
+                    dispatch({ type: "aux", category, blocks });
+                }
+            });
+        });
+        paradeBtn?.addEventListener("click", () => {
+            const active = scheduleEl!.dataset.filterKind === "parade";
+            dispatch(active ? null : { type: "parade" });
+        });
+
+        // === artist search ===================================================
+        type Artist = { name: string; block: string | null };
+        const searchEl = document.querySelector<HTMLElement>("[data-search]");
+        const input = searchEl?.querySelector<HTMLInputElement>("[data-artist-search]");
+        const results = searchEl?.querySelector<HTMLElement>("[data-artist-results]");
+        if (searchEl && input && results) {
+            const here: Artist[] = JSON.parse(searchEl.dataset.artists || "[]");
+            const there: Artist[] = JSON.parse(searchEl.dataset.other || "[]");
+            const otherLabel = searchEl.dataset.otherLabel || "";
+            const otherHref = searchEl.dataset.otherHref || "";
+
+            const dedupe = (list: Artist[]) => {
+                const seen = new Set<string>();
+                return list.filter((a) => {
+                    const k = a.name.toLowerCase();
+                    if (seen.has(k)) return false;
+                    seen.add(k);
+                    return true;
+                });
+            };
+
+            function render(q: string) {
+                results!.replaceChildren();
+                if (!q) {
+                    results!.hidden = true;
+                    return;
+                }
+                const ql = q.toLowerCase();
+                const hits = dedupe(
+                    here.filter((a) => a.block && a.name.toLowerCase().includes(ql)),
+                ).slice(0, 6);
+                const others = dedupe(there.filter((a) => a.name.toLowerCase().includes(ql))).slice(
+                    0,
+                    4,
+                );
+
+                for (const a of hits) {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className =
+                        "cursor-pointer rounded-full bg-pf-red px-3 py-1.5 font-heading text-sm text-pf-cream uppercase transition-opacity hover:opacity-80";
+                    b.textContent = a.name;
+                    b.addEventListener("click", () => {
+                        input!.value = "";
+                        render("");
+                        if (a.block) dispatch({ type: "block", block: a.block });
+                    });
+                    results!.appendChild(b);
+                }
+
+                if (others.length) {
+                    const label = document.createElement("span");
+                    label.className = "w-full pt-1 font-heading text-pf-brown/60 text-xs uppercase";
+                    label.textContent = `Playing ${otherLabel}`;
+                    results!.appendChild(label);
+                    for (const a of others) {
+                        const link = document.createElement("a");
+                        link.className =
+                            "rounded-full border-2 border-pf-red/50 px-3 py-1.5 font-heading text-sm text-pf-brown uppercase no-underline transition-colors hover:bg-pf-red/10";
+                        link.href = a.block
+                            ? `${otherHref}?block=${encodeURIComponent(a.block)}`
+                            : otherHref;
+                        link.textContent = `${a.name} ↗`;
+                        results!.appendChild(link);
+                    }
+                }
+
+                if (!hits.length && !others.length) {
+                    const none = document.createElement("span");
+                    none.className = "font-heading text-pf-brown/50 text-sm uppercase";
+                    none.textContent = "No artists found";
+                    results!.appendChild(none);
+                }
+                results!.hidden = false;
+            }
+
+            input.addEventListener("input", () => render(input.value.trim()));
+        }
+
+        // Deep links on load: ?block=N selects a block; ?aux=food (or any
+        // category, or "parade") selects that amenity filter.
+        const params = new URLSearchParams(location.search);
+        const deepBlock = params.get("block");
+        const deepAux = params.get("aux");
+        if (deepBlock || deepAux) {
+            window.addEventListener("load", () => {
+                if (deepBlock) {
+                    dispatch({ type: "block", block: deepBlock });
+                } else if (deepAux === "parade" && paradeBtn) {
+                    dispatch({ type: "parade" });
+                } else if (deepAux && auxData[deepAux]) {
+                    const blocks = [
+                        ...new Set(
+                            auxData[deepAux].map((i) => i.block).filter((b): b is string => !!b),
+                        ),
+                    ];
+                    dispatch({ type: "aux", category: deepAux, blocks });
+                }
+            });
+        }
+    }
+</script>

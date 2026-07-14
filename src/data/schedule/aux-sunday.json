@@ -1,0 +1,147 @@
+{
+    "food": [
+        {
+            "name": "321 Ice Cream Parlor",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "The Corndoggery",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "Rebel Coffee",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "Tin Hut BBQ",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "Buddy's Chicken and Waffles",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "Bun & Press",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "Zantrel Jerk Chicken",
+            "block": 37,
+            "location": "N Steele between 6th and N 8th"
+        },
+        {
+            "name": "Kairo's Ice Cream",
+            "block": 37,
+            "location": "N Steele between 6th and N 8th"
+        },
+        {
+            "name": "Sassy Squeezers Lemonade",
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
+        },
+        {
+            "name": "Stacks Burgers",
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
+        },
+        {
+            "name": "Momo's Mediterranean",
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
+        },
+        {
+            "name": "Dippy's Ice Cream",
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
+        },
+        {
+            "name": "Raspados Snacks",
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
+        },
+        {
+            "name": "Xantolo Tacos",
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
+        },
+        {
+            "name": "Kona Ice of Tacoma",
+            "block": 32,
+            "location": "6th & N Anderson"
+        }
+    ],
+    "restroom": [
+        {
+            "name": "N Anderson & 6th",
+            "block": 32
+        },
+        {
+            "name": "@ O'Malley's",
+            "block": 36
+        },
+        {
+            "name": "N 9th and Pine",
+            "block": 19
+        },
+        {
+            "name": "N 10th & Junett",
+            "block": 17
+        },
+        {
+            "name": "N 11th & Pine",
+            "block": 3
+        },
+        {
+            "name": "@ Grant Center",
+            "block": 15
+        }
+    ],
+    "info": [
+        {
+            "name": "Info & Merch Booth",
+            "block": 15,
+            "location": "Grant Center @ N 10th and Prospect"
+        },
+        {
+            "name": "Live Screen Printing",
+            "block": 35,
+            "location": "@ Bomb Burger"
+        }
+    ],
+    "water": [
+        {
+            "name": "718 N Junett St",
+            "block": 30
+        },
+        {
+            "name": "801 N Prospect St",
+            "block": 24
+        },
+        {
+            "name": "1010 N Anderson St",
+            "block": 12
+        },
+        {
+            "name": "3015 N 11th St",
+            "block": 2
+        },
+        {
+            "name": "1128 N Prospect St",
+            "block": 7
+        }
+    ],
+    "screen printing": [
+        {
+            "name": "Live Screen Printing",
+            "block": 18,
+            "location": "N 4th St",
+            "description": "Print your own limited-edition festival poster on the spot."
+        }
+    ]
+}
