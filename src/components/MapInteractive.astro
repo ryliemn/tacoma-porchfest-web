@@ -10,7 +10,8 @@ import southSvg from "../../public/Map-South.svg?raw";
 interface Props {
     /** Which map to render. */
     map: "north" | "south";
-    /** Block ids (e.g. "7") that have porches — these become tappable. */
+    /** Block ids (e.g. "7") that are points of interest — a porch or an amenity.
+     *  These are highlighted (not dimmed) and become tappable. */
     highlightBlocks?: string[];
     alt?: string;
 }
@@ -36,7 +37,14 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
         height: auto;
     }
     .map-interactive .block {
-        transition: filter 0.12s ease;
+        transition:
+            filter 0.12s ease,
+            opacity 0.15s ease;
+    }
+    /* Amenity (or parade) filter active: fade every block that isn't part of the
+       highlighted set, so the highlighted blocks — or the parade route — pop. */
+    .map-interactive.is-amenity-filtered .block:not(.is-active) {
+        opacity: 0.25;
     }
     /* Blocks without porches: dimmed and inert. Uses a muted fill + opacity
        rather than a CSS filter, because mobile Safari drops CSS filters on
@@ -59,18 +67,40 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
     .map-interactive .block.has-porches:hover {
         filter: brightness(1.08) saturate(1.3);
     }
-    /* Selected block: bold red fill + navy outline so it clearly stands out. */
+    /* Selected block: bold red fill + navy outline so it clearly stands out.
+       Aux filters (food/restroom/…) highlight several blocks at once with the
+       same treatment — visually a block is either selected or it isn't. */
     .map-interactive .block.is-active {
         filter: drop-shadow(0 0 2px #20425d) drop-shadow(0 0 1px #20425d);
     }
     .map-interactive .block.is-active .cls-1, /* south inner */
     .map-interactive .block.is-active .cls-10, /* north inner */
-    .map-interactive .block.is-active .cls-east { /* north solid east block */
+    .map-interactive .block.is-active .cls-east {
+        /* north solid east block */
         fill: #f93e10;
     }
     .map-interactive .block.is-active .cls-7, /* south frame */
-    .map-interactive .block.is-active .cls-11 { /* north frame */
+    .map-interactive .block.is-active .cls-11 {
+        /* north frame */
         fill: #b8431b;
+    }
+
+    /* Parade route: always faintly visible in the SVG; tapping the parade
+       filter brightens and thickens it so the path clearly reads. */
+    .map-interactive #parade-route {
+        transition:
+            stroke-opacity 0.15s ease,
+            stroke-width 0.15s ease;
+    }
+    .map-interactive #parade-route.is-active {
+        stroke-opacity: 1;
+        stroke-width: 11;
+        filter: drop-shadow(0 0 3px rgba(225, 29, 42, 0.5));
+    }
+    /* A non-parade amenity filter is active: fade the route along with the
+       blocks so only the highlighted amenity stands out. */
+    .map-interactive.is-amenity-filtered #parade-route:not(.is-active) {
+        stroke-opacity: 0.12;
     }
 </style>
 
@@ -113,22 +143,49 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
             }
         }
 
-        let selected: string | null = null;
+        // A single active filter drives the whole map: either one block, a set
+        // of blocks (an aux category like food/restrooms), or the parade route.
+        // Only one can be active at a time — selecting any clears the others.
+        type PfFilter =
+            | null
+            | { type: "block"; block: string }
+            | { type: "aux"; category: string; blocks: string[] }
+            | { type: "parade" };
 
-        // Reflect the current selection — fired by map clicks OR table clicks.
-        document.addEventListener("pf:block", (e) => {
-            selected = (e as CustomEvent<string | null>).detail;
-            blocks.forEach((g) =>
-                g.classList.toggle("is-active", selected !== null && g.id === selected),
+        const paradeRoute = svg.querySelector<SVGElement>("#parade-route");
+        let selectedBlock: string | null = null; // for click-to-toggle on the map
+
+        // Reflect the current filter — fired by map clicks, table clicks, the
+        // aux icon bar, artist search, and deep links.
+        document.addEventListener("pf:filter", (e) => {
+            const f = (e as CustomEvent<PfFilter>).detail;
+            blocks.forEach((g) => g.classList.remove("is-active"));
+            paradeRoute?.classList.remove("is-active");
+            // Fade the rest of the map only for amenity/parade filters, not a
+            // single-block selection (there the table already narrows the focus).
+            root.classList.toggle(
+                "is-amenity-filtered",
+                f?.type === "aux" || f?.type === "parade",
             );
+            selectedBlock = null;
+            if (!f) return;
+            if (f.type === "block") {
+                selectedBlock = f.block;
+                blocks.forEach((g) => g.classList.toggle("is-active", g.id === f.block));
+            } else if (f.type === "aux") {
+                const set = new Set(f.blocks);
+                blocks.forEach((g) => g.classList.toggle("is-active", set.has(g.id)));
+            } else if (f.type === "parade") {
+                paradeRoute?.classList.add("is-active");
+            }
         });
 
         svg.addEventListener("click", (e) => {
             const g = (e.target as Element).closest<SVGGElement>("g.block.has-porches");
             if (!g) return;
             // Toggle: clicking the selected block again clears the selection.
-            const id = g.id === selected ? null : g.id;
-            document.dispatchEvent(new CustomEvent("pf:block", { detail: id }));
+            const next = g.id === selectedBlock ? null : { type: "block" as const, block: g.id };
+            document.dispatchEvent(new CustomEvent("pf:filter", { detail: next }));
         });
     });
 </script>

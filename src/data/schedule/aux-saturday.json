@@ -1,0 +1,152 @@
+{
+    "food": [
+        {
+            "name": "Dough Daddy Sourdough",
+            "block": 5,
+            "location": "TAPCO Parking Lot @ 6th and Pine"
+        },
+        {
+            "name": "Stacks Burgers",
+            "block": 5,
+            "location": "TAPCO Parking Lot @ 6th and Pine"
+        },
+        {
+            "name": "Zantrel Franklin Jerk Chicken",
+            "block": 5,
+            "location": "TAPCO Parking Lot @ 6th and Pine"
+        },
+        {
+            "name": "Stacks Burgers",
+            "block": 13,
+            "location": "The Spire @ S 7th and Anderson"
+        },
+        {
+            "name": "Rebel Coffee",
+            "block": 13,
+            "location": "The Spire @ S 7th and Anderson"
+        },
+        {
+            "name": "Bun & Press Food Truck",
+            "block": 41,
+            "location": "People's Pilates @ S 12th and Fife"
+        },
+        {
+            "name": "NJ Ice Cream",
+            "block": 41,
+            "location": "People's Pilates @ S 12th and Fife"
+        },
+        {
+            "name": "Big Dawgs Hot Dogs",
+            "block": 29,
+            "location": "Fife St between S 8th and S 11th"
+        },
+        {
+            "name": "Dippy's Ice Cream",
+            "block": 29,
+            "location": "Fife St between S 8th and S 11th"
+        },
+        {
+            "name": "Morena's Mexican Food",
+            "block": 29,
+            "location": "Fife St between S 8th and S 11th"
+        },
+        {
+            "name": "Corn Doggery",
+            "block": 29,
+            "location": "Fife St between S 8th and S 11th"
+        },
+        {
+            "name": "Kona Ice of Tacoma",
+            "block": 29,
+            "location": "Fife St between S 8th and S 11th"
+        },
+        {
+            "name": "Raspados La Rana",
+            "block": 45,
+            "location": "11th Street Party @ S 11th and Ferry St"
+        },
+        {
+            "name": "Kairos Ice Cream",
+            "block": 45,
+            "location": "11th Street Party @ S 11th and Ferry St"
+        },
+        {
+            "name": "Sassy Squeezers",
+            "block": 45,
+            "location": "11th Street Party @ S 11th and Ferry St"
+        },
+        {
+            "name": "Lucas Southern BBQ",
+            "block": 45,
+            "location": "11th Street Party @ S 11th and Ferry St"
+        }
+    ],
+    "restroom": [
+        {
+            "name": "S Cedar & S 9th St",
+            "block": 19
+        },
+        {
+            "name": "S 10th & S Anderson St",
+            "block": 27
+        },
+        {
+            "name": "@ People's Pilates",
+            "block": 41
+        },
+        {
+            "name": "@ 11th St Party",
+            "block": 45
+        },
+        {
+            "name": "@ Kids Street",
+            "block": 28
+        },
+        {
+            "name": "@ The Spire",
+            "block": 13
+        },
+        {
+            "name": "@ Trafton Manor",
+            "block": 10
+        },
+        {
+            "name": "@ TAPCO",
+            "block": 5
+        }
+    ],
+    "info": [
+        {
+            "name": "Info & Merch Booth",
+            "block": 13,
+            "location": "The Spire @ S 7th and Anderson"
+        },
+        {
+            "name": "Live Screen Printing",
+            "block": 8,
+            "location": "@ Mission Thrift"
+        }
+    ],
+    "water": [
+        {
+            "name": "2907 S 8th St",
+            "block": 17
+        },
+        {
+            "name": "1116 S Prospect St",
+            "block": 41
+        },
+        {
+            "name": "844 S Steele St",
+            "block": 22
+        },
+        {
+            "name": "815 S State St",
+            "block": 25
+        },
+        {
+            "name": "@ 11th St Party",
+            "block": 45
+        }
+    ]
+}

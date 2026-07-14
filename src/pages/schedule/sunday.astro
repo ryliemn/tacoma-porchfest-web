@@ -7,6 +7,7 @@ import sundayPorch from "../../data/schedule/sunday-porch.json";
 import sundayBand from "../../data/schedule/sunday-band.json";
 import saturdayPorch from "../../data/schedule/saturday-porch.json";
 import saturdayBand from "../../data/schedule/saturday-band.json";
+import sundayAux from "../../data/schedule/aux-sunday.json";
 
 const porches = buildDay(sundayPorch, sundayBand);
 const otherPorches = buildDay(saturdayPorch, saturdayBand);
@@ -14,6 +15,19 @@ const otherPorches = buildDay(saturdayPorch, saturdayBand);
 const blocksWithPorches = [
     ...new Set(porches.filter((p) => p.sets.length > 0).map((p) => p.block).filter(Boolean)),
 ] as string[];
+
+// Blocks that host an amenity (food, restrooms, …) are tappable too, even with no
+// bands — tapping one shows what amenities are there.
+const blocksWithAmenities = [
+    ...new Set(
+        Object.values(sundayAux)
+            .flat()
+            .map((a) => a.block)
+            .filter((b) => b != null)
+            .map(String),
+    ),
+];
+const tappableBlocks = [...new Set([...blocksWithPorches, ...blocksWithAmenities])];
 
 // Artist index for the other day (Saturday), for cross-day search.
 const otherArtists = otherPorches
@@ -28,12 +42,13 @@ const otherArtists = otherPorches
         porches={porches}
         columns={{ am: ["12:00", "1:00", "2:00"], pm: ["3:00", "4:00", "5:00"] }}
         otherDay={{ label: "Saturday", href: "/schedule/saturday", artists: otherArtists }}
+        aux={sundayAux}
     >
         <MapInteractive
             slot="map"
             map="north"
             alt="Tacoma Porchfest Sunday map — the festival area north of 6th Ave"
-            highlightBlocks={blocksWithPorches}
+            highlightBlocks={tappableBlocks}
         />
     </ScheduleDay>
 </Base>
