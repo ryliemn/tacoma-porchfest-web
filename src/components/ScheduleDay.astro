@@ -1,5 +1,5 @@
 ---
-import { Utensils, Toilet, Info, Droplet, Flag } from "lucide-astro";
+import { Utensils, Toilet, Info, Droplet, Flag, Users } from "lucide-astro";
 
 type Set = {
     time: string;
@@ -50,6 +50,8 @@ interface Props {
     aux?: AuxData;
     /** Whether this day's map has a parade route to highlight (Saturday only). */
     hasParade?: boolean;
+    /** Whether this day's map has a Community Street to highlight (Saturday only). */
+    hasCommunityStreet?: boolean;
 }
 
 type AuxItem = {
@@ -70,6 +72,7 @@ const {
     otherDay,
     aux = {},
     hasParade = false,
+    hasCommunityStreet = false,
 } = Astro.props;
 
 // The aux icon bar — one circular, tappable icon per amenity category. `key`
@@ -104,7 +107,7 @@ for (const def of AUX_DEFS) {
         ...new Set(auxNorm[def.key].map((i) => i.block).filter((b): b is string => !!b)),
     ];
 }
-const hasAux = AUX_DEFS.some((d) => auxNorm[d.key].length > 0) || hasParade;
+const hasAux = AUX_DEFS.some((d) => auxNorm[d.key].length > 0) || hasParade || hasCommunityStreet;
 
 // Only show porches that actually have something scheduled.
 const withSets = porches.filter((p) => p.sets.length > 0);
@@ -309,6 +312,20 @@ const pages = [
                                 </span>
                                 <span class="text-center font-heading text-[11px] leading-tight text-pf-brown uppercase md:text-sm">
                                     Parade
+                                </span>
+                            </button>
+                        )}
+                        {hasCommunityStreet && (
+                            <button
+                                type="button"
+                                data-community-btn
+                                class="aux-btn group flex w-16 shrink-0 cursor-pointer flex-col items-center gap-1 md:w-20"
+                            >
+                                <span class="aux-icon flex h-12 w-12 items-center justify-center rounded-full bg-pf-red text-pf-cream shadow-sm transition-colors md:h-14 md:w-14">
+                                    <Users class="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
+                                </span>
+                                <span class="text-center font-heading text-[11px] leading-tight text-pf-brown uppercase md:text-sm">
+                                    Community St
                                 </span>
                             </button>
                         )}
@@ -518,16 +535,19 @@ const pages = [
         padding-top: 1rem;
     }
 
-    /* Amenity / parade selected: drop the search + tables, show the detail panel
-       (icons stay pinned at the top). */
+    /* Amenity / parade / community selected: drop the search + tables, show the
+       detail panel (icons stay pinned at the top). */
     .schedule[data-filter-kind="aux"] > [data-search],
     .schedule[data-filter-kind="parade"] > [data-search],
+    .schedule[data-filter-kind="community"] > [data-search],
     .schedule[data-filter-kind="aux"] > [data-tables],
-    .schedule[data-filter-kind="parade"] > [data-tables] {
+    .schedule[data-filter-kind="parade"] > [data-tables],
+    .schedule[data-filter-kind="community"] > [data-tables] {
         display: none;
     }
     .schedule[data-filter-kind="aux"] > [data-aux-detail],
-    .schedule[data-filter-kind="parade"] > [data-aux-detail] {
+    .schedule[data-filter-kind="parade"] > [data-aux-detail],
+    .schedule[data-filter-kind="community"] > [data-aux-detail] {
         display: block;
     }
 
@@ -552,7 +572,8 @@ const pages = [
         | null
         | { type: "block"; block: string }
         | { type: "aux"; category: string; blocks: string[] }
-        | { type: "parade" };
+        | { type: "parade" }
+        | { type: "community" };
 
     const section = document.getElementById("schedule-section");
     const banner = document.getElementById("schedule-filter");
@@ -569,6 +590,7 @@ const pages = [
         // Aux icon bar + detail panel.
         const auxBtns = Array.from(scheduleEl.querySelectorAll<HTMLElement>("[data-aux-btn]"));
         const paradeBtn = scheduleEl.querySelector<HTMLElement>("[data-parade-btn]");
+        const communityBtn = scheduleEl.querySelector<HTMLElement>("[data-community-btn]");
         const auxDetail = scheduleEl.querySelector<HTMLElement>("[data-aux-detail]");
         type AuxLoc = {
             name: string;
@@ -604,6 +626,27 @@ const pages = [
                 p.textContent =
                     "The parade route begins at 3PM, at S 11th and Ferry St. It proceeds west to S 8th and Anderson St.";
                 auxDetail.appendChild(p);
+                return;
+            }
+            if (f?.type === "community") {
+                const p = document.createElement("p");
+                p.className =
+                    "rounded-md bg-pf-blue/15 px-5 py-4 font-sans text-sm text-pf-brown";
+                p.textContent =
+                    "Community Street is a car-free block of family friendly activities, community booths, and food trucks. Come see it on Fife Street between S 8th street and S 11th street!";
+                auxDetail.appendChild(p);
+
+                // The food trucks + restroom pinned to Community Street rather
+                // than a map block.
+                const wrap = document.createElement("div");
+                wrap.className = "mt-3 rounded-md border border-pf-red/25 bg-pf-cream/60 px-4 py-3";
+                const heading = document.createElement("p");
+                heading.className = "mb-2 font-heading text-pf-brown text-base uppercase";
+                heading.textContent = "On Community Street";
+                wrap.appendChild(heading);
+                if (appendAmenityRows(wrap, (it) => it.block === "community")) {
+                    auxDetail.appendChild(wrap);
+                }
                 return;
             }
             if (f?.type !== "aux") return;
@@ -670,28 +713,18 @@ const pages = [
             }
         }
 
-        // List the amenities that live on the tapped block, one row per category
-        // (icon + label + the amenity names). Hidden when the block has none.
-        function renderBlockAmenities(blockId: string) {
-            if (!blockAmenitiesEl) return;
-            blockAmenitiesEl.replaceChildren();
-
+        // Append one row per aux category with items matching `predicate` (icon +
+        // "Label: name, name"). Returns whether any row was added. Shared by the
+        // per-block panel and the Community Street detail.
+        function appendAmenityRows(
+            target: HTMLElement,
+            predicate: (it: AuxLoc) => boolean,
+        ): boolean {
             const hits: { key: string; items: AuxLoc[] }[] = [];
             for (const key of Object.keys(auxLabels)) {
-                const items = (auxData[key] ?? []).filter((it) => it.block === blockId);
+                const items = (auxData[key] ?? []).filter(predicate);
                 if (items.length) hits.push({ key, items });
             }
-            if (!hits.length) {
-                blockAmenitiesEl.hidden = true;
-                return;
-            }
-            blockAmenitiesEl.hidden = false;
-
-            const heading = document.createElement("p");
-            heading.className = "mb-2 font-heading text-pf-brown text-base uppercase";
-            heading.textContent = "Amenities on this block";
-            blockAmenitiesEl.appendChild(heading);
-
             for (const hit of hits) {
                 const row = document.createElement("div");
                 row.className = "flex items-start gap-2 py-0.5";
@@ -715,8 +748,25 @@ const pages = [
                 text.append(hit.items.map((it) => it.name).join(", "));
                 row.appendChild(text);
 
-                blockAmenitiesEl.appendChild(row);
+                target.appendChild(row);
             }
+            return hits.length > 0;
+        }
+
+        // List the amenities that live on the tapped block, one row per category
+        // (icon + label + the amenity names). Hidden when the block has none.
+        function renderBlockAmenities(blockId: string) {
+            if (!blockAmenitiesEl) return;
+            blockAmenitiesEl.replaceChildren();
+
+            const heading = document.createElement("p");
+            heading.className = "mb-2 font-heading text-pf-brown text-base uppercase";
+            heading.textContent = "Amenities on this block";
+            blockAmenitiesEl.appendChild(heading);
+
+            const any = appendAmenityRows(blockAmenitiesEl, (it) => it.block === blockId);
+            blockAmenitiesEl.hidden = !any;
+            if (!any) blockAmenitiesEl.replaceChildren();
         }
 
         function apply(f: PfFilter) {
@@ -750,6 +800,8 @@ const pages = [
                     labelEl.textContent = auxLabels[f.category] ?? f.category;
                 } else if (f?.type === "parade") {
                     labelEl.textContent = "Parade route";
+                } else if (f?.type === "community") {
+                    labelEl.textContent = "Community Street";
                 }
             }
 
@@ -767,6 +819,7 @@ const pages = [
                 ),
             );
             paradeBtn?.classList.toggle("is-active", f?.type === "parade");
+            communityBtn?.classList.toggle("is-active", f?.type === "community");
 
             // Keep the URL in sync (shareable + survives reload); replaceState so
             // selections don't stack up in the browser's back history.
@@ -776,6 +829,7 @@ const pages = [
             if (f?.type === "block") url.searchParams.set("block", f.block);
             else if (f?.type === "aux") url.searchParams.set("aux", f.category);
             else if (f?.type === "parade") url.searchParams.set("aux", "parade");
+            else if (f?.type === "community") url.searchParams.set("aux", "community");
             history.replaceState(null, "", url);
 
             if (f) scrollToTable();
@@ -813,6 +867,10 @@ const pages = [
         paradeBtn?.addEventListener("click", () => {
             const active = scheduleEl!.dataset.filterKind === "parade";
             dispatch(active ? null : { type: "parade" });
+        });
+        communityBtn?.addEventListener("click", () => {
+            const active = scheduleEl!.dataset.filterKind === "community";
+            dispatch(active ? null : { type: "community" });
         });
 
         // === artist search ===================================================
@@ -858,6 +916,8 @@ const pages = [
                 const paradeMatch = "parade".includes(ql);
                 const paradeHere = paradeMatch && !!paradeBtn;
                 const paradeThere = paradeMatch && !paradeBtn && otherHasParade;
+                // Community Street isn't an artist either, but people search it by name.
+                const communityHere = "community street".includes(ql) && !!communityBtn;
 
                 if (paradeHere) {
                     const b = document.createElement("button");
@@ -869,6 +929,20 @@ const pages = [
                         input!.value = "";
                         render("");
                         dispatch({ type: "parade" });
+                    });
+                    results!.appendChild(b);
+                }
+
+                if (communityHere) {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className =
+                        "cursor-pointer rounded-full bg-pf-brown px-3 py-1.5 font-heading text-sm text-pf-cream uppercase transition-opacity hover:opacity-80";
+                    b.textContent = "Community St";
+                    b.addEventListener("click", () => {
+                        input!.value = "";
+                        render("");
+                        dispatch({ type: "community" });
                     });
                     results!.appendChild(b);
                 }
@@ -912,7 +986,7 @@ const pages = [
                     }
                 }
 
-                if (!paradeHere && !paradeThere && !hits.length && !others.length) {
+                if (!paradeHere && !paradeThere && !communityHere && !hits.length && !others.length) {
                     const none = document.createElement("span");
                     none.className = "font-heading text-pf-brown/50 text-sm uppercase";
                     none.textContent = "No artists found";
@@ -935,6 +1009,8 @@ const pages = [
                     dispatch({ type: "block", block: deepBlock });
                 } else if (deepAux === "parade" && paradeBtn) {
                     dispatch({ type: "parade" });
+                } else if (deepAux === "community" && communityBtn) {
+                    dispatch({ type: "community" });
                 } else if (deepAux && auxData[deepAux]) {
                     const blocks = [
                         ...new Set(
