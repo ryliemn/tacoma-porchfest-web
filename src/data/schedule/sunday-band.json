@@ -670,16 +670,6 @@
         ]
     },
     {
-        "name": "Mike Votava",
-        "porch": "636 N State St",
-        "slots": [
-            {
-                "startTime": "1:00",
-                "endTime": "2:00"
-            }
-        ]
-    },
-    {
         "name": "Cool Nerd Mark",
         "porch": "636 N State St",
         "slots": [
@@ -1016,16 +1006,6 @@
             {
                 "startTime": "4:00",
                 "endTime": "5:00"
-            }
-        ]
-    },
-    {
-        "name": "Zikomo",
-        "porch": "3012 N 12th St",
-        "slots": [
-            {
-                "startTime": "5:00",
-                "endTime": "6:00"
             }
         ]
     },
@@ -2206,16 +2186,6 @@
             {
                 "startTime": "5:00",
                 "endTime": "5:30"
-            }
-        ]
-    },
-    {
-        "name": "Namazu",
-        "porch": "807 N Pine St",
-        "slots": [
-            {
-                "startTime": "5:30",
-                "endTime": "6:00"
             }
         ]
     }
