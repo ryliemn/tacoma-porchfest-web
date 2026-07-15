@@ -96,9 +96,10 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
         fill: #b8431b;
     }
 
-    /* Parade route: always faintly visible in the SVG; tapping the parade
-       filter brightens and thickens it so the path clearly reads. */
-    .map-interactive #parade-route {
+    /* Route overlays (parade + community street): always faintly visible in the
+       SVG; tapping their filter brightens and thickens the line so it reads. */
+    .map-interactive #parade-route,
+    .map-interactive #community-street {
         transition:
             stroke-opacity 0.15s ease,
             stroke-width 0.15s ease;
@@ -108,9 +109,15 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
         stroke-width: 11;
         filter: drop-shadow(0 0 3px rgba(225, 29, 42, 0.5));
     }
-    /* A non-parade amenity filter is active: fade the route along with the
+    .map-interactive #community-street.is-active {
+        stroke-opacity: 1;
+        stroke-width: 11;
+        filter: drop-shadow(0 0 3px rgba(37, 99, 235, 0.5));
+    }
+    /* A different amenity filter is active: fade the routes along with the
        blocks so only the highlighted amenity stands out. */
-    .map-interactive.is-amenity-filtered #parade-route:not(.is-active) {
+    .map-interactive.is-amenity-filtered #parade-route:not(.is-active),
+    .map-interactive.is-amenity-filtered #community-street:not(.is-active) {
         stroke-opacity: 0.12;
     }
 </style>
@@ -161,9 +168,11 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
             | null
             | { type: "block"; block: string }
             | { type: "aux"; category: string; blocks: string[] }
-            | { type: "parade" };
+            | { type: "parade" }
+            | { type: "community" };
 
         const paradeRoute = svg.querySelector<SVGElement>("#parade-route");
+        const communityStreet = svg.querySelector<SVGElement>("#community-street");
         let selectedBlock: string | null = null; // for click-to-toggle on the map
 
         // Reflect the current filter — fired by map clicks, table clicks, the
@@ -172,11 +181,12 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
             const f = (e as CustomEvent<PfFilter>).detail;
             blocks.forEach((g) => g.classList.remove("is-active"));
             paradeRoute?.classList.remove("is-active");
-            // Fade the rest of the map only for amenity/parade filters, not a
+            communityStreet?.classList.remove("is-active");
+            // Fade the rest of the map only for amenity/route filters, not a
             // single-block selection (there the table already narrows the focus).
             root.classList.toggle(
                 "is-amenity-filtered",
-                f?.type === "aux" || f?.type === "parade",
+                f?.type === "aux" || f?.type === "parade" || f?.type === "community",
             );
             selectedBlock = null;
             if (!f) return;
@@ -186,8 +196,13 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
             } else if (f.type === "aux") {
                 const set = new Set(f.blocks);
                 blocks.forEach((g) => g.classList.toggle("is-active", set.has(g.id)));
+                // Some amenities live on Community Street (the "community" pseudo-
+                // block) rather than a map block — light up the street line too.
+                communityStreet?.classList.toggle("is-active", set.has("community"));
             } else if (f.type === "parade") {
                 paradeRoute?.classList.add("is-active");
+            } else if (f.type === "community") {
+                communityStreet?.classList.add("is-active");
             }
         });
 
