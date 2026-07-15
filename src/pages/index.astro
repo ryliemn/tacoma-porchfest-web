@@ -90,18 +90,18 @@ import Base from "../layouts/Base.astro";
             <div class="relative w-full">
                 <div class="flex justify-center md:justify-start">
                     <h2
-                        class="font-heading text-pf-off-white text-4xl uppercase font-medium self-end text-center md:text-left"
+                        class="font-heading text-pf-off-white text-3xl uppercase font-medium self-end text-center md:text-left md:mr-8"
                     >
                         Two Days
                         <br />
-                        Two ’Hoods
+                        Two Neighbor-<br />hoods
                     </h2>
-                    <img src="/lions-mane.webp" alt="" width="176" height="126" class="w-44 relative md:right-10" />
+                    <img src="/lions-mane.webp" alt="" width="176" height="126" class="w-36 relative md:right-10" />
                 </div>
                 <p
                     class="font-heading text-pf-cream text-xl uppercase font-medium md:text-left text-center mt-4"
                 >
-                    Too much goodness for one day. Too much music for one ’hood. Porchfest takes
+                    Too much goodness for one day. Too much music for one neighborhood. Porchfest takes
                     place over 2 days in the central Tacoma area on each side of 6th Ave.
                 </p>
             </div>
@@ -209,7 +209,7 @@ import Base from "../layouts/Base.astro";
      * viewport (less side-cropping before shrinking kicks in).
      */
     .hero-crop {
-        --hero-w: min(100vw, 56rem);
+        --hero-w: min(100%, 56rem);
         --hero-ratio: 1.4762; /* 1674 / 1134, native image aspect ratio */
         --hero-crop-height: 540px;
         width: var(--hero-w);
