@@ -1,7 +1,6 @@
 ---
 import Button from "../components/Button.astro";
 import Carousel from "../components/Carousel.astro";
-import ClosedBadge from "../components/ClosedBadge.astro";
 import FramedPhoto from "../components/FramedPhoto.astro";
 import ShroomLink from "../components/ShroomLink.astro";
 import Base from "../layouts/Base.astro";
@@ -19,15 +18,17 @@ import Base from "../layouts/Base.astro";
             />
         </div>
         <div class="flex items-center justify-center gap-4 relative top-4">
-            <div class="relative">
-                <ClosedBadge class="absolute -top-5 left-1/2 z-10 -translate-x-1/2" />
-                <Button text="Perform" variant="blue" popovertarget="perform-closed" />
-            </div>
             <Button
-                href="https://forms.gle/5DRSttNLzSgi3pxh8"
-                text="Host"
-                variant="blue"
-                external
+                href="/schedule/saturday"
+                text="Saturday"
+                variant="default"
+                class="border-2 border-pf-cream/50"
+            />
+            <Button
+                href="/schedule/sunday"
+                text="Sunday"
+                variant="default"
+                class="border-2 border-pf-cream/50"
             />
             <Button
                 href="https://forms.gle/HB6YgTvMBpBNP4C27"
@@ -134,19 +135,6 @@ import Base from "../layouts/Base.astro";
     <section class="bg-pf-yellow px-4 py-8">
         <div class="mx-auto max-w-4xl">
             <div class="flex flex-wrap justify-center gap-x-2 gap-y-6 sm:gap-8">
-                <ShroomLink
-                    href="https://forms.gle/5DRSttNLzSgi3pxh8"
-                    image="/host-shroom.svg"
-                    label="Host a Band"
-                    labelClass="text-pf-red"
-                />
-                <ShroomLink
-                    popovertarget="perform-closed"
-                    image="/perform-shroom.svg"
-                    label="Perform"
-                    labelClass="text-pf-cream"
-                    badge
-                />
                 <ShroomLink
                     href="https://forms.gle/HB6YgTvMBpBNP4C27"
                     image="/volunteer-shroom.svg"
