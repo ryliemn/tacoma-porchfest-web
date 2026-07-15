@@ -1614,7 +1614,7 @@
         "porch": "1113 N Anderson St",
         "slots": [
             {
-                "startTime": "4:30",
+                "startTime": "4:00",
                 "endTime": "5:00"
             }
         ]
@@ -2185,7 +2185,7 @@
         "slots": [
             {
                 "startTime": "5:00",
-                "endTime": "5:30"
+                "endTime": "6:00"
             }
         ]
     }
