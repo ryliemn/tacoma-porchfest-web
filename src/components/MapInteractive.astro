@@ -196,7 +196,7 @@ const svg = (map === "north" ? northSvg : southSvg).replace(/<\?xml[^>]*\?>/, ""
             } else if (f.type === "aux") {
                 const set = new Set(f.blocks);
                 blocks.forEach((g) => g.classList.toggle("is-active", set.has(g.id)));
-                // Some amenities live on Community Street (the "community" pseudo-
+                // Some amenities live in the Family Fun Zone (the "community" pseudo-
                 // block) rather than a map block — light up the street line too.
                 communityStreet?.classList.toggle("is-active", set.has("community"));
             } else if (f.type === "parade") {

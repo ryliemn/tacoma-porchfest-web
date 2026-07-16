@@ -2,33 +2,33 @@
     "food": [
         {
             "name": "321 Ice Cream Parlor",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "The Corndoggery",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "Rebel Coffee",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "Tin Hut BBQ",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "Buddy's Chicken and Waffles",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "Bun & Press",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "Zantrel Jerk Chicken",
@@ -93,15 +93,15 @@
             "block": 3
         },
         {
-            "name": "@ Grant Center",
-            "block": 15
+            "name": "@ Family Fun Zone (Grant Center)",
+            "block": "community"
         }
     ],
     "info": [
         {
             "name": "Porchfest HQ: Info & Merch",
-            "block": 15,
-            "location": "Grant Center @ N 10th and Prospect"
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
         },
         {
             "name": "Live Screen Printing",

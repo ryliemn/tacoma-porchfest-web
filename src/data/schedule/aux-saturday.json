@@ -28,27 +28,27 @@
         {
             "name": "Big Dawgs Hot Dogs",
             "block": "community",
-            "location": "Community Street @ Fife St between S 8th and S 11th"
+            "location": "Family Fun Zone @ Fife St between S 8th and S 11th"
         },
         {
             "name": "Dippy's Ice Cream",
             "block": "community",
-            "location": "Community Street @ Fife St between S 8th and S 11th"
+            "location": "Family Fun Zone @ Fife St between S 8th and S 11th"
         },
         {
             "name": "Morena's Mexican Food",
             "block": "community",
-            "location": "Community Street @ Fife St between S 8th and S 11th"
+            "location": "Family Fun Zone @ Fife St between S 8th and S 11th"
         },
         {
             "name": "Corn Doggery",
             "block": "community",
-            "location": "Community Street @ Fife St between S 8th and S 11th"
+            "location": "Family Fun Zone @ Fife St between S 8th and S 11th"
         },
         {
             "name": "Kona Ice of Tacoma",
             "block": "community",
-            "location": "Community Street @ Fife St between S 8th and S 11th"
+            "location": "Family Fun Zone @ Fife St between S 8th and S 11th"
         },
         {
             "name": "Stacks Burgers",
@@ -89,7 +89,7 @@
             "block": 45
         },
         {
-            "name": "@ Community Street",
+            "name": "@ Family Fun Zone",
             "block": "community"
         },
         {

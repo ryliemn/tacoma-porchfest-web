@@ -50,8 +50,12 @@ interface Props {
     aux?: AuxData;
     /** Whether this day's map has a parade route to highlight (Saturday only). */
     hasParade?: boolean;
-    /** Whether this day's map has a Community Street to highlight (Saturday only). */
-    hasCommunityStreet?: boolean;
+    /**
+     * Family Fun Zone on this day's map: the detail-panel blurb plus the aux
+     * block key its amenities are pinned to ("community" pseudo-block on
+     * Saturday, a real block id like "15" on Sunday). Omit if the day has none.
+     */
+    familyFunZone?: { blurb: string; block: string };
 }
 
 type AuxItem = {
@@ -72,7 +76,7 @@ const {
     otherDay,
     aux = {},
     hasParade = false,
-    hasCommunityStreet = false,
+    familyFunZone,
 } = Astro.props;
 
 // The aux icon bar — one circular, tappable icon per amenity category. `key`
@@ -107,7 +111,7 @@ for (const def of AUX_DEFS) {
         ...new Set(auxNorm[def.key].map((i) => i.block).filter((b): b is string => !!b)),
     ];
 }
-const hasAux = AUX_DEFS.some((d) => auxNorm[d.key].length > 0) || hasParade || hasCommunityStreet;
+const hasAux = AUX_DEFS.some((d) => auxNorm[d.key].length > 0) || hasParade || !!familyFunZone;
 
 // Only show porches that actually have something scheduled.
 const withSets = porches.filter((p) => p.sets.length > 0);
@@ -315,7 +319,7 @@ const pages = [
                                 </span>
                             </button>
                         )}
-                        {hasCommunityStreet && (
+                        {familyFunZone && (
                             <button
                                 type="button"
                                 data-community-btn
@@ -325,7 +329,7 @@ const pages = [
                                     <Users class="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
                                 </span>
                                 <span class="text-center font-heading text-[11px] leading-tight text-pf-brown uppercase md:text-sm">
-                                    Community St
+                                    Family Fun Zone
                                 </span>
                             </button>
                         )}
@@ -381,6 +385,8 @@ const pages = [
                     data-aux-detail
                     data-aux={JSON.stringify(auxNorm)}
                     data-aux-labels={JSON.stringify(auxLabels)}
+                    data-ffz-blurb={familyFunZone?.blurb}
+                    data-ffz-block={familyFunZone?.block}
                     class="mb-4"
                 />
 
@@ -632,19 +638,18 @@ const pages = [
                 const p = document.createElement("p");
                 p.className =
                     "rounded-md bg-pf-blue/15 px-5 py-4 font-sans text-sm text-pf-brown";
-                p.textContent =
-                    "Community Street is a car-free block of family friendly activities, community booths, and food trucks. Come see it on Fife Street between S 8th street and S 11th street!";
+                p.textContent = auxDetail.dataset.ffzBlurb ?? "";
                 auxDetail.appendChild(p);
 
-                // The food trucks + restroom pinned to Community Street rather
-                // than a map block.
+                // The amenities pinned to the zone's block key — the "community"
+                // pseudo-block on Saturday, the Grant Center block on Sunday.
                 const wrap = document.createElement("div");
                 wrap.className = "mt-3 rounded-md border border-pf-red/25 bg-pf-cream/60 px-4 py-3";
                 const heading = document.createElement("p");
                 heading.className = "mb-2 font-heading text-pf-brown text-base uppercase";
-                heading.textContent = "On Community Street";
+                heading.textContent = "In the Family Fun Zone";
                 wrap.appendChild(heading);
-                if (appendAmenityRows(wrap, (it) => it.block === "community")) {
+                if (appendAmenityRows(wrap, (it) => it.block === auxDetail.dataset.ffzBlock)) {
                     auxDetail.appendChild(wrap);
                 }
                 return;
@@ -715,7 +720,7 @@ const pages = [
 
         // Append one row per aux category with items matching `predicate` (icon +
         // "Label: name, name"). Returns whether any row was added. Shared by the
-        // per-block panel and the Community Street detail.
+        // per-block panel and the Family Fun Zone detail.
         function appendAmenityRows(
             target: HTMLElement,
             predicate: (it: AuxLoc) => boolean,
@@ -801,7 +806,7 @@ const pages = [
                 } else if (f?.type === "parade") {
                     labelEl.textContent = "Parade route";
                 } else if (f?.type === "community") {
-                    labelEl.textContent = "Community Street";
+                    labelEl.textContent = "Family Fun Zone";
                 }
             }
 
@@ -916,8 +921,11 @@ const pages = [
                 const paradeMatch = "parade".includes(ql);
                 const paradeHere = paradeMatch && !!paradeBtn;
                 const paradeThere = paradeMatch && !paradeBtn && otherHasParade;
-                // Community Street isn't an artist either, but people search it by name.
-                const communityHere = "community street".includes(ql) && !!communityBtn;
+                // The Family Fun Zone isn't an artist either, but people search it by
+                // name — match the old "Community Street" name too.
+                const communityHere =
+                    ("family fun zone".includes(ql) || "community street".includes(ql)) &&
+                    !!communityBtn;
 
                 if (paradeHere) {
                     const b = document.createElement("button");
@@ -938,7 +946,7 @@ const pages = [
                     b.type = "button";
                     b.className =
                         "cursor-pointer rounded-full bg-pf-brown px-3 py-1.5 font-heading text-sm text-pf-cream uppercase transition-opacity hover:opacity-80";
-                    b.textContent = "Community St";
+                    b.textContent = "Family Fun Zone";
                     b.addEventListener("click", () => {
                         input!.value = "";
                         render("");

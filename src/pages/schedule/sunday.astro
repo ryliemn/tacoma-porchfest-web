@@ -17,14 +17,17 @@ const blocksWithPorches = [
 ] as string[];
 
 // Blocks that host an amenity (food, restrooms, …) are tappable too, even with no
-// bands — tapping one shows what amenities are there.
+// bands — tapping one shows what amenities are there. Amenities on the "community"
+// pseudo-block live on the Family Fun Zone line, not a map block, so they're
+// excluded here (the Family Fun Zone icon surfaces them instead).
 const blocksWithAmenities = [
     ...new Set(
         Object.values(sundayAux)
             .flat()
             .map((a) => a.block)
             .filter((b) => b != null)
-            .map(String),
+            .map(String)
+            .filter((b) => b !== "community"),
     ),
 ];
 const tappableBlocks = [...new Set([...blocksWithPorches, ...blocksWithAmenities])];
@@ -48,6 +51,10 @@ const otherArtists = otherPorches
             hasParade: true,
         }}
         aux={sundayAux}
+        familyFunZone={{
+            blurb: "The Family Fun Zone wraps around the Grant Center with family friendly activities, community booths, and food trucks. Come see it at N 10th St and Prospect!",
+            block: "community",
+        }}
     >
         <MapInteractive
             slot="map"
