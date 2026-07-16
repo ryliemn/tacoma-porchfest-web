@@ -200,16 +200,6 @@
         ]
     },
     {
-        "name": "Giant Octopus",
-        "porch": "S 11th St @ S Ferry St",
-        "slots": [
-            {
-                "startTime": "6:00",
-                "endTime": "7:00"
-            }
-        ]
-    },
-    {
         "name": "Prickly Paranoia",
         "porch": "2501 S 12th St",
         "slots": [

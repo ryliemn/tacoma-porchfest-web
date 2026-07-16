@@ -220,6 +220,16 @@
         ]
     },
     {
+        "name": "Tr4ncee/DJ Kure",
+        "porch": "2207 6th Ave",
+        "slots": [
+            {
+                "startTime": "12:00",
+                "endTime": "1:00"
+            }
+        ]
+    },
+    {
         "name": "FED BY RAVENS",
         "porch": "2207 6th Ave",
         "slots": [
@@ -266,16 +276,6 @@
             {
                 "startTime": "2:00",
                 "endTime": "3:00"
-            }
-        ]
-    },
-    {
-        "name": "D.Dilley Band",
-        "porch": "2516 N 12th St",
-        "slots": [
-            {
-                "startTime": "12:00",
-                "endTime": "1:00"
             }
         ]
     },
@@ -540,16 +540,6 @@
         ]
     },
     {
-        "name": "Generifus",
-        "porch": "1019 N Prospect St",
-        "slots": [
-            {
-                "startTime": "2:00",
-                "endTime": "3:00"
-            }
-        ]
-    },
-    {
         "name": "Beecreeping",
         "porch": "1121 N Prospect St",
         "slots": [
@@ -655,7 +645,7 @@
         "slots": [
             {
                 "startTime": "12:00",
-                "endTime": "12:30"
+                "endTime": "1:00"
             }
         ]
     },
@@ -664,8 +654,8 @@
         "porch": "636 N State St",
         "slots": [
             {
-                "startTime": "12:30",
-                "endTime": "1:00"
+                "startTime": "1:00",
+                "endTime": "2:00"
             }
         ]
     },
@@ -1214,8 +1204,8 @@
         "porch": "3107 N 8th St",
         "slots": [
             {
-                "startTime": "4:00",
-                "endTime": "5:00"
+                "startTime": "5:00",
+                "endTime": "6:00"
             }
         ]
     },
@@ -1224,8 +1214,8 @@
         "porch": "3107 N 8th St",
         "slots": [
             {
-                "startTime": "5:00",
-                "endTime": "6:00"
+                "startTime": "4:00",
+                "endTime": "5:00"
             }
         ]
     },
@@ -1406,16 +1396,6 @@
             {
                 "startTime": "5:00",
                 "endTime": "5:30"
-            }
-        ]
-    },
-    {
-        "name": "Haight St.",
-        "porch": "629 N Anderson St",
-        "slots": [
-            {
-                "startTime": "5:30",
-                "endTime": "6:00"
             }
         ]
     },
