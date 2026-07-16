@@ -49,7 +49,10 @@ const otherArtists = otherPorches
         otherDay={{ label: "Sunday", href: "/schedule/sunday", artists: otherArtists }}
         aux={saturdayAux}
         hasParade={true}
-        hasCommunityStreet={true}
+        familyFunZone={{
+            blurb: "The Family Fun Zone is a car-free block of family friendly activities, community booths, and food trucks. Come see it on Fife Street between S 8th street and S 11th street!",
+            block: "community",
+        }}
     >
         <MapInteractive
             slot="map"
