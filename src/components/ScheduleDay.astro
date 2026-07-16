@@ -50,7 +50,7 @@ interface Props {
     aux?: AuxData;
     /** Whether this day's map has a parade route to highlight (Saturday only). */
     hasParade?: boolean;
-    /** Whether this day's map has a Community Street to highlight (Saturday only). */
+    /** Whether this day's map has a Family Fun Zone to highlight (Saturday only). */
     hasCommunityStreet?: boolean;
 }
 
@@ -325,7 +325,7 @@ const pages = [
                                     <Users class="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
                                 </span>
                                 <span class="text-center font-heading text-[11px] leading-tight text-pf-brown uppercase md:text-sm">
-                                    Community St
+                                    Family Fun Zone
                                 </span>
                             </button>
                         )}
@@ -633,16 +633,16 @@ const pages = [
                 p.className =
                     "rounded-md bg-pf-blue/15 px-5 py-4 font-sans text-sm text-pf-brown";
                 p.textContent =
-                    "Community Street is a car-free block of family friendly activities, community booths, and food trucks. Come see it on Fife Street between S 8th street and S 11th street!";
+                    "The Family Fun Zone is a car-free block of family friendly activities, community booths, and food trucks. Come see it on Fife Street between S 8th street and S 11th street!";
                 auxDetail.appendChild(p);
 
-                // The food trucks + restroom pinned to Community Street rather
+                // The food trucks + restroom pinned to the Family Fun Zone rather
                 // than a map block.
                 const wrap = document.createElement("div");
                 wrap.className = "mt-3 rounded-md border border-pf-red/25 bg-pf-cream/60 px-4 py-3";
                 const heading = document.createElement("p");
                 heading.className = "mb-2 font-heading text-pf-brown text-base uppercase";
-                heading.textContent = "On Community Street";
+                heading.textContent = "In the Family Fun Zone";
                 wrap.appendChild(heading);
                 if (appendAmenityRows(wrap, (it) => it.block === "community")) {
                     auxDetail.appendChild(wrap);
@@ -715,7 +715,7 @@ const pages = [
 
         // Append one row per aux category with items matching `predicate` (icon +
         // "Label: name, name"). Returns whether any row was added. Shared by the
-        // per-block panel and the Community Street detail.
+        // per-block panel and the Family Fun Zone detail.
         function appendAmenityRows(
             target: HTMLElement,
             predicate: (it: AuxLoc) => boolean,
@@ -801,7 +801,7 @@ const pages = [
                 } else if (f?.type === "parade") {
                     labelEl.textContent = "Parade route";
                 } else if (f?.type === "community") {
-                    labelEl.textContent = "Community Street";
+                    labelEl.textContent = "Family Fun Zone";
                 }
             }
 
@@ -916,8 +916,11 @@ const pages = [
                 const paradeMatch = "parade".includes(ql);
                 const paradeHere = paradeMatch && !!paradeBtn;
                 const paradeThere = paradeMatch && !paradeBtn && otherHasParade;
-                // Community Street isn't an artist either, but people search it by name.
-                const communityHere = "community street".includes(ql) && !!communityBtn;
+                // The Family Fun Zone isn't an artist either, but people search it by
+                // name — match the old "Community Street" name too.
+                const communityHere =
+                    ("family fun zone".includes(ql) || "community street".includes(ql)) &&
+                    !!communityBtn;
 
                 if (paradeHere) {
                     const b = document.createElement("button");
@@ -938,7 +941,7 @@ const pages = [
                     b.type = "button";
                     b.className =
                         "cursor-pointer rounded-full bg-pf-brown px-3 py-1.5 font-heading text-sm text-pf-cream uppercase transition-opacity hover:opacity-80";
-                    b.textContent = "Community St";
+                    b.textContent = "Family Fun Zone";
                     b.addEventListener("click", () => {
                         input!.value = "";
                         render("");
