@@ -26,17 +26,32 @@
             "location": "Family Fun Zone @ Grant Center"
         },
         {
-            "name": "Bun & Press",
+            "name": "Big Dawgs Hot Dogs",
             "block": "community",
             "location": "Family Fun Zone @ Grant Center"
         },
         {
-            "name": "Zantrel Jerk Chicken",
+            "name": "Morena's Mexican Food",
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
+        },
+        {
+            "name": "Turger Burger",
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
+        },
+        {
+            "name": "CrewDish",
             "block": 37,
             "location": "N Steele between 6th and N 8th"
         },
         {
             "name": "Kairo's Ice Cream",
+            "block": 37,
+            "location": "N Steele between 6th and N 8th"
+        },
+        {
+            "name": "Lucas Southern BBQ",
             "block": 37,
             "location": "N Steele between 6th and N 8th"
         },
@@ -67,6 +82,16 @@
         },
         {
             "name": "Kona Ice of Tacoma",
+            "block": 32,
+            "location": "6th & N Anderson"
+        },
+        {
+            "name": "NJ Ice Cream",
+            "block": 32,
+            "location": "6th & N Anderson"
+        },
+        {
+            "name": "Bun & Press",
             "block": 32,
             "location": "6th & N Anderson"
         }
