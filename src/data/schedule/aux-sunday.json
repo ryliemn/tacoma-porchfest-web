@@ -41,6 +41,11 @@
             "location": "Family Fun Zone @ Grant Center"
         },
         {
+            "name": "Kona Ice of Tacoma",
+            "block": "community",
+            "location": "Family Fun Zone @ Grant Center"
+        },
+        {
             "name": "CrewDish",
             "block": 37,
             "location": "N Steele between 6th and N 8th"
@@ -81,19 +86,14 @@
             "location": "N 8th St between Cedar and Junett"
         },
         {
-            "name": "Kona Ice of Tacoma",
-            "block": 32,
-            "location": "6th & N Anderson"
-        },
-        {
             "name": "NJ Ice Cream",
-            "block": 32,
-            "location": "6th & N Anderson"
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
         },
         {
             "name": "Bun & Press",
-            "block": 32,
-            "location": "6th & N Anderson"
+            "block": 27,
+            "location": "N 8th St between Cedar and Junett"
         }
     ],
     "restroom": [
