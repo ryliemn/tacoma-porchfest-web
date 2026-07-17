@@ -70,6 +70,16 @@
         ]
     },
     {
+        "name": "Triple Nickel",
+        "porch": "2515 6th Ave",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
+            }
+        ]
+    },
+    {
         "name": "Bizzy Beaver",
         "porch": "2705 6th Ave",
         "slots": [
@@ -166,6 +176,26 @@
             {
                 "startTime": "4:00",
                 "endTime": "5:00"
+            }
+        ]
+    },
+    {
+        "name": "BRYTWD",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "5:00",
+                "endTime": "5:30"
+            }
+        ]
+    },
+    {
+        "name": "Keith Wayne",
+        "porch": "N Prospect St @ N 10th St",
+        "slots": [
+            {
+                "startTime": "5:30",
+                "endTime": "6:00"
             }
         ]
     },
@@ -540,6 +570,16 @@
         ]
     },
     {
+        "name": "lithops",
+        "porch": "1019 N Prospect St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
         "name": "Beecreeping",
         "porch": "1121 N Prospect St",
         "slots": [
@@ -626,16 +666,6 @@
             {
                 "startTime": "1:30",
                 "endTime": "2:00"
-            }
-        ]
-    },
-    {
-        "name": "Elwood Rockitt",
-        "porch": "1202 N Prospect St",
-        "slots": [
-            {
-                "startTime": "2:00",
-                "endTime": "3:00"
             }
         ]
     },
@@ -1390,16 +1420,6 @@
         ]
     },
     {
-        "name": "Margaret’s Sick",
-        "porch": "629 N Anderson St",
-        "slots": [
-            {
-                "startTime": "5:00",
-                "endTime": "5:30"
-            }
-        ]
-    },
-    {
         "name": "PUNKTUALS",
         "porch": "635 N Anderson St",
         "slots": [
@@ -1765,7 +1785,7 @@
         "slots": [
             {
                 "startTime": "3:00",
-                "endTime": "3:30"
+                "endTime": "4:00"
             }
         ]
     },
@@ -1780,7 +1800,7 @@
         ]
     },
     {
-        "name": "Sun Wheel",
+        "name": "Sunwheel",
         "porch": "916 N Cedar St",
         "slots": [
             {
@@ -1836,16 +1856,6 @@
             {
                 "startTime": "3:30",
                 "endTime": "4:00"
-            }
-        ]
-    },
-    {
-        "name": "Race to the Light",
-        "porch": "718 N Junett St",
-        "slots": [
-            {
-                "startTime": "4:00",
-                "endTime": "5:00"
             }
         ]
     },
@@ -1925,16 +1935,6 @@
         "slots": [
             {
                 "startTime": "5:00",
-                "endTime": "5:30"
-            }
-        ]
-    },
-    {
-        "name": "Unclouded",
-        "porch": "1010 N Oakes St",
-        "slots": [
-            {
-                "startTime": "5:30",
                 "endTime": "6:00"
             }
         ]

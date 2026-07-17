@@ -1190,6 +1190,16 @@
         ]
     },
     {
+        "name": "Sunny Loudin",
+        "porch": "844 S Trafton St",
+        "slots": [
+            {
+                "startTime": "2:00",
+                "endTime": "3:00"
+            }
+        ]
+    },
+    {
         "name": "The Geyers",
         "porch": "1034 S Trafton St",
         "slots": [
