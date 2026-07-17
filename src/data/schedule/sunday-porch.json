@@ -11,8 +11,8 @@
     },
     {
         "address": "N Prospect St @ N 10th St",
-        "block": null,
-        "name": "Grant CEA"
+        "block": 15,
+        "name": "Grant Center"
     },
     {
         "address": "1119 N Fife St",
