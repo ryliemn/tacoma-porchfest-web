@@ -1,0 +1,32 @@
+---
+/*
+ * Shared "volunteer info" popover.
+ * Triggered by any element with popovertarget="volunteer-info" (the Volunteer
+ * CTAs across the site). Rendered once in the Base layout so every trigger can
+ * reach it. Uses the native HTML Popover API — no JS, light-dismiss + Esc come
+ * for free.
+ */
+---
+
+<div
+    id="volunteer-info"
+    popover="auto"
+    class="fixed inset-0 m-auto h-fit max-h-[85vh] w-[min(28rem,calc(100%-2rem))] overflow-y-auto rounded-xl border-2 border-pf-blue bg-pf-cream p-6 text-pf-navy shadow-2xl backdrop:bg-black/50"
+>
+    <h2 class="font-heading text-2xl uppercase text-pf-blue sm:text-3xl">Volunteer With Us</h2>
+    <p class="mt-3 font-body text-base leading-relaxed">
+        To prospective volunteers: Come see us during today's event at the Grant Center (2510 N 11th
+        St, Tacoma, WA 98406) to ask about available opportunities! More volunteers are always needed
+        and welcome.
+    </p>
+    <div class="mt-5 flex justify-end">
+        <button
+            type="button"
+            popovertarget="volunteer-info"
+            popovertargetaction="hide"
+            class="cursor-pointer rounded-md border-0 bg-pf-blue px-4 py-1.5 font-heading text-lg uppercase tracking-wide text-pf-cream transition-transform hover:scale-105 active:scale-95"
+        >
+            Got it
+        </button>
+    </div>
+</div>

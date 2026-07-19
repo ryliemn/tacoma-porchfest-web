@@ -19,23 +19,12 @@ import Base from "../layouts/Base.astro";
         </div>
         <div class="flex flex-wrap items-center justify-center gap-4 relative top-4">
             <Button
-                href="/schedule/saturday"
-                text="Saturday"
-                variant="default"
-                class="border-2 border-pf-cream/50"
-            />
-            <Button
                 href="/schedule/sunday"
                 text="Sunday"
                 variant="default"
                 class="border-2 border-pf-cream/50"
             />
-            <Button
-                href="https://forms.gle/HB6YgTvMBpBNP4C27"
-                text="Volunteer"
-                variant="blue"
-                external
-            />
+            <Button text="Volunteer" variant="blue" popovertarget="volunteer-info" />
         </div>
     </section>
     <section class="red-arc bg-pf-red px-4 py-8">
@@ -136,7 +125,7 @@ import Base from "../layouts/Base.astro";
         <div class="mx-auto max-w-4xl">
             <div class="flex flex-wrap justify-center gap-x-2 gap-y-6 sm:gap-8">
                 <ShroomLink
-                    href="https://forms.gle/HB6YgTvMBpBNP4C27"
+                    popovertarget="volunteer-info"
                     image="/volunteer-shroom.svg"
                     label="Volunteer"
                     labelClass="text-pf-blue"

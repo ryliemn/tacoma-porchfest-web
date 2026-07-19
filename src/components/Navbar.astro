@@ -8,10 +8,12 @@ type NavLink = {
     href?: string;
     external?: boolean;
     children?: NavChild[];
+    /** Toggle the popover with this id instead of navigating. */
+    popovertarget?: string;
 };
 
 const navLinks: NavLink[] = [
-    { label: "Volunteer", href: "/volunteer", external: true },
+    { label: "Volunteer", popovertarget: "volunteer-info" },
     {
         label: "Schedule",
         children: [
@@ -94,6 +96,14 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
                                 </div>
                             </div>
                         </div>
+                    ) : link.popovertarget ? (
+                        <button
+                            type="button"
+                            popovertarget={link.popovertarget}
+                            class="cursor-pointer border-0 bg-transparent p-0 font-heading text-xl text-pf-red transition-opacity hover:opacity-70"
+                        >
+                            {link.label}
+                        </button>
                     ) : (
                         <a
                             href={link.href}
@@ -141,6 +151,14 @@ const donateHref = "https://www.paypal.com/donate/?hosted_button_id=QW4GDP26YJEK
                             ))}
                         </div>
                     </div>
+                ) : link.popovertarget ? (
+                    <button
+                        type="button"
+                        popovertarget={link.popovertarget}
+                        class="block w-full cursor-pointer border-0 bg-transparent p-0 py-2 text-left font-heading text-xl text-pf-red transition-opacity hover:opacity-70"
+                    >
+                        {link.label}
+                    </button>
                 ) : (
                     <a
                         href={link.href}

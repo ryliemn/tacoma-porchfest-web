@@ -10,6 +10,7 @@ import FollowUs from "../components/FollowUs.astro";
 import HostClosedPopover from "../components/HostClosedPopover.astro";
 import Navbar from "../components/Navbar.astro";
 import PerformClosedPopover from "../components/PerformClosedPopover.astro";
+import VolunteerPopover from "../components/VolunteerPopover.astro";
 
 interface Props {
     title?: string;
@@ -36,5 +37,6 @@ const { title = "Tacoma Porchfest", description } = Astro.props;
         <FollowUs />
         <PerformClosedPopover />
         <HostClosedPopover />
+        <VolunteerPopover />
     </body>
 </html>
