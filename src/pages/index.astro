@@ -17,20 +17,14 @@ import Base from "../layouts/Base.astro";
                 class="block h-full w-full object-cover object-center"
             />
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-4 relative top-4">
+        <div class="flex max-w-4xl justify-center mx-4 relative top-4">
             <Button
                 href="https://tacomaporchfest.square.site/"
-                text="Merch"
+                text="Miss out on merch? We are running one final print. Pre-order here"
                 variant="blue"
                 external
+                class="block w-full text-center py-1"
             />
-            <Button
-                href="/schedule/sunday"
-                text="Sunday"
-                variant="default"
-                class="border-2 border-pf-cream/50"
-            />
-            <Button text="Volunteer" variant="blue" popovertarget="volunteer-info" />
         </div>
     </section>
     <section class="red-arc bg-pf-red px-4 py-8">
@@ -38,34 +32,13 @@ import Base from "../layouts/Base.astro";
             <div class="flex items-center justify-center gap-4">
                 <img src="/music-bar-left.svg" class="sm:w-30 w-20" />
                 <p class="font-heading text-pf-cream text-2xl uppercase font-medium">
-                    Free Live Music
+                    That's a Wrap
                 </p>
                 <img src="/music-bar-right.svg" class="sm:w-30 w-20" />
             </div>
-            <div class="flex w-full items-center justify-between gap-2">
-                <img
-                    src="/shroom-left.svg"
-                    class="sm:w-20 w-12 shrink-0"
-                    width="142"
-                    height="132"
-                />
-                <h2
-                    class="font-heading text-pf-off-white sm:text-4xl text-3xl uppercase font-medium"
-                >
-                    <a href="/schedule/saturday" class="hover:underline">Saturday, July 18</a>
-                    <br />
-                    <a href="/schedule/sunday" class="hover:underline">Sunday, July 19</a>
-                </h2>
-                <img
-                    src="/shroom-right.svg"
-                    class="sm:w-20 w-12 shrink-0"
-                    width="164"
-                    height="126"
-                />
-            </div>
             <p class="max-w-2xl font-heading text-pf-cream text-2xl uppercase font-medium">
-                Porchfest is a free, walkable music festival that takes place on porches. Come meet
-                your neighbors and find your new favorite band!
+                Thank you for making 2026 the best year of Tacoma Porchfest yet. Have an amazing
+                summer!
             </p>
         </div>
     </section>
@@ -92,13 +65,19 @@ import Base from "../layouts/Base.astro";
                         <br />
                         Two Neighbor-<br />hoods
                     </h2>
-                    <img src="/lions-mane.webp" alt="" width="176" height="126" class="w-36 relative md:right-10" />
+                    <img
+                        src="/lions-mane.webp"
+                        alt=""
+                        width="176"
+                        height="126"
+                        class="w-36 relative md:right-10"
+                    />
                 </div>
                 <p
                     class="font-heading text-pf-cream text-xl uppercase font-medium md:text-left text-center mt-4"
                 >
-                    Too much goodness for one day. Too much music for one neighborhood. Porchfest takes
-                    place over 2 days in the central Tacoma area on each side of 6th Ave.
+                    Too much goodness for one day. Too much music for one neighborhood. Porchfest
+                    takes place over 2 days in the central Tacoma area on each side of 6th Ave.
                 </p>
             </div>
         </div>
@@ -131,9 +110,9 @@ import Base from "../layouts/Base.astro";
         <div class="mx-auto max-w-4xl">
             <div class="flex flex-wrap justify-center gap-x-2 gap-y-6 sm:gap-8">
                 <ShroomLink
-                    popovertarget="volunteer-info"
+                    href="https://tacomaporchfest.square.site/"
                     image="/volunteer-shroom.svg"
-                    label="Volunteer"
+                    label="Merch"
                     labelClass="text-pf-blue"
                 />
             </div>
